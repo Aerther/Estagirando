@@ -11,10 +11,24 @@ class Usuario {
     private string $linkFoto;
     private string $tipoUsuario;
     private string $statusCadastro;
+    private array $preferencias = [];
+    private array $naoPreferencias = [];
 
     public function __construct(string $email, string $senha) {
         $this->email = $email;
         $this->senha = $senha;
+    }
+
+    public function salvarUsuario(string $nome, string $sobrenome, string $tipoUsuario, array $preferencias) {
+        $conexao = new MySql();
+
+        $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
+
+        $tipos = "sssss";
+        $params = [$nome, $sobrenome, $this->email, $this->senha, $tipoUsuario];
+        $sql = "INSERT INTO Usuario(Nome, Sobrenome, Email, Senha, Tipo_Usuario) VALUES (?, ?, ?, ?, ?)";
+
+        $conexao->execute($sql, $tipos, $params);
     }
 
     public function atualizarUsuario(string $nome, string $sobrenome, string $email) : void {
@@ -72,6 +86,27 @@ class Usuario {
         return $usuario;
     }
 
+    public function setPreferencias() : void {
+        $conexao = new MySql();
+
+        session_start();
+
+        $tipos = "i";
+        $params = [$_SESSION["idUsuario"]];
+
+        $sql = "SELECT p.Descricao FROM Usuario u 
+        JOIN Usuario_Preferencia up ON up.ID_Usuario = u.ID_Usuario 
+        JOIN Preferencia p ON p.Preferencia = up.Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'sim'";
+
+        $resultado = $conexao->search($sql, $tipos, $params);
+
+        $sql = "SELECT p.Descricao FROM Usuario u 
+        JOIN Usuario_Preferencia up ON up.ID_Usuario = u.ID_Usuario 
+        JOIN Preferencia p ON p.Preferencia = up.Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'não'";
+
+        $resultado = $conexao->search($sql, $tipos, $params);
+    }
+
     public function setDados(int $idUsuario, string $nome, string $tipoUsuario, string $linkFoto, string $statusCadastro) : void {
         $this->idUsuario = $idUsuario;
         $this->nome = $nome;
@@ -84,7 +119,7 @@ class Usuario {
         return $this->statusCadastro == "ativo";
     }
 
-    public function desativarCadastro() {
+    public function desativarCadastro() : void {
         $conexao = new MySql();
 
         session_start();
@@ -150,6 +185,36 @@ class Usuario {
 
     public function setStatusCadastro(string $statusCadastro) : void {
         $this->statusCadastro = $statusCadastro;
+    }
+
+    // Prefere
+    public function getPreferencias() : string {
+        $resultado = "";
+
+        foreach ($this->preferencias as $preferencia) {
+            $resultado = $resultado . $preferencia;
+        }
+
+        return $resultado;
+    }
+
+    public function setPreferencias(array $preferencias) : void {
+        $this->preferencias = $preferencias;
+    }
+
+    // Não Prefere
+    public function getNoPreferencias() : string {
+        $resultado = "";
+
+        foreach ($this->noPreferencias as $noPreferencia) {
+            $resultado = $resultado . $noPreferencia;
+        }
+
+        return $resultado;
+    }
+
+    public function setNoPreferencias(array $noPreferencias) : void {
+        $this->noPreferencias = $noPreferencias;
     }
 
 }
