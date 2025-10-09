@@ -22,7 +22,7 @@
     <input type="submit" value="Entrar" name="botao">
     </form>
 
-    <a href="recuperarsenha.php">Recuperar Senha</a>
+    <a href="recuperarSenha.php">Recuperar Senha</a>
 
     <a href="cadastroprofessor.php">Cadastrar-se como professor</a>
 

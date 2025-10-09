@@ -13,12 +13,15 @@ session_start();
     <title>Recuperar Senha</title>
 </head>
 <body>
+
+    <h1>Esqueceu a sua senha?</h1>
+    <h2>Redefina a sua senha aqui!</h2>
     <form action='recuperarSenha.php' method='post'>
         <label for='email'>E-mail:</label>
         <input type='email' name='email' id='email' required>
         <input type='submit' name='recuperar' value='Recuperar'>
     </form>
-    <p><?php echo htmlspecialchars($senha); ?></p>
+    <p>Nova senha:<?php echo htmlspecialchars($senha); ?></p>
     <a href="index.php"><button>Voltar</button></a>
 </body>
 </html>
