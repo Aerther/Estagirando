@@ -14,7 +14,7 @@
         E-mail<input type="text" name="email" id="email">
     </label>
     <label for="senha">
-        Senha <input type="text" name="senha" id="senha">
+        Senha <input type="password" name="senha" id="senha">
     </label>
     
     <button>Mostrar Senha</button>
