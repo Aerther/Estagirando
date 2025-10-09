@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <h1>Bem-vindo ao Estagirando</h1>
+    <h1>Bem-vindo ao Estagirando!</h1>
 
     <form action="" method="Post">
     <label for="email">
