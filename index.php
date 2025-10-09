@@ -17,7 +17,7 @@
         Senha <input type="password" name="senha" id="senha">
     </label>
     
-    <button>Mostrar Senha</button>
+    <button>Exibir Senha</button>
 
     <input type="submit" value="Entrar" name="botao">
     </form>
