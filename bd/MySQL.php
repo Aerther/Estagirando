@@ -2,27 +2,35 @@
 
 require_once __DIR__."\Configuracao.php";
 
-class MySQL{
+class MySQL {
 	
 	private $connection;
 	
-	public function __construct(){
-		$this->connection = new \mysqli(HOST,USUARIO,SENHA,BANCO);
+	public function __construct() {
+		$this->connection = new \mysqli(HOST, USER, PASSWORD, DATABASE);
+
 		$this->connection->set_charset("utf8");
 	}
 
-	public function executa($sql){
-		$result = $this->connection->query($sql);
-		return $result;
+	public function search(string $sql, string $types, array $params) : array {
+		$stmt = $this->connection->prepare($sql);
+
+		$stmt->bind_param($types, ...$params);
+
+		$stmt->execute();
+
+		$result = $stmt->get_result();
+		
+    	return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 	}
-	public function consulta($sql){
-		$result = $this->connection->query($sql);
-		$item = array();
-		$data = array();
-		while($item = mysqli_fetch_array($result)){
-			$data[] = $item;
-		}
-		return $data;
-		}
+
+	public function execute(string $sql, string $types, array $params) : void {
+		$stmt = $this->connection->prepare($sql);
+
+		$stmt->bind_param($types, ...$params);
+
+		$stmt->execute();
 	}
+}
+
 ?>
