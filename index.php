@@ -16,17 +16,17 @@
     <label for="senha">
         Senha <input type="text" name="senha" id="senha">
     </label>
+    
+    <button>Mostrar Senha</button>
 
     <input type="submit" value="Entrar" name="botao">
+    </form>
 
     <a href="recuperarsenha.php">Recuperar Senha</a>
 
     <a href="cadastroprofessor.php">Cadastrar-se como professor</a>
 
     <a href="cadastroaluno.php">Cadastrar-se como aluno</a>
-
-
-    </form>
     
 
 </body>
