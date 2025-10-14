@@ -9,6 +9,11 @@
 
     <h1>Bem-vindo ao Estagirando!</h1>
 
+    <div>
+        <h5>Com o Estagirando nós te ajudamos a facilitar a sua jornada de estágio.</h5>
+        <h5>Junte-se a nós!</h5>
+    </div>
+
     <form action="" method="Post">
     <label for="email">
         E-mail<input type="text" name="email" id="email">
