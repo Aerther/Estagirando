@@ -96,16 +96,12 @@ class Usuario {
         $conexao->execute($sql, $tipos, $params);
     }
 
-    public function taAtivo() : bool {
-        return $this->statusCadastro == "ativo";
-    }
-
     public function autenticar() : bool {
         $conexao = new MySQL();
 
         $tipos = "s";
         $params = [$this->email];
-        $sql = "SELECT u.ID_Usuario, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, u.Senha, u.Email, u.Tipo_Usuario 
+        $sql = "SELECT u.ID_Usuario, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, u.Senha, u.Email, u.Tipo_Usuario, u.Status_Cadastro
         FROM Usuario u WHERE u.Email = ?";
 
         $resultado = $conexao->search($sql, $tipos, $params);
@@ -116,12 +112,22 @@ class Usuario {
 
         if(!password_verify($this->senha, $usuario["senha"])) return false;
 
+        if($usuario["Status_Cadastro"] == "inativo") {
+            $this->statusCadastro = "inativo";
+
+            return false;
+        }
+
         session_start();
         $_SESSION["idUsuario"] = $usuario["idUsuario"];
         $_SESSION["nomeUsuario"] = $usuario["Nome"];
         $_SESSION["tipoUsuario"] = $usuario["Tipo_Usuario"];
 
         return true;
+    }
+
+    public function taAtivo() {
+        return $statusCadastro == "ativo";
     }
 
     public static function findUsuario(int $idUsuario) : Usuario {

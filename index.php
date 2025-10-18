@@ -1,5 +1,29 @@
+<?php
+
+require_once __DIR__."/vendor/autoload.php";
+
+use App\Classes\Usuario;
+
+$msgError = "";
+
+if(isset($_POST["botao"])) {
+    $usuario = new Usuario($_POST["email"], $_POST["senha"]);
+
+    if($usuario->autenticar()) {
+        header("Location: privado.php");
+    }
+
+    $msgError = "Dados não cadastrados ou incorretos";
+
+    if(!$usuario->taAtivo()) {
+        $msgError = "Usuário Inativo";
+    }
+}
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,24 +39,24 @@
     </div>
 
     <form action="" method="Post">
-    <label for="email">
-        E-mail<input type="text" name="email" id="email">
-    </label>
-    <label for="senha">
-        Senha <input type="password" name="senha" id="senha">
-    </label>
-    
-    <button>Exibir Senha</button>
+        <label for="email">
+            E-mail<input type="text" name="email" id="email">
+        </label>
+        <label for="senha">
+            Senha <input type="password" name="senha" id="senha">
+        </label>
+        
+        <button>Exibir Senha</button>
 
-    <input type="submit" value="Entrar" name="botao">
+        <input type="submit" value="Entrar" name="botao">
     </form>
 
+    <p> <?php echo $msgError ?> </p>
+    
     <a href="recuperarSenha.php">Recuperar Senha</a>
 
     <a href="cadastroprofessor.php">Cadastrar-se como professor</a>
 
     <a href="cadastroaluno.php">Cadastrar-se como aluno</a>
-    
-
 </body>
 </html>
