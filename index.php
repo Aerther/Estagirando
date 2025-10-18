@@ -6,14 +6,14 @@ use App\Classes\Usuario;
 
 $msgError = "";
 
-if(isset($_POST["botao"])) {
+if(isset($_POST["botao-enviar"])) {
     $usuario = new Usuario($_POST["email"], $_POST["senha"]);
 
     if($usuario->autenticar()) {
         header("Location: privado.php");
     }
 
-    $msgError = "Dados não cadastrados ou incorretos";
+    $msgError = "Senha e/ou email incorretos";
 
     if(!$usuario->taAtivo()) {
         $msgError = "Usuário Inativo";
@@ -27,36 +27,56 @@ if(isset($_POST["botao"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./src/styles/reset.css">
+    <link rel="stylesheet" href="./src/styles/style.css">
+
     <title>Estagirando</title>
+
+    <style>
+
+    </style>
+    
 </head>
 <body>
-
     <h1>Bem-vindo ao Estagirando!</h1>
+    <div class="container">
+        <section class="coluna-1">
+            <div class="texto-coluna-1">
+                <h3>Com o Estagirando nós te <br> ajudamos a facilitar a sua <br> jornada de estágio.</h3>
+                <h3>Junte-se a nós!</h3>
+            </div>
 
-    <div>
-        <h5>Com o Estagirando nós te ajudamos a facilitar a sua jornada de estágio.</h5>
-        <h5>Junte-se a nós!</h5>
-    </div>
-
-    <form action="" method="Post">
-        <label for="email">
-            E-mail<input type="text" name="email" id="email">
-        </label>
-        <label for="senha">
-            Senha <input type="password" name="senha" id="senha">
-        </label>
+            <div class="links-cad">
+                <a href="cadastroprofessor.php">Cadastrar-se como professor</a>
+                <a href="cadastroaluno.php">Cadastrar-se como aluno</a>
+            </div>
+        </section>
         
-        <button>Exibir Senha</button>
+        <section class="coluna-2">
+            <form action="index.php" method="post">
+                <section>
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" id="email" required>
+                </section>
 
-        <input type="submit" value="Entrar" name="botao">
-    </form>
+                <section>
+                    <label for="senha">Senha</label>
+                    <input type="password" name="senha" id="senha" required>
+                    <button>Exibir Senha</button>
+                </section>
 
-    <p> <?php echo $msgError ?> </p>
-    
-    <a href="recuperarSenha.php">Recuperar Senha</a>
+                <section>
+                    <a href="recuperarSenha.php">Recuperar Senha</a>
 
-    <a href="cadastroprofessor.php">Cadastrar-se como professor</a>
-
-    <a href="cadastroaluno.php">Cadastrar-se como aluno</a>
+                    <input type="submit" value="Entrar" name="botao-enviar">
+                </section>    
+                
+                <section class="error-section">
+                    <p> <?php echo $msgError ?> </p>
+                </section>
+            </form>
+        </section>
+    </div>
 </body>
 </html>
