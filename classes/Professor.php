@@ -10,14 +10,14 @@ class Professor extends Usuario {
         $this->statusDisponibilidade = $statusDisponibilidade;
     }
 
-    public function salvarUsuario() : void {
-        Usuario::salvarUsuario();
+    public function salvarUsuario(string $nome, string $sobrenome, string $tipoUsuario, array $preferencias, array $noPrefencias, string $statusDisponibilidade) : void {
+        $idUsuario = Usuario::salvarUsuario($nome, $sobrenome, $tipoUsuario, $preferencias, $noPrefencias);
 
         $connection = new MySql();
 
-        $tipos = "";
-        $params = [];
-        $sql = "INSERT INTO aluno";
+        $tipos = "is";
+        $params = [$idUsuario, $statusDisponibilidade];
+        $sql = "INSERT INTO professor(ID_Professor, Status_Disponibilidade) VALUES (?, ?)";
 
         $connection->execute($sql, $tipos, $params);
     }

@@ -26,7 +26,7 @@ class MySQL {
     	return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 	}
 
-	public function execute(string $sql, string $types, array $params) : void {
+	public function execute(string $sql, string $types, array $params) : int {
 		$stmt = $this->connection->prepare($sql);
 
 		if(!($types == "" || empty($params))) {
@@ -34,6 +34,8 @@ class MySQL {
 		}
 
 		$stmt->execute();
+
+		return $this->connection->insert_id;
 	}
 }
 

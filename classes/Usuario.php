@@ -4,15 +4,15 @@
 
 class Usuario {
 
-    private int $idUsuario;
-    private string $nome;
-    private string $senha;
-    private string $email;
-    private string $linkFoto;
-    private string $tipoUsuario;
-    private string $statusCadastro;
-    private array $preferencias = [];
-    private array $naoPreferencias = [];
+    protected int $idUsuario;
+    protected string $nome;
+    protected string $senha;
+    protected string $email;
+    protected string $linkFoto;
+    protected string $tipoUsuario;
+    protected string $statusCadastro;
+    protected array $preferencias = [];
+    protected array $naoPreferencias = [];
 
     public function __construct(string $email, string $senha) {
         $this->email = $email;
@@ -22,7 +22,7 @@ class Usuario {
     // CRUD
 
     // Salvar
-    public function salvarUsuario(string $nome, string $sobrenome, string $tipoUsuario, array $preferencias) {
+    public function salvarUsuario(string $nome, string $sobrenome, string $tipoUsuario, array $preferencias, array $noPreferencias) {
         $conexao = new MySql();
 
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
@@ -31,7 +31,25 @@ class Usuario {
         $params = [$nome, $sobrenome, $this->email, $this->senha, $tipoUsuario];
         $sql = "INSERT INTO Usuario(Nome, Sobrenome, Email, Senha, Tipo_Usuario) VALUES (?, ?, ?, ?, ?)";
 
-        $conexao->execute($sql, $tipos, $params);
+        $idUsuario = $conexao->execute($sql, $tipos, $params);
+
+        foreach($preferencias as $preferencia) {
+            $tipos = "iis";
+            $params = [$idUsuario, $preferencia, "sim"];
+            $sql = "INSERT INTO usuario_preferencia(ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, ?)";
+
+            $conexao->execute($sql, $tipos, $params);
+        }
+
+        foreach($noPreferencias as $preferencia) {
+            $tipos = "iis";
+            $params = [$idUsuario, $preferencia, "não"];
+            $sql = "INSERT INTO usuario_preferencia(ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, ?)";
+
+            $conexao->execute($sql, $tipos, $params);
+        }
+
+        return $idUsuario;
     }
 
     // Atualizar
@@ -109,6 +127,7 @@ class Usuario {
         $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
         $usuario->setLinkFoto($resultado["Link_Foto"]);
         $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
+        $usuario->setPreferencias();
 
         return $usuario;
     }
@@ -121,17 +140,25 @@ class Usuario {
         $tipos = "i";
         $params = [$_SESSION["idUsuario"]];
 
-        $sql = "SELECT p.Descricao FROM Usuario u 
+        $sql = "SELECT p.Descricao as Descricao FROM Usuario u 
         JOIN Usuario_Preferencia up ON up.ID_Usuario = u.ID_Usuario 
         JOIN Preferencia p ON p.Preferencia = up.Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'sim'";
 
-        $resultado = $conexao->search($sql, $tipos, $params);
+        $resultados = $conexao->search($sql, $tipos, $params);
 
-        $sql = "SELECT p.Descricao FROM Usuario u 
+        foreach($resultados as $resultado) {
+            $this->preferencias[] = $resultado["Descricao"];
+        }
+
+        $sql = "SELECT p.Descricao as Descricao FROM Usuario u 
         JOIN Usuario_Preferencia up ON up.ID_Usuario = u.ID_Usuario 
         JOIN Preferencia p ON p.Preferencia = up.Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'não'";
 
-        $resultado = $conexao->search($sql, $tipos, $params);
+        $resultados = $conexao->search($sql, $tipos, $params);
+
+        foreach($resultados as $resultado) {
+            $this->noPreferencias[] = $resultado["Descricao"];
+        }
     }
 
     // Getters e Setters
@@ -195,7 +222,7 @@ class Usuario {
         $resultado = "";
 
         foreach ($this->preferencias as $preferencia) {
-            $resultado = $resultado . $preferencia;
+            $resultado = $resultado . ", " .$preferencia;
         }
 
         return $resultado;
@@ -206,7 +233,7 @@ class Usuario {
         $resultado = "";
 
         foreach ($this->noPreferencias as $noPreferencia) {
-            $resultado = $resultado . $noPreferencia;
+            $resultado = $resultado . ", " . $noPreferencia;
         }
 
         return $resultado;
