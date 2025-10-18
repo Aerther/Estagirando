@@ -19,6 +19,9 @@ class Usuario {
         $this->senha = $senha;
     }
 
+    // CRUD
+
+    // Salvar
     public function salvarUsuario(string $nome, string $sobrenome, string $tipoUsuario, array $preferencias) {
         $conexao = new MySql();
 
@@ -31,6 +34,7 @@ class Usuario {
         $conexao->execute($sql, $tipos, $params);
     }
 
+    // Atualizar
     public function atualizarUsuario(string $nome, string $sobrenome, string $email) : void {
         $conexao = new MySql();
 
@@ -41,6 +45,23 @@ class Usuario {
         $sql = "UPDATE Usuario SET Nome = ?,  Sobrenome = ?, Email = ? WHERE ID_Usuario = ?";
 
         $conexao->execute($sql, $tipos, $params);
+    }
+
+    // 'Excluir'
+    public function desativarCadastro() : void {
+        $conexao = new MySql();
+
+        session_start();
+
+        $tipos = "i";
+        $params = [$_SESSION["idUsuario"]];
+        $sql = "UPDATE Usuario SET Status_Cadastro = 'inativo' WHERE ID_Usuario = ?";
+
+        $conexao->execute($sql, $tipos, $params);
+    }
+
+    public function taAtivo() : bool {
+        return $this->statusCadastro == "ativo";
     }
 
     public function autenticar() : bool {
@@ -80,8 +101,14 @@ class Usuario {
 
         $resultado = $resultados[0];
 
+        // Setando os dados
         $usuario = new Usuario($resultado["Email"], $resultado["Senha"]);
-        $usuario->setDados($resultado["ID_Usuario"], $resultado["Nome"], $resultado["Tipo_Usuario"], $resultado["Link_Foto"], $resultado["Status_Cadastro"]);
+
+        $usuario->setIdUsuario($resultado["ID_Usuario"]);
+        $usuario->setNome($resultado["Nome"]);
+        $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
+        $usuario->setLinkFoto($resultado["Link_Foto"]);
+        $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
 
         return $usuario;
     }
@@ -105,30 +132,6 @@ class Usuario {
         JOIN Preferencia p ON p.Preferencia = up.Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'não'";
 
         $resultado = $conexao->search($sql, $tipos, $params);
-    }
-
-    public function setDados(int $idUsuario, string $nome, string $tipoUsuario, string $linkFoto, string $statusCadastro) : void {
-        $this->idUsuario = $idUsuario;
-        $this->nome = $nome;
-        $this->tipoUsuario = $tipoUsuario;
-        $this->linkFoto = $linkFoto;
-        $this->statusCadastro = $statusCadastro;
-    }
-
-    public function taAtivo() : bool {
-        return $this->statusCadastro == "ativo";
-    }
-
-    public function desativarCadastro() : void {
-        $conexao = new MySql();
-
-        session_start();
-
-        $tipos = "i";
-        $params = [$_SESSION["idUsuario"]];
-        $sql = "UPDATE Usuario SET Status_Cadastro = 'inativo' WHERE ID_Usuario = ?";
-
-        $conexao->execute($sql, $tipos, $params);
     }
 
     // Getters e Setters
@@ -196,10 +199,6 @@ class Usuario {
         }
 
         return $resultado;
-    }
-
-    public function setPreferencias(array $preferencias) : void {
-        $this->preferencias = $preferencias;
     }
 
     // Não Prefere

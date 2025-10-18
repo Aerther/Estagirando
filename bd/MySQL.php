@@ -15,7 +15,9 @@ class MySQL {
 	public function search(string $sql, string $types, array $params) : array {
 		$stmt = $this->connection->prepare($sql);
 
-		$stmt->bind_param($types, ...$params);
+		if(!($types == "" || empty($params))) {
+			$stmt->bind_param($types, ...$params);
+		}
 
 		$stmt->execute();
 
@@ -27,7 +29,9 @@ class MySQL {
 	public function execute(string $sql, string $types, array $params) : void {
 		$stmt = $this->connection->prepare($sql);
 
-		$stmt->bind_param($types, ...$params);
+		if(!($types == "" || empty($params))) {
+			$stmt->bind_param($types, ...$params);
+		}
 
 		$stmt->execute();
 	}
