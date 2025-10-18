@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Classes;
+
+use App\BD\MySQL;
+
 class Foto {
 
     private int $idFoto;
@@ -14,11 +18,11 @@ class Foto {
     // CRUD
 
     // Salvar
-    public function salvarFoto($nomeFoto, $linkFoto) : void {
-        $connection = new MySql();
+    public function salvarFoto() : void {
+        $connection = new MySQL();
 
         $tipos = "ss";
-        $params = [$nomeTurma, $linkFoto];
+        $params = [$this->nomeTurma, $this->linkFoto];
         $sql = "INSERT INTO Foto(Nome_Foto, Link_Foto) VALUES (?, ?)";
 
         $connection->execute($sql, $tipos, $params);
@@ -26,7 +30,7 @@ class Foto {
 
     // Atualizar
     public function atualizarFoto($nomeFoto, $linkFoto) : void {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "ssi";
         $params = [$nomeTurma, $linkFoto, $this->idFoto];
@@ -37,7 +41,7 @@ class Foto {
 
     // Deletar
     public function deletarFoto() : void {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "i";
         $params = [$this->idFoto];
@@ -47,7 +51,7 @@ class Foto {
     }
 
     public static function findFoto($idFoto) : Foto {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "i";
         $params = [$idFoto];
@@ -64,7 +68,7 @@ class Foto {
     }
 
     public static function findAllFotos() : array {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $fotos = [];
 

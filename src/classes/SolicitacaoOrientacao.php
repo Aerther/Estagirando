@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Classes;
+
+use App\BD\MySQL;
+
 class SolicitacaoOrientacao {
 
     private int $idSolicitacaoOrientacao;
@@ -17,7 +21,6 @@ class SolicitacaoOrientacao {
     // Atributos Datas
     private string $dataInicio;
     private string $dataTermino;
-    private string $dataEnviado;
 
     public function __construct(
         string $areaAtuacao,
@@ -30,7 +33,6 @@ class SolicitacaoOrientacao {
         string $cidadeEmpresa,
         string $dataInicio,
         string $dataTermino,
-        string $dataEnviado
     ) {
         $this->areaAtuacao = $areaAtuacao;
         $this->turno = $turno;
@@ -44,46 +46,38 @@ class SolicitacaoOrientacao {
 
         $this->dataInicio = $dataInicio;
         $this->dataTermino = $dataTermino;
-        $this->dataEnviado = $dataEnviado;
     }
 
     // CRUD
 
     // Salvar
     public function salvarSolicitacaoOrientacao() {
-        $connection = new MySql();
+        $connection = new MySQL();
 
-        $tipos = "";
-        $params = [];
-        $sql = "INSERT INTO Solicitacao_Orientacao() VALUES ()";
+        session_start();
 
-        $connection->execute($sql, $tipos, $params);
-    }
-
-    // Atualizar
-    public function atualizarSolicitacaoOrientacao() {
-        $connection = new MySql();
-
-        $tipos = "";
-        $params = [];
-        $sql = "UPDATE Solicitacao_Orientacao SET ";
+        $tipos = "ssssissssssi";
+        $params = [$this->nomeEmpresa, $this->emailEmpresa, $this->cidadeEmpresa, $this->modalidade, $this->cargaHorariaSemanal,
+        $this->turno, $this->areaAtuacao, $this->dataInicio, $this->dataTermino, "NOW()", "ativo", $_SESSION["idUsuario"]];
+        $sql = "INSERT INTO Solicitacao_Orientacao(Nome_Empresa, Email_Empresa, Cidade_Empresa, Modalidade, Carga_Horaria_Semanal, Turno, Area_Atuacao, 
+        Data_Inicio, Data_Termino, Data_Envio, Status_Solicitacao_Orientacao, ID_Aluno) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $connection->execute($sql, $tipos, $params);
     }
 
     // 'Excluir'
-    public function desativarSolicitacaoOrientacao() {
-        $connection = new MySql();
+    public static function desativarSolicitacaoOrientacao($idSolicitacaoOrientacao) {
+        $connection = new MySQL();
 
-        $tipos = "";
-        $params = [];
-        $sql = "UPDATE Solicitacao_Orientacao SET Status_Solicitacao_Orientacao = 'inativo'";
+        $tipos = "i";
+        $params = [$idSolicitacaoOrientacao];
+        $sql = "UPDATE Solicitacao_Orientacao SET Status_Solicitacao_Orientacao = 'inativo' WHERE ID_Solicitacao_Orientacao = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
 
     public static function findSolicitacaoOrientacao($idSolicitacaoOrientacao) : SolicitacaoOrientacao {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         session_start();
         
@@ -91,13 +85,14 @@ class SolicitacaoOrientacao {
         $params = [$idSolicitacaoOrientacao, $_SESSION["idUsuario"]];
 
         // SQL para o aluno
-        $sql = "SELECT * FROM solicitacao_orientacao so WHERE so.ID_Solicitacao_Orientacao = ? AND so.ID_Aluno = ?";
+        $sql = "SELECT * FROM solicitacao_orientacao so WHERE so.ID_Solicitacao_Orientacao = ? AND so.ID_Aluno = ? AND so.Status_Solicitacao_Orientacao == 'ativo'";
 
         // SQL para o professor
         if($_SESSION["tipoUsuario"] == "professor") {
             $sql = "SELECT * FROM solicitacao_orientacao so 
             JOIN professor_solicitacao_orientacao pso ON pso.ID_Solicitacao_Orientacao = so.ID_Solicitacao_Orientacao 
-            WHERE so.ID_Solicitacao_Orientacao = ? AND pso.ID_Professor = ?";
+            WHERE so.ID_Solicitacao_Orientacao = ? AND pso.ID_Professor = ? 
+            AND so.Status_Solicitacao_Orientacao == 'ativo' AND pso.Status == 'aguardando resposta'";
         }
 
         $resultados = $connection->search($sql, $tipos, $params);
@@ -124,7 +119,7 @@ class SolicitacaoOrientacao {
     }
 
     public static function findAllSolicitacaoOrientacao() : array {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $sos = [];
 

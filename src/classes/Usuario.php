@@ -1,6 +1,8 @@
 <?php
 
-// Colocar os requires e talvez namespace
+namespace App\Classes;
+
+use App\BD\MySQL;
 
 class Usuario {
 
@@ -23,7 +25,7 @@ class Usuario {
 
     // Salvar
     public function salvarUsuario(string $nome, string $sobrenome, string $tipoUsuario, array $preferencias, array $noPreferencias) {
-        $conexao = new MySql();
+        $conexao = new MySQL();
 
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
 
@@ -53,8 +55,8 @@ class Usuario {
     }
 
     // Atualizar
-    public function atualizarUsuario(string $nome, string $sobrenome, string $email) : void {
-        $conexao = new MySql();
+    public function atualizarUsuario(string $nome, string $sobrenome, string $email, array $preferencias, array $noPreferencias) : void {
+        $conexao = new MySQL();
 
         session_start();
 
@@ -63,11 +65,27 @@ class Usuario {
         $sql = "UPDATE Usuario SET Nome = ?,  Sobrenome = ?, Email = ? WHERE ID_Usuario = ?";
 
         $conexao->execute($sql, $tipos, $params);
+
+        foreach($preferencias as $preferencia) {
+            $tipos = "ii";
+            $params = [$preferencia, $_SESSION["idUsuario"]];
+            $sql = "UPDATE usuario_preferencia SET Prefere = 'sim' WHERE ID_Preferencia = ? AND ID_Usuario = ?";
+
+            $conexao->execute($sql, $tipos, $params);
+        }
+
+        foreach($noPreferencias as $preferencia) {
+            $tipos = "ii";
+            $params = [$preferencia, $_SESSION["idUsuario"]];
+            $sql = "UPDATE usuario_preferencia SET Prefere = 'não' WHERE ID_Preferencia = ? AND ID_Usuario = ?";
+
+            $conexao->execute($sql, $tipos, $params);
+        }
     }
 
     // 'Excluir'
     public function desativarCadastro() : void {
-        $conexao = new MySql();
+        $conexao = new MySQL();
 
         session_start();
 
@@ -87,7 +105,8 @@ class Usuario {
 
         $tipos = "s";
         $params = [$this->email];
-        $sql = "SELECT u.ID_Usuario, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, u.Senha, u.Email, u.Tipo_Usuario FROM Usuario u WHERE u.Email = ?";
+        $sql = "SELECT u.ID_Usuario, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, u.Senha, u.Email, u.Tipo_Usuario 
+        FROM Usuario u WHERE u.Email = ?";
 
         $resultado = $conexao->search($sql, $tipos, $params);
 
@@ -106,7 +125,7 @@ class Usuario {
     }
 
     public static function findUsuario(int $idUsuario) : Usuario {
-        $conexao = new MySql();
+        $conexao = new MySQL();
 
         session_start();
 
@@ -133,16 +152,14 @@ class Usuario {
     }
 
     public function setPreferencias() : void {
-        $conexao = new MySql();
-
-        session_start();
+        $conexao = new MySQL();
 
         $tipos = "i";
-        $params = [$_SESSION["idUsuario"]];
+        $params = [$this->idUsuario];
 
         $sql = "SELECT p.Descricao as Descricao FROM Usuario u 
         JOIN Usuario_Preferencia up ON up.ID_Usuario = u.ID_Usuario 
-        JOIN Preferencia p ON p.Preferencia = up.Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'sim'";
+        JOIN Preferencia p ON p.ID_Preferencia = up.ID_Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'sim'";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 
@@ -152,7 +169,7 @@ class Usuario {
 
         $sql = "SELECT p.Descricao as Descricao FROM Usuario u 
         JOIN Usuario_Preferencia up ON up.ID_Usuario = u.ID_Usuario 
-        JOIN Preferencia p ON p.Preferencia = up.Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'não'";
+        JOIN Preferencia p ON p.ID_Preferencia = up.ID_Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'não'";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 

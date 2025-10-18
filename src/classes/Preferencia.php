@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Classes;
+
+use App\BD\MySQL;
+
 class Preferencia {
 
     private int $idPreferencia;
@@ -13,7 +17,7 @@ class Preferencia {
 
     // Salvar
     public function salvarPreferencia($descricaoPreferencia) : void {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "s";
         $params = [$descricaoPreferencia];
@@ -24,7 +28,7 @@ class Preferencia {
 
     // Atualizar
     public function atualizarPreferencia($descricaoPreferencia) : void {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "si";
         $params = [$descricaoPreferencia, $this->idPreferencia];
@@ -35,7 +39,7 @@ class Preferencia {
 
     // Deletar
     public function deletarPreferencia() : void {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "i";
         $params = [$this->idPreferencia];
@@ -45,7 +49,7 @@ class Preferencia {
     }
 
     public static function findPreferencia($idPreferencia) : Preferencia {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "i";
         $params = [$idPreferencia];
@@ -62,7 +66,7 @@ class Preferencia {
     }
 
     public static function findAllFotos() : array {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $preferencias = [];
 

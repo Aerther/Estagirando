@@ -1,0 +1,14 @@
+{
+    "name": "grupo1/estagirando",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Grupo 1"
+        }
+    ],
+    "require": {}
+}

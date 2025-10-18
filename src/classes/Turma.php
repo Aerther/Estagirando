@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Classes;
+
+use App\BD\MySQL;
+
 class Turma {
 
     private int $idTurma;
@@ -13,7 +17,7 @@ class Turma {
 
     // Salvar
     public function salvarTurma($nomeTurma) : void {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "s";
         $params = [$nomeTurma];
@@ -24,7 +28,7 @@ class Turma {
 
     // Atualizar
     public function atualizarTurma($nomeTurma) : void {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "si";
         $params = [$nomeTurma, $this->idTurma];
@@ -35,7 +39,7 @@ class Turma {
 
     // Deletar
     public function deletarTurma() : void {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "i";
         $params = [$this->idTurma];
@@ -45,7 +49,7 @@ class Turma {
     }
 
     public static function findTurma($idTurma) : Turma {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $tipos = "i";
         $params = [$idTurma];
@@ -62,7 +66,7 @@ class Turma {
     }
 
     public static function findAllTurmas() : array {
-        $connection = new MySql();
+        $connection = new MySQL();
 
         $turmas = [];
 
