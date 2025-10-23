@@ -13,9 +13,9 @@ if(isset($_POST["botao-enviar"])) {
         header("Location: privado.php");
     }
 
-    $msgError = "Senha e/ou email incorretos";
+    $msgError = "Dados não cadastrados ou incorretos";
 
-    if(!$usuario->taAtivo()) {
+    if(!$usuario->taAtivo() && $usuario->usuarioExiste()) {
         $msgError = "Usuário Inativo";
     }
 }
@@ -56,23 +56,25 @@ if(isset($_POST["botao-enviar"])) {
         <section class="coluna-2">
             <form action="index.php" method="post">
                 <section>
+                    <h2>Login</h2>
+                </section>
+
+                <section class="email">
                     <label for="email">E-mail</label>
                     <input type="email" name="email" id="email" required>
                 </section>
 
-                <section>
+                <section class="senha">
                     <label for="senha">Senha</label>
                     <input type="password" name="senha" id="senha" required>
-                    <button>Exibir Senha</button>
                 </section>
 
-                <section>
+                <section class="links">
                     <a href="recuperarSenha.php">Recuperar Senha</a>
-
-                    <input type="submit" value="Entrar" name="botao-enviar">
+                    <input type="submit" value="Entrar" name="botao-enviar" class="botao">
                 </section>    
                 
-                <section class="error-section">
+                <section class="error">
                     <p> <?php echo $msgError ?> </p>
                 </section>
             </form>
