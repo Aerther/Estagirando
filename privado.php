@@ -10,6 +10,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>oi</h1>
+    <a href="./sair.php">Sair</a>
 </body>
 </html>

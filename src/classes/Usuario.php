@@ -119,7 +119,7 @@ class Usuario {
         if(!password_verify($this->senha, $usuario["Senha"])) return false;
 
         session_start();
-        $_SESSION["idUsuario"] = $usuario["idUsuario"];
+        $_SESSION["idUsuario"] = $usuario["ID_Usuario"];
         $_SESSION["nomeUsuario"] = $usuario["Nome"];
         $_SESSION["tipoUsuario"] = $usuario["Tipo_Usuario"];
 
