@@ -1,8 +1,32 @@
 <?php
-if ($_POST['senha'] != $_POST['confSenha']) {
-    
-    header("Location: cadastroAluno.php");
+require_once __DIR__."/classes/Aluno.php";
+$msgError = "";
+if (isset($_POST['cadastrar'])){
+    if ($_POST['senha'] != $_POST['confSenha']) {
+        $msgError = "As senhas digitadas são diferentes. Por favor, confirme sua senha corretamente.";
+    }
+    elseif ($_POST['email'] != $_POST['confEmail']) {
+        $msgError = "Os endereços de e-mail digitados são diferentes. Por favor, confirme seu e-mail corretamente.";
+    }
+    elseif (strlen($_POST['senha']) < 8) {
+    $msgError = "A senha deve ter no mínimo 8 caracteres.";
+    }
+    else{
+        $aluno = new Aluno();
+        $aluno->salvarUsuario(
+        $_POST['nome'],
+        $_POST['sobrenome'],
+        'aluno', 
+        [], // preferencias — preencher depois se houver
+        [], // noPreferencias — idem
+        $_POST['cidadeEstagiar'],
+        $_POST['turno'],
+        $_POST['situacao'],
+        (int) $_POST['curso'] // supondo que ID_Turma vem do select "curso"
+        );
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
