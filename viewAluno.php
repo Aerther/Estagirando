@@ -26,7 +26,7 @@
 
             <section class="linha-2">
                 <section class="disponibilidade">
-                    <p class="titulo-dados">Disponibilidade do Estágio</p>
+                    <p class="titulo-dados">Disponibilidade</p>
                     <p>Cidade: </p>
                     <p>Modalidade: </p>
                     <p>Turno: </p>
