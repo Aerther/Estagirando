@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Professor</title>
+    <title>Estagirando</title>
 </head>
 <body>
     <h1>Cadastro de Professor</h1>
@@ -54,7 +54,7 @@
         </section>
         <!-- Criar a exibição correta das mensagens conforme RF13-->
     </form> 
-        <a href="index.php"><button>Cancelar</button></a>
+        <a href="index.php">Cancelar</a>
     </div>
 </body>
 </html>
