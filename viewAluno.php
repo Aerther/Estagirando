@@ -1,3 +1,17 @@
+<?php
+
+require_once __DIR__."/vendor/autoload.php";
+
+use App\Classes\Aluno;
+
+if(!isset($_GET["idUsuario"])) {
+    header("Location: privado.php");
+}
+
+$aluno = Aluno::findUsuario($_GET["idUsuario"]);
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,7 +26,7 @@
             <section class="linha-1">
                 <section class="imagem">
                     <figure>
-                        <img src="" alt="">
+                        <?php echo "<img src='{$aluno->getLinkFoto()}' alt='Foto do Aluno' />"; ?>
                     </figure>
                 </section>
 
@@ -26,7 +40,7 @@
 
             <section class="linha-2">
                 <section class="disponibilidade">
-                    <p class="titulo-dados">Disponibilidade do Estágio</p>
+                    <p class="titulo-dados">Disponibilidade</p>
                     <p>Cidade: </p>
                     <p>Modalidade: </p>
                     <p>Turno: </p>

@@ -191,13 +191,14 @@ form > section {
     align-items: flex-start;
     justify-content: center;
 }
+
 #titulo1{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin-bottom: 20px;
 }
 
-
 #log{
     font-family: 'Times New Roman', Times, serif;
 }
+
 /*----------------------   CADASTROS ALUNO/PROFESSOR    -------------------------------------*/

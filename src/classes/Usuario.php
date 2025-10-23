@@ -24,7 +24,7 @@ class Usuario {
     // CRUD
 
     // Salvar
-    public function salvarUsuario(string $nome, string $sobrenome, string $tipoUsuario, array $preferencias, array $noPreferencias) {
+    public function salvarUsuario(string $nome, string $sobrenome, string $tipoUsuario, array $preferencias, array $noPreferencias) : int {
         $conexao = new MySQL();
 
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);

@@ -1,5 +1,12 @@
 <?php
 
+require_once __DIR__."/vendor/autoload.php";
+
+use App\Classes\Aluno;
+
+$aluno = new Aluno("Arthur", "Lassem", [], [], "Feliz", "Manhã", "Estagiando", 1);
+$aluno->salvarAluno();
+
 ?>
 
 <!DOCTYPE html>
@@ -11,5 +18,6 @@
 </head>
 <body>
     <a href="./sair.php">Sair</a>
+    <a href="./privado.php">aluno</a>
 </body>
 </html>
