@@ -12,7 +12,7 @@ class Usuario {
     protected string $email;
     protected string $linkFoto;
     protected string $tipoUsuario;
-    protected string $statusCadastro;
+    protected string $statusCadastro = "inativo";
     protected array $preferencias = [];
     protected array $naoPreferencias = [];
 
@@ -127,7 +127,7 @@ class Usuario {
     }
 
     public function taAtivo() {
-        return $statusCadastro == "ativo";
+        return $this->statusCadastro == "ativo";
     }
 
     public static function findUsuario(int $idUsuario) : Usuario {
@@ -182,6 +182,18 @@ class Usuario {
         foreach($resultados as $resultado) {
             $this->noPreferencias[] = $resultado["Descricao"];
         }
+    }
+
+    public function usuarioExiste() {
+        $connection = new MySQL();
+
+        $tipos = "s";
+        $params = [$this->email];
+        $sql = "SELECT 1 FROM usuario u WHERE BINARY u.Email = ?";
+
+        $resultado = $connection->search($sql, $tipos, $params);
+
+        return !empty($resultado);
     }
 
     // Getters e Setters

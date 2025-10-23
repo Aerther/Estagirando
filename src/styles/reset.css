@@ -1,3 +1,9 @@
+:root {
+    --primeira-cor: #ffffff;
+    --segunda-cor: #fff;
+    --terceira-cor: #fff;
+}
+
 * {
     padding: 0;
     margin: 0;
