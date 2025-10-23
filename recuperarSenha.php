@@ -54,7 +54,7 @@ if (isset($_POST["recuperar"]) ) {
 
             <section>
                 
-                <input type="submit" name="recuperar" value="Recuperar">
+                <input type="submit" name="recuperar" value="Recuperar" id="btn">
             </section>
 
         </form>
