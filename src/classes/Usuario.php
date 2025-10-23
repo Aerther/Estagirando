@@ -12,7 +12,7 @@ class Usuario {
     protected string $email;
     protected string $linkFoto;
     protected string $tipoUsuario;
-    protected string $statusCadastro = "inativo";
+    protected string $statusCadastro = "ativo";
     protected array $preferencias = [];
     protected array $naoPreferencias = [];
 
@@ -110,13 +110,13 @@ class Usuario {
 
         $usuario = $resultado[0];
 
-        if(!password_verify($this->senha, $usuario["senha"])) return false;
-
         if($usuario["Status_Cadastro"] == "inativo") {
             $this->statusCadastro = "inativo";
 
             return false;
         }
+
+        if(!password_verify($this->senha, $usuario["Senha"])) return false;
 
         session_start();
         $_SESSION["idUsuario"] = $usuario["idUsuario"];
@@ -196,6 +196,22 @@ class Usuario {
         return !empty($resultado);
     }
 
+    public function criarNovaSenha() : void {
+        $connection = new MySql();
+
+        $novaSenha = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
+
+        $senhaCriptografada = password_hash($novaSenha, PASSWORD_BCRYPT);
+
+        $tipos = "ss";
+        $params = [$senhaCriptografada, $this->email];
+        $sql = "UPDATE usuario SET senha = ? WHERE email = ?";
+
+        $connection->execute($sql, $tipos, $params);
+
+        $this->senha = $novaSenha;
+    }
+
     // Getters e Setters
 
     // ID Usuario
@@ -223,6 +239,11 @@ class Usuario {
 
     public function setNome(string $nome) : void {
         $this->nome = $nome;
+    }
+
+    // Senha
+    public function getSenha() : string {
+        return $this->senha;
     }
 
     // Link Foto

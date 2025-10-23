@@ -1,33 +1,26 @@
 <?php
+
 require_once __DIR__."/vendor/autoload.php";
+
 use App\Classes\Usuario;
 
 $mensagem = "";
 $novaSenha = "";
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["recuperar"])) {
-    $email = trim($_POST["email"] ?? "");//Verifica se o email foi recebido corretamente
-    if (empty($email)) {
-        $mensagem = "Por favor, informe um e-mail válido.";
+if (isset($_POST["recuperar"])) {
+    $usuario = new Usuario($_POST["email"], "");
+
+    if (!$usuario->usuarioExiste()) {
+        $mensagem = "Email não cadastrado ou incorreto";
     } else {
-        //Verifica se o email esta cadastrado no banco
-        $conexao = new MySQL();
-        $sql = "SELECT ID_Usuario FROM Usuario WHERE Email = ?";
-        $resultado = $conexao->search($sql, "s", [$email]);
+        $usuario->criarNovaSenha();
 
-        if (empty($resultado)) {
-            $mensagem = "Email Invalido.";
-        } else {
-            //Gera a nova senha criptografa e envia para o banco
-            $novaSenha = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 10);
-            $senhaCriptografada = password_hash($novaSenha, PASSWORD_BCRYPT);
-            $sql = "UPDATE Usuario SET Senha = ? WHERE Email = ?";
-            $conexao->execute($sql, "ss", [$senhaCriptografada, $email]);
+        $novaSenha = $usuario->getSenha();
 
-            $mensagem = "Senha redefinida com sucesso!";
-        }
+        $mensagem = "Senha redefinida com sucesso!";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -38,29 +31,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["recuperar"])) {
     <title>Estagirando</title>
 </head>
 <body>
-    <h1>Esqueceu a sua senha?</h1>
-    <h2>Redefina a sua senha aqui!</h2>
-
     <div class="container">
-    <form method="post">
-        <section>
-            <label for="email">Informe seu E-mail:</label>
-            <input type="email" name="email" id="email" required>
-        </section>
-        <section>
-            <input type="submit" name="recuperar" value="Recuperar">
-        </section>
-    </form>
+        <h1>Esqueceu a sua senha?</h1>
+        <h2>Redefina a sua senha aqui!</h2>
 
-    <?php if ($mensagem): ?>
-        <p><strong><?php echo htmlspecialchars($mensagem); ?></strong></p>
-    <?php endif; ?>
+        <form action="./recuperarSenha.php" method="post">
+            <section>
+                <label for="email">Informe seu E-mail:</label>
+                <input type="email" name="email" id="email" required>
+            </section>
 
-    <?php if ($novaSenha): ?>
-        <p>Nova senha: <strong><?php echo htmlspecialchars($novaSenha); ?></strong></p>
-    <?php endif; ?>
+            <section>
+                <a href="index.php">Voltar</a>
+                <input type="submit" name="recuperar" value="Recuperar">
+            </section>
 
-    <a href="index.php"><button>Voltar</button></a>
-</div>
+            <section>
+                <?php if($mensagem) echo $mensagem; ?>
+            </section>
+
+            <section>
+                <?php if($novaSenha) echo "Nova Senha: " . $novaSenha; ?>
+            </section>
+        </form>
+    </div>
 </body>
 </html>
