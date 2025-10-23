@@ -1,3 +1,10 @@
+<?php
+if ($_POST['senha'] != $_POST['confSenha']) {
+    
+    header("Location: cadastroAluno.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -34,15 +41,6 @@
             <input type="password" name="confSenha" required>
         </section>
         <section>
-            <label for="pref">Preferências</label>
-            
-        </section>
-        <section>
-            <label for="nPref">Não Preferências</label>
-            <!--Puxar do banco quais as preferencias e não preferencias-->
-            
-        </section>
-        <section>
             <label for="ano">Ano de Ingresso:</label>
             <input type="text" name="ano" maxlength="4" pattern="\d+" required>
         </section>
@@ -76,7 +74,7 @@
             <select id="situacao" name="situacao">
                 <option value="procurando">Procurando Estágio</option>
                 <option value="estagiando">Estagiando</option>
-                <option value="sla">Sla</option>
+                <option value="ocupado">Ocupado</option>
             </select>
         </section>
         <section>
