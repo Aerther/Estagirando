@@ -50,6 +50,15 @@
             </fieldset>
         </section>
         <section>
+            <label for="pref">Preferências</label>
+            
+        </section>
+        <section>
+            <label for="nPref">Não Preferências</label>
+            <!--Puxar do banco quais as preferencias e não preferencias-->
+            
+        </section>
+        <section>
             <input type="submit" name="cadastrar" value="Cadastrar">
         </section>
         <!-- Criar a exibição correta das mensagens conforme RF13-->

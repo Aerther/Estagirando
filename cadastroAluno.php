@@ -54,9 +54,7 @@
         </section>
         <section>
             <label for="cidede">Cidade para Estagiar:</label>
-            <select id="cidade" name="cidade">
-                <!--Cidades-->
-            </select>
+            <input type="text" name="cidadeEstagiar" required>
         </section>
         <section>
             <label for="turno">Turno disponível:</label>
@@ -82,6 +80,15 @@
             </select>
         </section>
         <section>
+        <section>
+            <label for="pref">Preferências</label>
+            
+        </section>
+        <section>
+            <label for="nPref">Não Preferências</label>
+            <!--Puxar do banco quais as preferencias e não preferencias-->
+            
+        </section>
         <section>
             <input type="submit" name="cadastrar" value="Cadastrar">
         </section>
