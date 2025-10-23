@@ -108,6 +108,33 @@ body {
     font-size: 0.8rem;
 }
 
+.senha {
+    position: relative;
+}
+
+.senha figure {
+    width: auto;
+    height: 35px;
+
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(8%);
+
+    cursor: pointer;
+}
+
+.senha figure img {
+    width: 100%;
+    height: 100%;
+}
+
+.senha input {
+    padding-right: 55px;
+}
+
 .botao {
     width: 150px;
     height: 50px;

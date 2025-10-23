@@ -31,12 +31,9 @@ if(isset($_POST["botao-enviar"])) {
     <link rel="stylesheet" href="./src/styles/reset.css">
     <link rel="stylesheet" href="./src/styles/style.css">
 
+    <script src="./src/js/main.js" defer></script>
+
     <title>Estagirando</title>
-
-    <style>
-
-    </style>
-    
 </head>
 <body>
     <h1>Bem-vindo ao Estagirando!</h1>
@@ -67,6 +64,10 @@ if(isset($_POST["botao-enviar"])) {
                 <section class="senha">
                     <label for="senha">Senha</label>
                     <input type="password" name="senha" id="senha" required>
+                    
+                    <figure>
+                        <img src="./src/images/olhoaberto.png" alt="Olho Aberto">
+                    </figure>
                 </section>
 
                 <section class="links">
