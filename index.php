@@ -36,11 +36,11 @@ if(isset($_POST["botao-enviar"])) {
     <title>Estagirando</title>
 </head>
 <body>
-    <h1>Bem-vindo ao Estagirando!</h1>
+    <h1 id="titulo1">Bem-vindo ao Estagirando!</h1>
     <div class="container">
         <section class="coluna-1">
             <div class="texto-coluna-1">
-                <h3>Com o Estagirando nós te <br> ajudamos a facilitar a sua <br> jornada de estágio.</h3>
+                <h3>Com o Estagirando nós te <br> ajudamos a facilitar a sua <br>  jornada de estágio.</h3>
                 <h3>Junte-se a nós!</h3>
             </div>
 
@@ -53,16 +53,16 @@ if(isset($_POST["botao-enviar"])) {
         <section class="coluna-2">
             <form action="index.php" method="post">
                 <section>
-                    <h2>Login</h2>
+                    <h2 id="log">Login</h2>
                 </section>
 
                 <section class="email">
-                    <label for="email">E-mail</label>
+                    <label for="email" id="label">E-mail:</label>
                     <input type="email" name="email" id="email" required>
                 </section>
 
                 <section class="senha">
-                    <label for="senha">Senha</label>
+                    <label for="senha" id="label">Senha:</label>
                     <input type="password" name="senha" id="senha" required>
                     
                     <figure>

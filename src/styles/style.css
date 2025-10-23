@@ -18,7 +18,7 @@ body {
     height: 75%;
     width: 80%;
 
-    background-color: lightgray;
+    background-color: rgb(230, 230, 230);
 
     border: none;
     border-radius: 15px;
@@ -45,7 +45,7 @@ body {
     position: absolute;
 
     top: 50%;
-    right: 30px;
+    right: 10px;
 
     border: 1px solid #c4c4c4;
 
@@ -65,6 +65,7 @@ body {
 .texto-coluna-1 > h3 {
     font-size: 1.3rem;
     font-weight: 350;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .links-cad {
@@ -73,16 +74,20 @@ body {
 
 .links-cad > a {
     font-size: 1rem;
-
     font-style: italic;
+    color: #646464;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .coluna-2 {
-    padding-left: 30px;
-
+    padding-left: 80px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+#label{
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .error {
@@ -105,7 +110,8 @@ body {
 }
 
 .links > a {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    
 }
 
 .senha {
@@ -136,9 +142,9 @@ body {
 }
 
 .botao {
-    width: 150px;
-    height: 50px;
-
+    width: 140px;
+    height: 40px;
+    font-size: 20px;
     padding: 10px;
     
     border: 1px solid black;
@@ -185,5 +191,13 @@ form > section {
     align-items: flex-start;
     justify-content: center;
 }
+#titulo1{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 20px;
+}
 
+
+#log{
+    font-family: 'Times New Roman', Times, serif;
+}
 /*----------------------   CADASTROS ALUNO/PROFESSOR    -------------------------------------*/
