@@ -154,7 +154,7 @@ class Aluno extends Usuario {
     }
 
     // Turma
-    public function geTurma() : Turma {
+    public function getTurma() : Turma {
         return Turma::findTurma($this->idTurma);
     }
 
@@ -193,7 +193,6 @@ class Aluno extends Usuario {
     public function setModalidade($modalidade) : void {
         $this->modalidade = $modalidade;
     }
-
 }
 
 ?>

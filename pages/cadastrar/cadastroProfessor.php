@@ -1,16 +1,32 @@
 <?php
 $mensagemdeerro = "";
+$emailAlunos = Aluno::findAllAlunos();
+$emailProfessores = Professor::findAllProfessores();
+$contadorEmail = 0;
+foreach (emailAlunos as emailAluno){
+    if (emailAluno -> getEmail == $_POST['email']){
+        $contadorEmail+=1;
+    }
+}
+foreach (emailProfessores as emailProfessor){
+    if (emailProfessor -> getEmail == $_POST['email']){
+        $contadorEmail+=1;
+    }
+}
+
 
 //css deixa a mensagem em vermelho please!
 if (isset($_POST['email']) && isset($_POST['confEmail']) && $_POST['email'] != $_POST['confEmail']){
     $mensagemdeerro = "Você não inseriu o mesmo email nos campos 'Email:' e 'Confirme o email:'";
+}else if ($contadorEmail<0){
+    $mensagemdeerro = "O email inserido já possui um cadastro, você não pode usá-lo novamente";
 }else if (isset($_POST['senha']) && isset($_POST['confSenha']) && $_POST['senha'] != $_POST['confSenha']){
     $mensagemdeerro = "Você não inseriu a mesma senha nos campos 'Senha:' e 'Confirme a senha:'";
 }else if (isset($_POST['senha']) && isset($_POST['confSenha']) && (strlen($_POST['senha']) < 8 || strlen($_POST['confSenha']) < 8)){
     $mensagemdeerro = "A senha inserida deve conter no mínimo 8 caracteres";
 }
 
-$preferencias = Preferencia::findAllFotos();
+$preferencias = Preferencia::findAllPreferencias();
 ?>
 
 <!DOCTYPE html>
@@ -57,11 +73,17 @@ $preferencias = Preferencia::findAllFotos();
             </fieldset>
         </section>
         <section>
-            <label for="pref">Preferências</label>
+            <p>Preferências</p>
+            <?php
+            foreach (preferencias as preferencia){
+                echo "<input type='checkbox' >{$preferencia->getDescricao}";
+            }
+            ?>
+
             
         </section>
         <section>
-            <label for="nPref">Não Preferências</label>
+            <p>Não preferências</p>
             <!--Puxar do banco quais as preferencias e não preferencias-->
             
         </section>
