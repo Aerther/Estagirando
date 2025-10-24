@@ -7,11 +7,11 @@
 </head>
 <body>
     <div id="menu">
-        <a href="pesquisa.php">Pesquisa</a>
-        <a href="solicitacoesOrientacao.php">Solicitações</a>
-        <a href="visualizarCadastro.php">Próprio Cadastro</a>
-        <a href="editarCadastro.php">Edição de Cadastro</a>
-        <a href="sair.php">Sair</a>
+        <a href="./pages/pesquisa/pesquisa.php">Pesquisa</a>
+        <a href="./solicitacoesOrientacao.php">Solicitações</a>
+        <a href="./pages/visualizar/visualizarCadastro.php">Próprio Cadastro</a>
+        <a href="./pages/editar/editarCadastro.php">Edição de Cadastro</a>
+        <a href="./sair.php">Sair</a>
     </div>
     
 </body>

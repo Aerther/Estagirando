@@ -1,0 +1,48 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgb(255, 255, 255);
+
+    gap: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#titulo1{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 20px;
+}
+
+#subtitulo{
+    font-size: 20px;
+    font-family:'Times New Roman', Times, serif;
+}
+
+#btn {
+    width: 140px;
+    height: 40px;
+    font-size: 20px;
+    padding: 10px;
+    
+    border: 1px solid black;
+
+    background-color: #c4c4c4;
+
+    border-radius: 15px;
+}
+
+input:not([name="recuperar"]) {
+    width: 350px;
+    height: 40px;
+
+    padding-left: 10px;
+
+    border: 1px solid black;
+    border-radius: 8px;
+
+    font-size: 0.9rem;
+}

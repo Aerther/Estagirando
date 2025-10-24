@@ -34,8 +34,10 @@ if (isset($_POST['cadastrar'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Estagirando</title>
-    <link rel= "stylesheet" href="styleCadastroAluno.css">
+    
+    <link rel= "stylesheet" href="./../../src/styles/styleCadastroaluno.css">
 </head>
 <body id="body">
     <h1>Cadastro de Aluno</h1>

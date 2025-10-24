@@ -4,13 +4,13 @@ require_once __DIR__."/vendor/autoload.php";
 
 use App\Classes\Aluno;
 
-$aluno = new Aluno("Arthur", "Lassem", [], [], "Feliz", "Manhã", "Estagiando", 1);
-$aluno->salvarAluno();
+$aluno = new Aluno("arthurlassem11@gmail.com", "if5dXvPL");
+$aluno->salvarAluno("Arthur", "Lassem", [], [], "Feliz", "Manhã", "Estagiando", 1);
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

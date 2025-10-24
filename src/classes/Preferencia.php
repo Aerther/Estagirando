@@ -7,31 +7,31 @@ use App\BD\MySQL;
 class Preferencia {
 
     private int $idPreferencia;
-    private string $descricaoPreferencia;
+    private string $descricao;
 
-    public function __construct(string $descricaoPreferencia, string $linkFoto) {
-        $this->descricaoPreferencia = $descricaoPreferencia;
+    public function __construct(string $descricao) {
+        $this->descricao = $descricao;
     }
 
     // CRUD
 
     // Salvar
-    public function salvarPreferencia($descricaoPreferencia) : void {
+    public function salvarPreferencia() : void {
         $connection = new MySQL();
 
         $tipos = "s";
-        $params = [$descricaoPreferencia];
-        $sql = "INSERT INTO Preferencia(Descricao) VALUES (?)";
+        $params = [$this->descricao];
+        $sql = "INSERT INTO Preferencia (Descricao) VALUES (?)";
 
         $connection->execute($sql, $tipos, $params);
     }
 
     // Atualizar
-    public function atualizarPreferencia($descricaoPreferencia) : void {
+    public function atualizarPreferencia($descricao) : void {
         $connection = new MySQL();
 
         $tipos = "si";
-        $params = [$descricaoPreferencia, $this->idPreferencia];
+        $params = [$descricao, $this->idPreferencia];
         $sql = "UPDATE Preferencia SET Descricao = ? WHERE ID_Preferencia = ?";
 
         $connection->execute($sql, $tipos, $params);
@@ -48,6 +48,7 @@ class Preferencia {
         $connection->execute($sql, $tipos, $params);
     }
 
+    // Find Preferencia
     public static function findPreferencia($idPreferencia) : Preferencia {
         $connection = new MySQL();
 
@@ -59,13 +60,14 @@ class Preferencia {
 
         $resultado = $resultados[0];
 
-        $preferencia = new Foto($resultado["Descricao"]);
+        $preferencia = new Preferencia($resultado["Descricao"]);
         $preferencia->setIdPreferencia($resultado["ID_Preferencia"]);
 
         return $preferencia;
     }
 
-    public static function findAllFotos() : array {
+    // Find All Preferencias
+    public static function findAllPreferencias() : array {
         $connection = new MySQL();
 
         $preferencias = [];
@@ -78,8 +80,7 @@ class Preferencia {
 
         foreach($resultados as $resultado) {
             $preferencia = new Preferencia($resultado["Descricao"]);
-
-            $preferencia->setIdPreferencia($resultado['ID_Prferencia']);
+            $preferencia->setIdPreferencia($resultado["ID_Preferencia"]);
 
             $preferencias[] = $preferencia;
         }
@@ -89,15 +90,6 @@ class Preferencia {
 
     // Getters e Setters
 
-    // Descrição
-    public function getDescricao() : string {
-        return $this->descricaoPreferencia;
-    }
-
-    public function setDescricao($descricaoPreferencia) : void {
-        $this->descricaoPreferencia = $descricaoPreferencia;
-    }
-
     // ID Preferencia
     public function getIdPreferencia() : int {
         return $this->idPreferencia;
@@ -105,6 +97,15 @@ class Preferencia {
 
     public function setIdPreferencia($idPreferencia) : void {
         $this->idPreferencia = $idPreferencia;
+    }
+
+    // Descrição
+    public function getDescricao() : string {
+        return $this->descricao;
+    }
+
+    public function setDescricao($descricao) : void {
+        $this->descricao = $descricao;
     }
 }
 

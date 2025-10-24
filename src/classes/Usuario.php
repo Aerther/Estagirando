@@ -7,14 +7,15 @@ use App\BD\MySQL;
 class Usuario {
 
     protected int $idUsuario;
-    protected string $nome;
+    protected string $nome; // Junção de Nome + Sobrenome
     protected string $senha;
     protected string $email;
     protected string $linkFoto;
     protected string $tipoUsuario;
-    protected string $statusCadastro = "ativo";
-    protected array $preferencias = [];
-    protected array $naoPreferencias = [];
+
+    protected string $statusCadastro = "Ativo";
+    protected array $preferencias = []; // index -> descrição , Ex.: 1 -> Redes
+    protected array $naoPreferencias = []; 
 
     public function __construct(string $email, string $senha) {
         $this->email = $email;
@@ -24,29 +25,35 @@ class Usuario {
     // CRUD
 
     // Salvar
-    public function salvarUsuario(string $nome, string $sobrenome, string $tipoUsuario, array $preferencias, array $noPreferencias) : int {
+    public function salvarUsuario(
+        string $nome, 
+        string $sobrenome, 
+        string $tipoUsuario, 
+        array $preferencias, 
+        array $naoPreferencias
+    ) : int {
         $conexao = new MySQL();
 
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
 
         $tipos = "sssss";
-        $params = [$nome, $sobrenome, $this->email, $this->senha, $tipoUsuario];
-        $sql = "INSERT INTO Usuario(Nome, Sobrenome, Email, Senha, Tipo_Usuario) VALUES (?, ?, ?, ?, ?)";
+        $params = [$this->email, $this->senha, $nome, $sobrenome, $tipoUsuario];
+        $sql = "INSERT INTO usuario (Nome, Sobrenome, Email, Senha, Tipo_Usuario) VALUES (?, ?, ?, ?, ?)";
 
         $idUsuario = $conexao->execute($sql, $tipos, $params);
 
-        foreach($preferencias as $preferencia) {
+        foreach($preferencias as $index => $preferencia) {
             $tipos = "iis";
-            $params = [$idUsuario, $preferencia, "sim"];
-            $sql = "INSERT INTO usuario_preferencia(ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, ?)";
+            $params = [$idUsuario, $index, "sim"];
+            $sql = "INSERT INTO usuario_preferencia (ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, ?)";
 
             $conexao->execute($sql, $tipos, $params);
         }
 
-        foreach($noPreferencias as $preferencia) {
+        foreach($naoPreferencias as $index => $preferencia) {
             $tipos = "iis";
-            $params = [$idUsuario, $preferencia, "não"];
-            $sql = "INSERT INTO usuario_preferencia(ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, ?)";
+            $params = [$idUsuario, $index, "não"];
+            $sql = "INSERT INTO usuario_preferencia (ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, ?)";
 
             $conexao->execute($sql, $tipos, $params);
         }
@@ -55,28 +62,34 @@ class Usuario {
     }
 
     // Atualizar
-    public function atualizarUsuario(string $nome, string $sobrenome, string $email, array $preferencias, array $noPreferencias) : void {
+    public function atualizarUsuario(
+        string $nome, 
+        string $sobrenome, 
+        string $email, 
+        array $preferencias, 
+        array $naoPreferencias
+    ) : void {
         $conexao = new MySQL();
 
         session_start();
 
         $tipos = "sssi";
-        $params = [$nome, $sobrenome, $email, $_SESSION["idUsuario"]];
-        $sql = "UPDATE Usuario SET Nome = ?,  Sobrenome = ?, Email = ? WHERE ID_Usuario = ?";
+        $params = [$email, $nome, $sobrenome, $_SESSION["idUsuario"]];
+        $sql = "UPDATE usuario SET Email = ?, Nome = ?, Sobrenome = ? WHERE ID_Usuario = ?";
 
         $conexao->execute($sql, $tipos, $params);
 
-        foreach($preferencias as $preferencia) {
+        foreach($preferencias as $index => $preferencia) {
             $tipos = "ii";
-            $params = [$preferencia, $_SESSION["idUsuario"]];
+            $params = [$index, $_SESSION["idUsuario"]];
             $sql = "UPDATE usuario_preferencia SET Prefere = 'sim' WHERE ID_Preferencia = ? AND ID_Usuario = ?";
 
             $conexao->execute($sql, $tipos, $params);
         }
 
-        foreach($noPreferencias as $preferencia) {
+        foreach($naoPreferencias as $index => $preferencia) {
             $tipos = "ii";
-            $params = [$preferencia, $_SESSION["idUsuario"]];
+            $params = [$index, $_SESSION["idUsuario"]];
             $sql = "UPDATE usuario_preferencia SET Prefere = 'não' WHERE ID_Preferencia = ? AND ID_Usuario = ?";
 
             $conexao->execute($sql, $tipos, $params);
@@ -96,40 +109,7 @@ class Usuario {
         $conexao->execute($sql, $tipos, $params);
     }
 
-    public function autenticar() : bool {
-        $conexao = new MySQL();
-
-        $tipos = "s";
-        $params = [$this->email];
-        $sql = "SELECT u.ID_Usuario, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, u.Senha, u.Email, u.Tipo_Usuario, u.Status_Cadastro
-        FROM Usuario u WHERE u.Email = ?";
-
-        $resultado = $conexao->search($sql, $tipos, $params);
-
-        if(empty($resultado)) return false;
-
-        $usuario = $resultado[0];
-
-        if($usuario["Status_Cadastro"] == "inativo") {
-            $this->statusCadastro = "inativo";
-
-            return false;
-        }
-
-        if(!password_verify($this->senha, $usuario["Senha"])) return false;
-
-        session_start();
-        $_SESSION["idUsuario"] = $usuario["ID_Usuario"];
-        $_SESSION["nomeUsuario"] = $usuario["Nome"];
-        $_SESSION["tipoUsuario"] = $usuario["Tipo_Usuario"];
-
-        return true;
-    }
-
-    public function taAtivo() {
-        return $this->statusCadastro == "ativo";
-    }
-
+    // Find Usuario
     public static function findUsuario(int $idUsuario) : Usuario {
         $conexao = new MySQL();
 
@@ -137,7 +117,7 @@ class Usuario {
 
         $tipos = "i";
         $params = [$_SESSION["idUsuario"]];
-        $sql = "SELECT u.ID_Usuario, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, u.Email, u.Senha, u.Tipo_Usuario, u.Status_Cadastro, f.Link_Foto FROM Usuario u 
+        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, f.Link_Foto FROM Usuario u 
         JOIN Foto f ON f.ID_Foto = u.ID_Foto WHERE u.ID_Usuario = ?";
 
         $resultados = $conexao->search($sql, $tipos, $params);
@@ -157,33 +137,102 @@ class Usuario {
         return $usuario;
     }
 
+    // Find All Usuarios
+    public static function findAllUsuarios($tipoUsuario = "") : array {
+        $connection = new MySQL();
+
+        $usuarios = [];
+
+        $tipos = "s";
+        $params = [$tipoUsuario];
+        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, f.Link_Foto FROM Usuario u 
+        JOIN Foto f ON f.ID_Foto = u.ID_Foto WHERE u.Tipo_Usuario LIKE ?";
+
+        $resultados = $conexao->search($sql, $tipos, $params);
+
+        foreach($resultados as $resultado) {
+            $usuario = new Usuario($resultado["Email"], $resultado["Senha"]);
+
+            $usuario->setIdUsuario($resultado["ID_Usuario"]);
+            $usuario->setNome($resultado["Nome"]);
+            $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
+            $usuario->setLinkFoto($resultado["Link_Foto"]);
+            $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
+            $usuario->setPreferenciasUsuario();
+
+            $usuarios[] = $usuario;
+        }
+
+        return $usuarios;
+    }
+
+    // Setta as preferencias do usuario
     public function setPreferencias() : void {
         $conexao = new MySQL();
 
         $tipos = "i";
         $params = [$this->idUsuario];
 
-        $sql = "SELECT p.Descricao as Descricao FROM Usuario u 
-        JOIN Usuario_Preferencia up ON up.ID_Usuario = u.ID_Usuario 
-        JOIN Preferencia p ON p.ID_Preferencia = up.ID_Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'sim'";
+        // Pegar preferencias que gosta
+        $sql = "SELECT * FROM preferencia p 
+        JOIN usuario_preferencia up ON up.ID_Preferencia = p.ID_Preferencia WHERE up.Prefere = 'sim' AND up.ID_Usuario = ?";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 
         foreach($resultados as $resultado) {
-            $this->preferencias[] = $resultado["Descricao"];
+            $this->preferencias[$resultado["ID_Preferencia"]] = $resultado["Descricao"];
         }
 
-        $sql = "SELECT p.Descricao as Descricao FROM Usuario u 
-        JOIN Usuario_Preferencia up ON up.ID_Usuario = u.ID_Usuario 
-        JOIN Preferencia p ON p.ID_Preferencia = up.ID_Preferencia WHERE u.ID_Usuario = ? AND up.Prefere = 'não'";
+        // Pegar preferencias que não gosta
+        $sql = "SELECT * FROM preferencia p 
+        JOIN usuario_preferencia up ON up.ID_Preferencia = p.ID_Preferencia WHERE up.Prefere = 'não' AND up.ID_Usuario = ?";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 
         foreach($resultados as $resultado) {
-            $this->noPreferencias[] = $resultado["Descricao"];
+            $this->naoPreferencias[$resultado["ID_Preferencia"]] = $resultado["Descricao"];
         }
     }
 
+    // Autenticar Usuario
+    public function autenticar() : bool {
+        $conexao = new MySQL();
+
+        $tipos = "s";
+        $params = [$this->email];
+        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM Usuario u WHERE BINARY u.Email = ?";
+
+        $resultado = $conexao->search($sql, $tipos, $params);
+
+        // Caso usuario não cadastrado
+        if(empty($resultado)) return false;
+
+        $usuario = $resultado[0];
+
+        $this->statusCadastro = $usuario["Status_Cadastro"];
+
+        // Caso usuario inativo
+        if($this->statusCadastro == "inativo") return false;
+
+        // Caso senha do login e do banco forem diferentes
+        if(!password_verify($this->senha, $usuario["Senha"])) return false;
+
+        // Settando dados da session
+        session_start();
+
+        $_SESSION["idUsuario"] = $usuario["ID_Usuario"];
+        $_SESSION["nome"] = $usuario["Nome"];
+        $_SESSION["tipoUsuario"] = $usuario["Tipo_Usuario"];
+
+        return true;
+    }
+
+    // Checa se o usuario está ativo
+    public function taAtivo() {
+        return $this->statusCadastro == "ativo";
+    }
+
+    // Checa se o usuario está cadastrado
     public function usuarioExiste() {
         $connection = new MySQL();
 
@@ -196,6 +245,7 @@ class Usuario {
         return !empty($resultado);
     }
 
+    // Cria nova senha aleatoria para o usuario
     public function criarNovaSenha() : void {
         $connection = new MySql();
 
@@ -205,7 +255,7 @@ class Usuario {
 
         $tipos = "ss";
         $params = [$senhaCriptografada, $this->email];
-        $sql = "UPDATE usuario SET senha = ? WHERE email = ?";
+        $sql = "UPDATE usuario SET senha = ? WHERE BINARY email = ?";
 
         $connection->execute($sql, $tipos, $params);
 
@@ -246,6 +296,10 @@ class Usuario {
         return $this->senha;
     }
 
+    public function setSenha($senha) : void {
+        $this->senha = $senha;
+    }
+
     // Link Foto
     public function getLinkFoto() : string {
         return $this->linkFoto;
@@ -277,7 +331,7 @@ class Usuario {
     public function getPreferencias() : string {
         $resultado = "";
 
-        foreach ($this->preferencias as $preferencia) {
+        foreach ($this->preferencias as $index => $preferencia) {
             $resultado = $resultado . ", " .$preferencia;
         }
 
@@ -285,20 +339,15 @@ class Usuario {
     }
 
     // Não Prefere
-    public function getNoPreferencias() : string {
+    public function getNaoPreferencias() : string {
         $resultado = "";
 
-        foreach ($this->noPreferencias as $noPreferencia) {
+        foreach ($this->naoPreferencias as $index => $noPreferencia) {
             $resultado = $resultado . ", " . $noPreferencia;
         }
 
         return $resultado;
     }
-
-    public function setNoPreferencias(array $noPreferencias) : void {
-        $this->noPreferencias = $noPreferencias;
-    }
-
 }
 
 ?>

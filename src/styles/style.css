@@ -167,10 +167,14 @@ input:not([name="botao-enviar"]) {
 }
 
 h1 {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
     font-size: 1.5rem;
 }
 
 h2 {
+    font-family: 'Times New Roman', Times, serif;
+
     font-size: 1.2rem;
 
     font-weight: 550;
@@ -190,15 +194,6 @@ form > section {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-}
-
-#titulo1{
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-bottom: 20px;
-}
-
-#log{
-    font-family: 'Times New Roman', Times, serif;
 }
 
 /*----------------------   CADASTROS ALUNO/PROFESSOR    -------------------------------------*/

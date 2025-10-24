@@ -7,11 +7,11 @@ use App\BD\MySQL;
 class Foto {
 
     private int $idFoto;
-    private string $nomeFoto;
+    private string $nome;
     private string $linkFoto;
 
-    public function __construct(string $nomeFoto, string $linkFoto) {
-        $this->nomeFoto = $nomeFoto;
+    public function __construct(string $nome, string $linkFoto) {
+        $this->nome = $nome;
         $this->linkFoto = $linkFoto;
     }
 
@@ -22,18 +22,18 @@ class Foto {
         $connection = new MySQL();
 
         $tipos = "ss";
-        $params = [$this->nomeTurma, $this->linkFoto];
-        $sql = "INSERT INTO Foto(Nome_Foto, Link_Foto) VALUES (?, ?)";
+        $params = [$this->nome, $this->linkFoto];
+        $sql = "INSERT INTO Foto (Nome_Foto, Link_Foto) VALUES (?, ?)";
 
         $connection->execute($sql, $tipos, $params);
     }
 
     // Atualizar
-    public function atualizarFoto($nomeFoto, $linkFoto) : void {
+    public function atualizarFoto($nome, $linkFoto) : void {
         $connection = new MySQL();
 
         $tipos = "ssi";
-        $params = [$nomeTurma, $linkFoto, $this->idFoto];
+        $params = [$nome, $linkFoto, $this->idFoto];
         $sql = "UPDATE Foto SET Nome_Foto = ?, Link_Foto = ? WHERE ID_Foto = ?";
 
         $connection->execute($sql, $tipos, $params);
@@ -50,6 +50,7 @@ class Foto {
         $connection->execute($sql, $tipos, $params);
     }
 
+    // Find Foto
     public static function findFoto($idFoto) : Foto {
         $connection = new MySQL();
 
@@ -67,6 +68,7 @@ class Foto {
         return $foto;
     }
 
+    // Find All Fotos
     public static function findAllFotos() : array {
         $connection = new MySQL();
 
@@ -80,8 +82,7 @@ class Foto {
 
         foreach($resultados as $resultado) {
             $foto = new Foto($resultado["Nome_Foto"], $resultado["Link_Foto"]);
-
-            $foto->setIdFoto($resultado['ID_Foto']);
+            $foto->setIdFoto($resultado["ID_Foto"]);
 
             $fotos[] = $foto;
         }
@@ -91,15 +92,6 @@ class Foto {
 
     // Getters e Setters
 
-    // Nome Turma
-    public function getNomeFoto() : string {
-        return $this->nomeFoto;
-    }
-
-    public function setNomeFoto($nomeFoto) : void {
-        $this->nomeFoto = $nomeFoto;
-    }
-
     // ID Foto
     public function getIdFoto() : int {
         return $this->idFoto;
@@ -107,6 +99,15 @@ class Foto {
 
     public function setIdFoto($idFoto) : void {
         $this->idFoto = $idFoto;
+    }
+
+    // Nome Foto
+    public function getNome() : string {
+        return $this->nome;
+    }
+
+    public function setNome($nome) : void {
+        $this->nome = $nome;
     }
 
     // Link Foto

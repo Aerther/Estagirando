@@ -3,7 +3,7 @@
         'name' => 'grupo1/estagirando',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '0d313149b6a2c7cba6ca01bca9bddb6f772d32f4',
+        'reference' => 'e86d83c251dfa6f35de78d49f106519423d9df02',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'grupo1/estagirando' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '0d313149b6a2c7cba6ca01bca9bddb6f772d32f4',
+            'reference' => 'e86d83c251dfa6f35de78d49f106519423d9df02',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

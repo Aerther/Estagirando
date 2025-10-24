@@ -28,6 +28,7 @@ if(isset($_POST["botao-enviar"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="./src/styles/reset.css">
     <link rel="stylesheet" href="./src/styles/style.css">
 
     <script src="./src/js/main.js" defer></script>
@@ -35,7 +36,8 @@ if(isset($_POST["botao-enviar"])) {
     <title>Estagirando</title>
 </head>
 <body>
-    <h1 id="titulo1">Bem-vindo ao Estagirando!</h1>
+    <h1>Bem-vindo ao Estagirando!</h1>
+    
     <div class="container">
         <section class="coluna-1">
             <div class="texto-coluna-1">
@@ -44,15 +46,15 @@ if(isset($_POST["botao-enviar"])) {
             </div>
 
             <div class="links-cad">
-                <a href="cadastroprofessor.php">Cadastrar-se como professor</a>
-                <a href="cadastroaluno.php">Cadastrar-se como aluno</a>
+                <a href="./pages/cadastrar/cadastroprofessor.php">Cadastrar-se como professor</a>
+                <a href="./pages/cadastrar/cadastroaluno.php">Cadastrar-se como aluno</a>
             </div>
         </section>
         
         <section class="coluna-2">
             <form action="index.php" method="post">
                 <section>
-                    <h2 id="log">Login</h2>
+                    <h2>Login</h2>
                 </section>
 
                 <section class="email">
@@ -70,7 +72,7 @@ if(isset($_POST["botao-enviar"])) {
                 </section>
 
                 <section class="links">
-                    <a href="recuperarSenha.php">Recuperar Senha</a>
+                    <a href="./recuperarSenha.php">Recuperar Senha</a>
                     <input type="submit" value="Entrar" name="botao-enviar" class="botao">
                 </section>    
                 

@@ -15,7 +15,7 @@ class Aluno extends Usuario {
         Usuario::__construct($email, $senha);
     }
 
-    public function salvarAluno(string $nome, string $sobrenome, array $preferencias, array $noPreferencias, string $cidadeEstagio, string $turnoDisponivel, string $statusEstagio, int $idTurma) : int {
+    public function salvarAluno(string $nome, string $sobrenome, array $preferencias, array $noPreferencias, string $cidadeEstagio, string $turnoDisponivel, string $statusEstagio, int $idTurma) : void {
         $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", $preferencias, $noPreferencias);
 
         $connection = new MySQL();
@@ -32,7 +32,7 @@ class Aluno extends Usuario {
 
         $connection = new MySQL();
 
-        session_start();
+        if(session_status() != 2) session_start();
 
         $tipos = "sssii";
         $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $idTurma, $_SESSION["idUsuario"]];

@@ -28,7 +28,9 @@ if (isset($_POST["recuperar"]) ) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/styles/reset.css">
+
+    <link rel="stylesheet" href="./../../src/styles/reset.css">
+    <link rel="stylesheet" href="./../../src/styles/styles2.css">
 
     <script src="./src/js/main.js" defer></script>
     <title>Estagirando</title>

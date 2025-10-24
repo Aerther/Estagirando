@@ -7,31 +7,31 @@ use App\BD\MySQL;
 class Turma {
 
     private int $idTurma;
-    private string $nomeTurma;
+    private string $nome;
 
-    public function __construct(string $nomeTurma) {
-        $this->nomeTurma = $nomeTurma;
+    public function __construct(string $nome) {
+        $this->nome = $nome;
     }
 
     // CRUD
 
     // Salvar
-    public function salvarTurma($nomeTurma) : void {
+    public function salvarTurma() : void {
         $connection = new MySQL();
 
         $tipos = "s";
-        $params = [$nomeTurma];
-        $sql = "INSERT INTO Turma(Nome) VALUES (?)";
+        $params = [$this->nome];
+        $sql = "INSERT INTO Turma (Nome) VALUES (?)";
 
         $connection->execute($sql, $tipos, $params);
     }
 
     // Atualizar
-    public function atualizarTurma($nomeTurma) : void {
+    public function atualizarTurma($nome) : void {
         $connection = new MySQL();
 
         $tipos = "si";
-        $params = [$nomeTurma, $this->idTurma];
+        $params = [$nome, $this->idTurma];
         $sql = "UPDATE Turma SET Nome = ? WHERE ID_Turma = ?";
 
         $connection->execute($sql, $tipos, $params);
@@ -48,6 +48,7 @@ class Turma {
         $connection->execute($sql, $tipos, $params);
     }
 
+    // Find Turma
     public static function findTurma($idTurma) : Turma {
         $connection = new MySQL();
 
@@ -65,6 +66,7 @@ class Turma {
         return $turma;
     }
 
+    // Find All Turmas
     public static function findAllTurmas() : array {
         $connection = new MySQL();
 
@@ -78,8 +80,7 @@ class Turma {
 
         foreach($resultados as $resultado) {
             $turma = new Turma($resultado["Nome"]);
-
-            $turma->setIdTurma($resultado['ID_Turma']);
+            $turma->setIdTurma($resultado["ID_Turma"]);
 
             $turmas[] = $turma;
         }
@@ -88,16 +89,7 @@ class Turma {
     }
 
     // Getters e Setters
-
-    // Nome Turma
-    public function getNomeTurma() : string {
-        return $this->nomeTurma;
-    }
-
-    public function setNomeTurma($nomeTurma) : void {
-        $this->nomeTurma = $nomeTurma;
-    }
-
+    
     // ID Turma
     public function getIdTurma() : int {
         return $this->idTurma;
@@ -105,6 +97,15 @@ class Turma {
 
     public function setIdTurma($idTurma) : void {
         $this->idTurma = $idTurma;
+    }
+
+    // Nome Turma
+    public function getNome() : string {
+        return $this->nome;
+    }
+
+    public function setNome($nome) : void {
+        $this->nome = $nome;
     }
 }
 
