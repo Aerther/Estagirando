@@ -7,6 +7,7 @@ use App\BD\MySQL;
 class SolicitacaoOrientacao {
 
     private int $idSolicitacaoOrientacao;
+
     private string $areaAtuacao;
     private string $turno;
     private string $modalidade;
@@ -51,16 +52,18 @@ class SolicitacaoOrientacao {
     // CRUD
 
     // Salvar
-    public function salvarSolicitacaoOrientacao() {
+    public function salvarSolicitacaoOrientacao() : void {
         $connection = new MySQL();
 
         session_start();
 
         $tipos = "ssssissssssi";
+
         $params = [$this->nomeEmpresa, $this->emailEmpresa, $this->cidadeEmpresa, $this->modalidade, $this->cargaHorariaSemanal,
-        $this->turno, $this->areaAtuacao, $this->dataInicio, $this->dataTermino, "NOW()", "ativo", $_SESSION["idUsuario"]];
-        $sql = "INSERT INTO Solicitacao_Orientacao(Nome_Empresa, Email_Empresa, Cidade_Empresa, Modalidade, Carga_Horaria_Semanal, Turno, Area_Atuacao, 
-        Data_Inicio, Data_Termino, Data_Envio, Status_Solicitacao_Orientacao, ID_Aluno) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $this->turno, $this->areaAtuacao, $this->dataInicio, $this->dataTermino, $_SESSION["idUsuario"]];
+
+        $sql = "INSERT INTO Solicitacao_Orientacao (Nome_Empresa, Email_Empresa, Cidade_Empresa, Modalidade, Carga_Horaria_Semanal, Turno, Area_Atuacao, 
+        Data_Inicio, Data_Termino, ID_Aluno) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -76,6 +79,7 @@ class SolicitacaoOrientacao {
         $connection->execute($sql, $tipos, $params);
     }
 
+    // Find Solicitação de Orientação
     public static function findSolicitacaoOrientacao($idSolicitacaoOrientacao) : SolicitacaoOrientacao {
         $connection = new MySQL();
 
@@ -85,7 +89,7 @@ class SolicitacaoOrientacao {
         $params = [$idSolicitacaoOrientacao, $_SESSION["idUsuario"]];
 
         // SQL para o aluno
-        $sql = "SELECT * FROM solicitacao_orientacao so WHERE so.ID_Solicitacao_Orientacao = ? AND so.ID_Aluno = ? AND so.Status_Solicitacao_Orientacao == 'ativo'";
+        $sql = "SELECT * FROM solicitacao_orientacao so WHERE so.ID_Solicitacao_Orientacao = ? AND so.ID_Aluno = ? AND so.Status_Solicitacao_Orientacao = 'ativo'";
 
         // SQL para o professor
         if($_SESSION["tipoUsuario"] == "professor") {
@@ -118,6 +122,7 @@ class SolicitacaoOrientacao {
         return $so;
     }
 
+    // Find All Solicitação de Orientação
     public static function findAllSolicitacaoOrientacao() : array {
         $connection = new MySQL();
 
@@ -165,6 +170,29 @@ class SolicitacaoOrientacao {
 
     // Getters e Setters
 
+    // ID da Solicitação de Orientação
+    public function getIdSolicitacaoOrientacao() : int {
+        return $this->idSolicitacaoOrientacao;
+    }
+
+    public function setIdSolicitacaoOrientacao(int $idSolicitacaoOrientacao) : void {
+        $this->idSolicitacaoOrientacao = $idSolicitacaoOrientacao;
+    }
+
+    // ID do Aluno
+    public function getIdAluno() : int {
+        return $this->idAluno;
+    }
+
+    public function setIdAluno(int $idAluno) : void {
+        $this->idAluno = $idAluno;
+    }
+
+    // Aluno
+    public function getAluno() : Aluno {
+        return Aluno::findAluno($this->idAluno);
+    }
+
     // Área de Atuação
     public function getAreaAtuacao() : string {
         return $this->areaAtuacao;
@@ -199,15 +227,6 @@ class SolicitacaoOrientacao {
 
     public function setCargaHorariaSemanal(int $cargaHorariaSemanal) : void {
         $this->cargaHorariaSemanal = $cargaHorariaSemanal;
-    }
-
-    // ID do Aluno
-    public function getIdAluno() : int {
-        return $this->idAluno;
-    }
-
-    public function setIdAluno(int $idAluno) : void {
-        $this->idAluno = $idAluno;
     }
 
     // Nome da Empresa

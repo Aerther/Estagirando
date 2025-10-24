@@ -11,7 +11,6 @@ class Aluno extends Usuario {
     private string $statusEstagio;
     private string $modalidade;
     private int $idTurma;
-    private int $nomeTurma;
 
     public function __construct(string $email, string $senha) {
         parent::__construct($email, $senha);
@@ -22,7 +21,8 @@ class Aluno extends Usuario {
     // Salvar
     public function salvarAluno(
         string $nome, 
-        string $sobrenome, 
+        string $sobrenome,
+        int $idFoto,
         array $preferencias, 
         array $naoPreferencias, 
         string $cidadeEstagio,
@@ -31,7 +31,7 @@ class Aluno extends Usuario {
         string $modalidade,
         int $idTurma
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", $idFoto, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
@@ -98,7 +98,6 @@ class Aluno extends Usuario {
         $aluno->setStatusEstagio($resultado["Status_Estagio"]);
         $aluno->setModalidade($resultado["Modalidade"]);
         $aluno->setIdTurma($resultado["ID_Turma"]);
-        $aluno->setNomeTurma($resultado["Nome_Turma"]);
 
         return $aluno;
     }
@@ -136,7 +135,6 @@ class Aluno extends Usuario {
             $aluno->setStatusEstagio($resultado["Status_Estagio"]);
             $aluno->setModalidade($resultado["Modalidade"]);
             $aluno->setIdTurma($resultado["ID_Turma"]);
-            $aluno->setNomeTurma($resultado["Nome_Turma"]);
 
             $alunos[] = $aluno;
         }
@@ -145,6 +143,20 @@ class Aluno extends Usuario {
     }
 
     // Getters e Setters
+
+    // ID Turma
+    public function getIdTurma() : int {
+        return $this->idTurma;
+    }
+
+    public function setIdTurma($idTurma) : void {
+        $this->idTurma = $idTurma;
+    }
+
+    // Turma
+    public function geTurma() : Turma {
+        return Turma::findTurma($this->idTurma);
+    }
 
     // Cidade Estagio
     public function getCidadeEstagio() : string {
@@ -180,24 +192,6 @@ class Aluno extends Usuario {
 
     public function setModalidade($modalidade) : void {
         $this->modalidade = $modalidade;
-    }
-
-    // ID Turma
-    public function getIdTurma() : int {
-        return $this->idTurma;
-    }
-
-    public function setIdTurma($idTurma) : void {
-        $this->idTurma = $idTurma;
-    }
-
-    // Nome Turma
-    public function getNomeTurma() : string {
-        return $this->nomeTurma;
-    }
-
-    public function setNomeTurma($nomeTurma) : void {
-        $this->nomeTurma = $nomeTurma;
     }
 
 }

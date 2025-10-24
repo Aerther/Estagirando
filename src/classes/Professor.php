@@ -17,12 +17,13 @@ class Professor extends Usuario {
     // Salvar
     public function salvarProfessor(
         string $nome, 
-        string $sobrenome, 
+        string $sobrenome,
+        int $idFoto,
         array $preferencias, 
         array $naoPreferencias, 
         string $statusDisponibilidade
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Professor", $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Professor", $idFoto, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
