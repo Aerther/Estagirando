@@ -9,80 +9,159 @@ class Aluno extends Usuario {
     private string $cidadeEstagio;
     private string $turnoDisponivel;
     private string $statusEstagio;
+    private string $modalidade;
     private int $idTurma;
+    private int $nomeTurma;
 
     public function __construct(string $email, string $senha) {
-        Usuario::__construct($email, $senha);
+        parent::__construct($email, $senha);
     }
 
-    public function salvarAluno(string $nome, string $sobrenome, array $preferencias, array $noPreferencias, string $cidadeEstagio, string $turnoDisponivel, string $statusEstagio, int $idTurma) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", $preferencias, $noPreferencias);
+    // CRUD
+
+    // Salvar
+    public function salvarAluno(
+        string $nome, 
+        string $sobrenome, 
+        array $preferencias, 
+        array $naoPreferencias, 
+        string $cidadeEstagio,
+        string $turnoDisponivel,
+        string $statusEstagio,
+        string $modalidade,
+        int $idTurma
+    ) : void {
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
-        $tipos = "isssi";
-        $params = [$idUsuario, $cidadeEstagio, $turnoDisponivel, $statusEstagio, $idTurma];
-        $sql = "INSERT INTO aluno(ID_Aluno, Cidade_Residencia, Turno_Disponivel, Status_Estagio, ID_Turma) VALUES (?, ?, ?, ?, ?)";
+        $tipos = "issssi";
+        $params = [$idUsuario, $cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $idTurma];
+        $sql = "INSERT INTO aluno (ID_Aluno, Cidade_Estagio, Turno_Disponivel, Status_Estagio, Modalidade, ID_Turma) VALUES (?, ?, ?, ?, ?, ?)";
 
         $connection->execute($sql, $tipos, $params);
     }
 
-    public function atualizarAluno(string $nome, string $sobrenome, string $email, array $preferencias, array $noPreferencias, string $cidadeEstagio, string $turnoDisponivel, string $statusEstagio, int $idTurma) : void {
-        parent::atualizarUsuario($nome, $sobrenome, $email, $preferencias, $noPreferencias);
+    // Atualizar
+    public function atualizarAluno(
+        string $nome, 
+        string $sobrenome, 
+        string $email, 
+        array $preferencias, 
+        array $naoPreferencias, 
+        string $cidadeEstagio,
+        string $turnoDisponivel,
+        string $statusEstagio,
+        string $modalidade,
+        int $idTurma
+    ) : void {
+        parent::atualizarUsuario($nome, $sobrenome, $email, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
-        if(session_status() != 2) session_start();
+        session_start();
 
-        $tipos = "sssii";
-        $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $idTurma, $_SESSION["idUsuario"]];
-        $sql = "UPDATE aluno SET Cidade_Residencia = ?, Turno_Disponivel = ?, Status_Estagio = ?, ID_Turma = ? WHERE ID_Aluno = ?";
+        $tipos = "ssssii";
+        $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $idTurma, $_SESSION["idUsuario"]];
+        $sql = "UPDATE aluno SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, ID_Turma = ? WHERE ID_Aluno = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
 
+    // Find Aluno
     public static function findAluno($idAluno) : Aluno {
-        $usuario = Usuario::findUsuario($idAluno);
+        $usuario = parent::findUsuario($idAluno);
 
-        $connection = new MySql();
+        if(empty($usuario)) return null;
+
+        $connection = new MySQL();
 
         $tipos = "i";
-        $params = [$usuario->getIdUsuario()];
-        $sql = "SELECT a.*, f.* FROM aluno a JOIN foto f ON f.ID_Foto = a.ID_Foto WHERE a.ID_Aluno = ?";
+        $params = [$idAluno];
+        $sql = "SELECT *, t.Nome AS Nome_Turma FROM aluno a JOIN turma t ON t.ID_Turma = a.ID_Turma WHERE a.ID_Aluno = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
         $resultado = $resultados[0];
-
-        $aluno = new Aluno();
-
-        $aluno->setIdUsuario($resultado["ID_Aluno"]);
-        $aluno->setCidadeEstagio($resultado["Cidade_Estagio"]);
-        $aluno->setStatusEstagio($resultado["Status_Estagio"]);
-        $aluno->setTurnoEstagio($resultado["Turno_Estagio"]);
-        $aluno->setIdTurma($resultado["ID_Turma"]);
         
+        $aluno = new Aluno($usuario->getEmail(), $usuario->getSenha());
+        
+        $aluno->setIdUsuario( $usuario->getIdUsuario() );
+        $aluno->setNome( $usuario->getNome() );
+        $aluno->setTipoUsuario( $usuario->getTipoUsuario() );
+        $aluno->setLinkFoto( $usuario->getLinkFoto() );
+        $aluno->setStatusCadastro( $usuario->getStatusCadastro() );
+        $aluno->setPreferencias();
+
+        $aluno->setCidadeEstagio($resultado["Cidade_Estagio"]);
+        $aluno->setTurnoDisponivel($resultado["Turno_Disponivel"]);
+        $aluno->setStatusEstagio($resultado["Status_Estagio"]);
+        $aluno->setModalidade($resultado["Modalidade"]);
+        $aluno->setIdTurma($resultado["ID_Turma"]);
+        $aluno->setNomeTurma($resultado["Nome_Turma"]);
+
         return $aluno;
-    } 
+    }
+
+    // Find All Alunos
+    public static function findAllAlunos() : array {
+        $connection = new MySQL();
+
+        $alunos = [];
+
+        $tipos = "";
+        $params = [];
+        $sql = "SELECT a.*, u.*, f.*, t.Nome AS Nome_Turma FROM aluno a 
+        JOIN usuario u ON u.ID_Usuario = a.ID_Aluno 
+        JOIN foto f ON f.ID_Foto = u.ID_Foto
+        JOIN turma t ON t.ID_Turma = a.ID_Turma
+        WHERE u.Status_Cadastro = 'ativo'";
+
+        $resultados = $connection->search($sql, $tipos, $params);
+
+        if(empty($resultados)) return null;
+
+        foreach($resultados as $resultado) {
+            $aluno = new Aluno($resultado["Email"], $resultado["Senha"]);
+            
+            $aluno->setIdUsuario($resultado["ID_Usuario"]);
+            $aluno->setNome($resultado["Nome"]);
+            $aluno->setTipoUsuario($resultado["Tipo_Usuario"]);
+            $aluno->setLinkFoto($resultado["Link_Foto"]);
+            $aluno->setStatusCadastro($resultado["Status_Cadastro"]);
+            $aluno->setPreferencias();
+
+            $aluno->setCidadeEstagio($resultado["Cidade_Estagio"]);
+            $aluno->setTurnoDisponivel($resultado["Turno_Disponivel"]);
+            $aluno->setStatusEstagio($resultado["Status_Estagio"]);
+            $aluno->setModalidade($resultado["Modalidade"]);
+            $aluno->setIdTurma($resultado["ID_Turma"]);
+            $aluno->setNomeTurma($resultado["Nome_Turma"]);
+
+            $alunos[] = $aluno;
+        }
+
+        return $alunos;
+    }
 
     // Getters e Setters
 
-    // ID Turma
-    public function getIdTurma() : int {
-        return $this->idTurma;
-    }
-
-    public function setIdTurma(int $idTurma) : void {
-        $this->idTurma = $idTurma;
-    }
-
-    // Cidade Estágio
+    // Cidade Estagio
     public function getCidadeEstagio() : string {
         return $this->cidadeEstagio;
     }
 
-    public function setCidadeEstagio(string $cidadeEstagio) : void {
+    public function setCidadeEstagio($cidadeEstagio) : void {
         $this->cidadeEstagio = $cidadeEstagio;
+    }
+
+    // Turno Disponivel
+    public function getTurnoDisponivel() : string {
+        return $this->turnoDisponivel;
+    }
+
+    public function setTurnoDisponivel($turnoDisponivel) : void {
+        $this->turnoDisponivel = $turnoDisponivel;
     }
 
     // Status Estagio
@@ -90,17 +169,35 @@ class Aluno extends Usuario {
         return $this->statusEstagio;
     }
 
-    public function setStatusEstagio(string $statusEstagio) : void {
+    public function setStatusEstagio($statusEstagio) : void {
         $this->statusEstagio = $statusEstagio;
     }
 
-    // Turno Estagio
-    public function getTurnoEstagio() : string {
-        return $this->turnoEstagio;
+    // Modalidade
+    public function getModalidade() : string {
+        return $this->modalidade;
     }
 
-    public function setTurnoEstagio(string $turnoEstagio) : void {
-        $this->turnoEstagio = $turnoEstagio;
+    public function setModalidade($modalidade) : void {
+        $this->modalidade = $modalidade;
+    }
+
+    // ID Turma
+    public function getIdTurma() : int {
+        return $this->idTurma;
+    }
+
+    public function setIdTurma($idTurma) : void {
+        $this->idTurma = $idTurma;
+    }
+
+    // Nome Turma
+    public function getNomeTurma() : string {
+        return $this->nomeTurma;
+    }
+
+    public function setNomeTurma($nomeTurma) : void {
+        $this->nomeTurma = $nomeTurma;
     }
 
 }

@@ -15,15 +15,14 @@ class Professor extends Usuario {
     // CRUD
 
     // Salvar
-    public function salvarUsuario(
+    public function salvarProfessor(
         string $nome, 
         string $sobrenome, 
-        string $tipoUsuario,
         array $preferencias, 
         array $naoPreferencias, 
         string $statusDisponibilidade
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, $tipoUsuario, $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Professor", $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
@@ -35,7 +34,7 @@ class Professor extends Usuario {
     }
 
     // Atualizar
-    public function atualizarUsuario(
+    public function atualizarProfessor(
         string $nome, 
         string $sobrenome, 
         string $email, 
@@ -59,6 +58,8 @@ class Professor extends Usuario {
     // Find Professor
     public static function findProfessor($idProfessor) : Professor {
         $usuario = parent::findUsuario($idProfessor);
+
+        if(empty($usuario)) return null;
 
         $connection = new MySQL();
 
@@ -92,9 +93,14 @@ class Professor extends Usuario {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT p.*, u.*, f.* FROM professor p JOIN usuario u ON u.ID_Usuario = p.ID_Professor JOIN foto f ON f.ID_Foto = u.ID_Foto";
+        $sql = "SELECT p.*, u.*, f.* FROM professor p 
+        JOIN usuario u ON u.ID_Usuario = p.ID_Professor 
+        JOIN foto f ON f.ID_Foto = u.ID_Foto
+        WHERE u.Status_Cadastro = 'ativo'";
 
         $resultados = $connection->search($sql, $tipos, $params);
+
+        if(empty($resultados)) return null;
 
         foreach($resultados as $resultado) {
             $professor = new Professor($resultado["Email"], $resultado["Senha"]);

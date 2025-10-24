@@ -118,9 +118,11 @@ class Usuario {
         $tipos = "i";
         $params = [$_SESSION["idUsuario"]];
         $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, f.Link_Foto FROM Usuario u 
-        JOIN Foto f ON f.ID_Foto = u.ID_Foto WHERE u.ID_Usuario = ?";
+        JOIN Foto f ON f.ID_Foto = u.ID_Foto WHERE u.ID_Usuario = ? AND u.Status_Cadastro = 'ativo'";
 
         $resultados = $conexao->search($sql, $tipos, $params);
+
+        if(empty($resultados)) return null;
 
         $resultado = $resultados[0];
 
