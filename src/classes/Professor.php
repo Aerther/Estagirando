@@ -131,6 +131,15 @@ class Professor extends Usuario {
         $this->statusDisponibilidade = $statusDisponibilidade;
     }
 
+    //Email
+    public function getEmail() : string {
+        return $this->email;
+    }
+
+    public function setEmail($email) : void {
+        $this->email = $email;
+    }
+
 }
 
 ?>

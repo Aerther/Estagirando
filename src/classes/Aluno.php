@@ -200,6 +200,15 @@ class Aluno extends Usuario {
         $this->nomeTurma = $nomeTurma;
     }
 
+     //Email
+    public function getEmail() : string {
+        return $this->email;
+    }
+
+    public function setEmail($email) : void {
+        $this->email = $email;
+    }
+
 }
 
 ?>
