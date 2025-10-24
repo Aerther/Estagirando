@@ -15,3 +15,75 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
 }
+
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4vh;
+    height: 100%;
+    width: 0 auto;
+}
+
+.header{
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    font-size: 1.5rem;
+}
+h2{
+    font-size: 1rem;
+    font-weight: lighter;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 7vh;
+    gap: 1vh;
+}
+
+.save{
+    width: 8rem;
+    height: 2.5rem;
+    margin-top: 2vh;
+    border-radius: 0.4rem;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.aba{
+    border-radius: 0.4rem;
+    border: 1px solid black;
+    height: 2.4rem;
+    width: 20rem;
+}
+
+.novasenha{
+    margin-top: 3vh;
+}
+
+.return{ 
+    border: 1px solid black;
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    text-decoration: none;
+    margin-left: 10vw;
+    cursor: pointer;
+}
+
+.btnreturn{
+    margin-top: 20vh;
+}
+
+label{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
