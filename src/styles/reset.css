@@ -34,11 +34,14 @@
 }
 
 h1{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
     font-size: 1.5rem;
 }
 h2{
     font-size: 1rem;
     font-weight: lighter;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .content{
@@ -47,26 +50,30 @@ h2{
     align-items: center;
     margin-top: 7vh;
     gap: 1vh;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .save{
-    width: 8rem;
-    height: 2.5rem;
+    width: 5rem;
+    height: 2.2rem;
     margin-top: 2vh;
     border-radius: 0.4rem;
     border: 1px solid black;
     cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 3vh;
 }
 
 .aba{
     border-radius: 0.4rem;
     border: 1px solid black;
-    height: 2.4rem;
-    width: 20rem;
+    height: 2.2rem;
+    width: 18rem;
 }
 
 .novasenha{
-    margin-top: 3vh;
+    margin-top: 1vh;
+    font-weight: bold;
 }
 
 .return{ 
@@ -74,16 +81,19 @@ h2{
     border-radius: 0.4rem;
     padding: 0.4rem 0.8rem;
     text-decoration: none;
-    margin-left: 10vw;
+    margin-left: 5vw;
     cursor: pointer;
 }
 
 .btnreturn{
-    margin-top: 20vh;
+    margin-top: 15vh;
+    
 }
 
 label{
     display: flex;
     justify-content: center;
     text-align: center;
+    font-family: 'Times New Roman', Times, serif;
 }
+
