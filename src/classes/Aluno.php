@@ -11,8 +11,8 @@ class Aluno extends Usuario {
     private string $turnoDisponivel;
     private string $statusEstagio;
     private string $modalidade;
-    private int $idTurma;
-    private int $nomeTurma;
+    private int $idCurso;
+    private int $anoIngresso;
 
     public function __construct(string $email, string $senha) {
         parent::__construct($email, $senha);
@@ -23,22 +23,24 @@ class Aluno extends Usuario {
     // Salvar
     public function salvarAluno(
         string $nome, 
-        string $sobrenome, 
+        string $sobrenome,
+        int $idFoto,
         array $preferencias, 
         array $naoPreferencias, 
+        int $anoIngresso,
         string $cidadeEstagio,
         string $turnoDisponivel,
         string $statusEstagio,
         string $modalidade,
-        int $idTurma
+        int $idCurso
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", $idFoto, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
-        $tipos = "issssi";
-        $params = [$idUsuario, $cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $idTurma];
-        $sql = "INSERT INTO aluno (ID_Aluno, Cidade_Estagio, Turno_Disponivel, Status_Estagio, Modalidade, ID_Turma) VALUES (?, ?, ?, ?, ?, ?)";
+        $tipos = "issssii";
+        $params = [$idUsuario, $cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $anoIngresso, $idCurso];
+        $sql = "INSERT INTO aluno (ID_Aluno, Cidade_Estagio, Turno_Disponivel, Status_Estagio, Modalidade, Ano_Ingresso, ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -54,7 +56,7 @@ class Aluno extends Usuario {
         string $turnoDisponivel,
         string $statusEstagio,
         string $modalidade,
-        int $idTurma
+        int $idCurso
     ) : void {
         parent::atualizarUsuario($nome, $sobrenome, $email, $preferencias, $naoPreferencias);
 
@@ -63,8 +65,8 @@ class Aluno extends Usuario {
         session_start();
 
         $tipos = "ssssii";
-        $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $idTurma, $_SESSION["idUsuario"]];
-        $sql = "UPDATE aluno SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, ID_Turma = ? WHERE ID_Aluno = ?";
+        $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $idCurso, $_SESSION["idUsuario"]];
+        $sql = "UPDATE aluno SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, ID_Curso = ? WHERE ID_Aluno = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -79,7 +81,7 @@ class Aluno extends Usuario {
 
         $tipos = "i";
         $params = [$idAluno];
-        $sql = "SELECT *, t.Nome AS Nome_Turma FROM aluno a JOIN turma t ON t.ID_Turma = a.ID_Turma WHERE a.ID_Aluno = ?";
+        $sql = "SELECT *, c.Nome AS Nome_Turma FROM aluno a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
@@ -90,7 +92,7 @@ class Aluno extends Usuario {
         $aluno->setIdUsuario( $usuario->getIdUsuario() );
         $aluno->setNome( $usuario->getNome() );
         $aluno->setTipoUsuario( $usuario->getTipoUsuario() );
-        $aluno->setLinkFoto( $usuario->getLinkFoto() );
+        $aluno->setIdFoto( $usuario->getIdFoto() );
         $aluno->setStatusCadastro( $usuario->getStatusCadastro() );
         $aluno->setPreferencias();
 
@@ -98,8 +100,8 @@ class Aluno extends Usuario {
         $aluno->setTurnoDisponivel($resultado["Turno_Disponivel"]);
         $aluno->setStatusEstagio($resultado["Status_Estagio"]);
         $aluno->setModalidade($resultado["Modalidade"]);
-        $aluno->setIdTurma($resultado["ID_Turma"]);
-        $aluno->setNomeTurma($resultado["Nome_Turma"]);
+        $aluno->setAnoIngresso($resultado["Ano_Ingresso"]);
+        $aluno->setIdCurso($resultado["ID_Curso"]);
 
         return $aluno;
     }
@@ -115,7 +117,7 @@ class Aluno extends Usuario {
         $sql = "SELECT a.*, u.*, f.*, t.Nome AS Nome_Turma FROM aluno a 
         JOIN usuario u ON u.ID_Usuario = a.ID_Aluno 
         JOIN foto f ON f.ID_Foto = u.ID_Foto
-        JOIN turma t ON t.ID_Turma = a.ID_Turma
+        JOIN curso c ON c.ID_Curso = a.ID_Curso
         WHERE u.Status_Cadastro = 'ativo'";
 
         $resultados = $connection->search($sql, $tipos, $params);
@@ -128,7 +130,7 @@ class Aluno extends Usuario {
             $aluno->setIdUsuario($resultado["ID_Usuario"]);
             $aluno->setNome($resultado["Nome"]);
             $aluno->setTipoUsuario($resultado["Tipo_Usuario"]);
-            $aluno->setLinkFoto($resultado["Link_Foto"]);
+            $aluno->setIdFoto($resultado["ID_Foto"]);
             $aluno->setStatusCadastro($resultado["Status_Cadastro"]);
             $aluno->setPreferencias();
 
@@ -136,8 +138,8 @@ class Aluno extends Usuario {
             $aluno->setTurnoDisponivel($resultado["Turno_Disponivel"]);
             $aluno->setStatusEstagio($resultado["Status_Estagio"]);
             $aluno->setModalidade($resultado["Modalidade"]);
-            $aluno->setIdTurma($resultado["ID_Turma"]);
-            $aluno->setNomeTurma($resultado["Nome_Turma"]);
+            $aluno->setAnoIngresso($resultado["Ano_Ingresso"]);
+            $aluno->setIdCurso($resultado["ID_Curso"]);
 
             $alunos[] = $aluno;
         }
@@ -146,6 +148,29 @@ class Aluno extends Usuario {
     }
 
     // Getters e Setters
+
+    // ID Curso
+    public function getIdCurso() : int {
+        return $this->idCurso;
+    }
+
+    public function setIdCurso($idCurso) : void {
+        $this->idCurso = $idCurso;
+    }
+
+    // Curso
+    public function getCurso() : Curso {
+        return Curso::findCurso($this->idCurso);
+    }
+
+    // Ano Ingresso
+    public function getAnoIngresso() : int {
+        return $this->anoIngresso;
+    }
+
+    public function setAnoIngresso(int $anoIngresso) : void {
+        $this->anoIngresso = $anoIngresso;
+    }
 
     // Cidade Estagio
     public function getCidadeEstagio() : string {
@@ -182,34 +207,6 @@ class Aluno extends Usuario {
     public function setModalidade($modalidade) : void {
         $this->modalidade = $modalidade;
     }
-
-    // ID Turma
-    public function getIdTurma() : int {
-        return $this->idTurma;
-    }
-
-    public function setIdTurma($idTurma) : void {
-        $this->idTurma = $idTurma;
-    }
-
-    // Nome Turma
-    public function getNomeTurma() : string {
-        return $this->nomeTurma;
-    }
-
-    public function setNomeTurma($nomeTurma) : void {
-        $this->nomeTurma = $nomeTurma;
-    }
-
-     //Email
-    public function getEmail() : string {
-        return $this->email;
-    }
-
-    public function setEmail($email) : void {
-        $this->email = $email;
-    }
-
 }
 
 ?>

@@ -19,12 +19,13 @@ class Professor extends Usuario {
     // Salvar
     public function salvarProfessor(
         string $nome, 
-        string $sobrenome, 
+        string $sobrenome,
+        int $idFoto,
         array $preferencias, 
         array $naoPreferencias, 
         string $statusDisponibilidade
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Professor", $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Professor", $idFoto, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
@@ -132,16 +133,6 @@ class Professor extends Usuario {
     public function setStatusDisponibilidade($statusDisponibilidade) : void {
         $this->statusDisponibilidade = $statusDisponibilidade;
     }
-
-    //Email
-    public function getEmail() : string {
-        return $this->email;
-    }
-
-    public function setEmail($email) : void {
-        $this->email = $email;
-    }
-
 }
 
 ?>

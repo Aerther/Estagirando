@@ -7,10 +7,10 @@ use App\BD\MySQL;
 class Usuario {
 
     protected int $idUsuario;
+    protected int $idFoto;
     protected string $nome; // Junção de Nome + Sobrenome
     protected string $senha;
     protected string $email;
-    protected string $linkFoto;
     protected string $tipoUsuario;
 
     protected string $statusCadastro = "Ativo";
@@ -28,17 +28,19 @@ class Usuario {
     public function salvarUsuario(
         string $nome, 
         string $sobrenome, 
-        string $tipoUsuario, 
+        string $tipoUsuario,
+        int $idFoto,
         array $preferencias, 
-        array $naoPreferencias
+        array $naoPreferencias,
+
     ) : int {
         $conexao = new MySQL();
 
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
 
         $tipos = "sssss";
-        $params = [$this->email, $this->senha, $nome, $sobrenome, $tipoUsuario];
-        $sql = "INSERT INTO usuario (Nome, Sobrenome, Email, Senha, Tipo_Usuario) VALUES (?, ?, ?, ?, ?)";
+        $params = [$this->email, $this->senha, $nome, $sobrenome, $tipoUsuario, $idFoto];
+        $sql = "INSERT INTO usuario (Nome, Sobrenome, Email, Senha, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?)";
 
         $idUsuario = $conexao->execute($sql, $tipos, $params);
 
@@ -65,7 +67,7 @@ class Usuario {
     public function atualizarUsuario(
         string $nome, 
         string $sobrenome, 
-        string $email, 
+        string $email,
         array $preferencias, 
         array $naoPreferencias
     ) : void {
@@ -117,8 +119,8 @@ class Usuario {
 
         $tipos = "i";
         $params = [$_SESSION["idUsuario"]];
-        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, f.Link_Foto FROM Usuario u 
-        JOIN Foto f ON f.ID_Foto = u.ID_Foto WHERE u.ID_Usuario = ? AND u.Status_Cadastro = 'ativo'";
+        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM Usuario u 
+        WHERE u.ID_Usuario = ? AND u.Status_Cadastro = 'ativo'";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 
@@ -130,9 +132,9 @@ class Usuario {
         $usuario = new Usuario($resultado["Email"], $resultado["Senha"]);
 
         $usuario->setIdUsuario($resultado["ID_Usuario"]);
+        $usuario->setIdFoto($resultado["ID_Foto"]);
         $usuario->setNome($resultado["Nome"]);
         $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
-        $usuario->setLinkFoto($resultado["Link_Foto"]);
         $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
         $usuario->setPreferencias();
 
@@ -147,8 +149,8 @@ class Usuario {
 
         $tipos = "s";
         $params = [$tipoUsuario];
-        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome, f.Link_Foto FROM Usuario u 
-        JOIN Foto f ON f.ID_Foto = u.ID_Foto WHERE u.Tipo_Usuario LIKE ?";
+        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM Usuario u 
+        WHERE u.Tipo_Usuario LIKE ?";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 
@@ -156,9 +158,9 @@ class Usuario {
             $usuario = new Usuario($resultado["Email"], $resultado["Senha"]);
 
             $usuario->setIdUsuario($resultado["ID_Usuario"]);
+            $usuario->setIdFoto($resultado["ID_Foto"]);
             $usuario->setNome($resultado["Nome"]);
             $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
-            $usuario->setLinkFoto($resultado["Link_Foto"]);
             $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
             $usuario->setPreferenciasUsuario();
 
@@ -275,6 +277,20 @@ class Usuario {
         $this->idUsuario = $idUsuario;
     }
 
+    // ID Foto
+    public function getIdFoto() : int {
+        return $this->idFoto;
+    }
+
+    public function setIdFoto(int $idFoto) : void {
+        $this->idFoto = $idFoto;
+    }
+
+    // Foto
+    public function getFoto() : Foto {
+        return Foto::findFoto($this->idFoto);
+    }
+
     // Email
     public function getEmail() : string {
         return $this->email;
@@ -300,15 +316,6 @@ class Usuario {
 
     public function setSenha($senha) : void {
         $this->senha = $senha;
-    }
-
-    // Link Foto
-    public function getLinkFoto() : string {
-        return $this->linkFoto;
-    }
-
-    public function setLinkFoto(string $linkFoto) : void {
-        $this->linkFoto = $linkFoto;
     }
 
     // Tipo Usuario
