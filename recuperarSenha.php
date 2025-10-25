@@ -7,17 +7,22 @@ use App\Classes\Usuario;
 $mensagem = "";
 $novaSenha = "";
 
-if (isset($_POST["recuperar"])) {
-    $usuario = new Usuario($_POST["email"], "");
+if (isset($_POST["recuperar"]) ) {
+    if ($_POST["recuperar"]=="Recuperar") {
+        if($_POST["email"]!=""){
+            $usuario = new Usuario($_POST["email"], "");
 
-    if (!$usuario->usuarioExiste()) {
-        $mensagem = "Email não cadastrado ou incorreto";
-    } else {
-        $usuario->criarNovaSenha();
+            if (!$usuario->usuarioExiste()) {
+                $mensagem = "Email não cadastrado ou incorreto";
+            } else {
+                $usuario->criarNovaSenha();
 
-        $novaSenha = $usuario->getSenha();
+                $novaSenha = $usuario->getSenha();
 
-        $mensagem = "Senha redefinida com sucesso!";
+                $mensagem = "Senha redefinida com sucesso!";
+            }
+
+        }
     }
 }
 
