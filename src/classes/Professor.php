@@ -131,7 +131,6 @@ class Professor extends Usuario {
     public function setStatusDisponibilidade($statusDisponibilidade) : void {
         $this->statusDisponibilidade = $statusDisponibilidade;
     }
-
 }
 
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21/10/2025 às 16:49
+-- Tempo de geração: 25/10/2025 às 02:37
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -29,10 +29,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `aluno` (
   `ID_Aluno` int(11) NOT NULL,
-  `Cidade_Residencia` varchar(50) DEFAULT NULL,
+  `Cidade_Estagio` varchar(40) DEFAULT NULL,
   `Turno_Disponivel` varchar(15) DEFAULT NULL,
   `Status_Estagio` varchar(30) DEFAULT NULL,
-  `ID_Turma` int(11) DEFAULT NULL
+  `ID_Curso` int(11) DEFAULT NULL,
+  `Modalidade` varchar(15) DEFAULT NULL,
+  `Ano_Ingresso` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `curso`
+--
+
+CREATE TABLE `curso` (
+  `ID_Curso` int(11) NOT NULL,
+  `Nome` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -108,19 +121,8 @@ CREATE TABLE `solicitacao_orientacao` (
   `Carga_Horaria_Semanal` int(11) DEFAULT NULL,
   `Turno` varchar(15) DEFAULT NULL,
   `Data_Envio` timestamp NOT NULL DEFAULT current_timestamp(),
-  `Status_Solicitacao_Orientacao` varchar(30) DEFAULT NULL,
+  `Status_Solicitacao_Orientacao` varchar(30) DEFAULT 'ativo',
   `ID_Aluno` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `turma`
---
-
-CREATE TABLE `turma` (
-  `ID_Turma` int(11) NOT NULL,
-  `Nome` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -145,7 +147,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`ID_Usuario`, `Nome`, `Sobrenome`, `Email`, `Senha`, `Tipo_Usuario`, `Status_Cadastro`, `ID_Foto`) VALUES
-(1, 't', 'tt', 'T@gamil.com', '123', 'aluno', 'ativo', NULL);
+(1, 'Arthur', 'Lassem', 'arthurlassem11@gmail.com', '$2y$10$/fJ2HmHJVzv8kVMiHcjgX.0PrrTl0esDEBDdfPheahKhZECZ54OkK', 'aluno', 'ativo', NULL);
 
 -- --------------------------------------------------------
 
@@ -176,7 +178,13 @@ INSERT INTO `usuario_preferencia` (`ID_Usuario`, `ID_Preferencia`, `Prefere`) VA
 --
 ALTER TABLE `aluno`
   ADD PRIMARY KEY (`ID_Aluno`),
-  ADD KEY `ID_Turma` (`ID_Turma`);
+  ADD KEY `ID_Curso` (`ID_Curso`);
+
+--
+-- Índices de tabela `curso`
+--
+ALTER TABLE `curso`
+  ADD PRIMARY KEY (`ID_Curso`);
 
 --
 -- Índices de tabela `foto`
@@ -211,12 +219,6 @@ ALTER TABLE `solicitacao_orientacao`
   ADD KEY `ID_Aluno` (`ID_Aluno`);
 
 --
--- Índices de tabela `turma`
---
-ALTER TABLE `turma`
-  ADD PRIMARY KEY (`ID_Turma`);
-
---
 -- Índices de tabela `usuario`
 --
 ALTER TABLE `usuario`
@@ -233,6 +235,12 @@ ALTER TABLE `usuario_preferencia`
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `curso`
+--
+ALTER TABLE `curso`
+  MODIFY `ID_Curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `foto`
@@ -253,16 +261,10 @@ ALTER TABLE `solicitacao_orientacao`
   MODIFY `ID_Solicitacao_Orientacao` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `turma`
---
-ALTER TABLE `turma`
-  MODIFY `ID_Turma` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restrições para tabelas despejadas
@@ -272,8 +274,9 @@ ALTER TABLE `usuario`
 -- Restrições para tabelas `aluno`
 --
 ALTER TABLE `aluno`
+  ADD CONSTRAINT `ID_Curso` FOREIGN KEY (`ID_Curso`) REFERENCES `curso` (`ID_Curso`),
   ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`ID_Aluno`) REFERENCES `usuario` (`ID_Usuario`),
-  ADD CONSTRAINT `aluno_ibfk_2` FOREIGN KEY (`ID_Turma`) REFERENCES `turma` (`ID_Turma`);
+  ADD CONSTRAINT `aluno_ibfk_2` FOREIGN KEY (`ID_Curso`) REFERENCES `curso` (`ID_Curso`);
 
 --
 -- Restrições para tabelas `professor`

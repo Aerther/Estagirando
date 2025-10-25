@@ -8,7 +8,10 @@ if(!isset($_GET["idUsuario"])) {
     header("Location: privado.php");
 }
 
-$aluno = Aluno::findUsuario($_GET["idUsuario"]);
+$aluno = Aluno::findAluno($_GET["idUsuario"]);
+
+$foto = $aluno->getFoto();
+$turma = $aluno->getTurma();
 
 ?>
 
@@ -26,24 +29,24 @@ $aluno = Aluno::findUsuario($_GET["idUsuario"]);
             <section class="linha-1">
                 <section class="imagem">
                     <figure>
-                        <?php echo "<img src='{$aluno->getLinkFoto()}' alt='Foto do Aluno' />"; ?>
+                        <?php echo "<img src='{$foto->getLinkFoto()}' alt='Foto do Aluno' />"; ?>
                     </figure>
                 </section>
 
                 <section class="dados-usuario">
-                    <p>Nome: <p class="status">Status Estágio</p> </p>
-                    <p>E-mail: </p>
-                    <p>Curso: </p>
-                    <p>Ingressou em </p>
+                    <?php echo "<p>Nome: {$aluno->getNome()} <p class='status'>{$aluno->getStatusEstagio()}</p> </p>"; ?>
+                    <?php echo "<p>Email: {$aluno->getEmail()}</p>"; ?>
+                    <?php echo "<p>Curso: {$aluno->getEmail()}</p>"; ?>
+                    <?php echo "<p>Ingressou em {$alnuo->getEmail()}</p>"; ?>
                 </section>
             </section>
 
             <section class="linha-2">
                 <section class="disponibilidade">
-                    <p class="titulo-dados">Disponibilidade</p>
-                    <p>Cidade: </p>
-                    <p>Modalidade: </p>
-                    <p>Turno: </p>
+                    <p class="titulo-dados">Disponibilidade do Estágio</p>
+                    <?php echo "<p>Cidade: {$aluno->getCidadeEstagio()}</p>"; ?>
+                    <?php echo "<p>Modalidade: {$aluno->getModalidade()}</p>"; ?>
+                    <?php echo "<p>Turno: {$aluno->getTurnoDisponivel()}</p>"; ?>
                 </section>
 
                 <section class="preferencias">
