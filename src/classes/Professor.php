@@ -103,7 +103,7 @@ class Professor extends Usuario {
 
         $resultados = $connection->search($sql, $tipos, $params);
 
-        if(empty($resultados)) return [];
+        
 
         foreach($resultados as $resultado) {
             $professor = new Professor($resultado["Email"], $resultado["Senha"]);
