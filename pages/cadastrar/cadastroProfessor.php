@@ -1,15 +1,19 @@
 <?php
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Classes\Aluno;
+use App\Classes\Professor;
+use App\Classes\Preferencia;
 $mensagemdeerro = "";
 $emailAlunos = Aluno::findAllAlunos();
 $emailProfessores = Professor::findAllProfessores();
 $contadorEmail = 0;
-foreach (emailAlunos as emailAluno){
-    if (emailAluno -> getEmail == $_POST['email']){
+foreach ($emailAlunos as $emailAluno){
+    if ($emailAluno -> getEmail == $_POST['email']){
         $contadorEmail+=1;
     }
 }
-foreach (emailProfessores as emailProfessor){
-    if (emailProfessor -> getEmail == $_POST['email']){
+foreach ($emailProfessores as $emailProfessor){
+    if ($emailProfessor -> getEmail == $_POST['email']){
         $contadorEmail+=1;
     }
 }
@@ -75,8 +79,8 @@ $preferencias = Preferencia::findAllPreferencias();
         <section>
             <p>Preferências</p>
             <?php
-            foreach (preferencias as preferencia){
-                echo "<input type='checkbox' >{$preferencia->getDescricao}";
+            foreach ($preferencias as $preferencia){
+                echo "<input type='checkbox' >{$preferencia->getDescricao()}";
             }
             ?>
 
@@ -84,7 +88,11 @@ $preferencias = Preferencia::findAllPreferencias();
         </section>
         <section>
             <p>Não preferências</p>
-            <!--Puxar do banco quais as preferencias e não preferencias-->
+                        <?php
+            foreach ($preferencias as $preferencia){
+                echo "<input type='checkbox' >{$preferencia->getDescricao()}";
+            }
+            ?>
             
         </section>
         <section>

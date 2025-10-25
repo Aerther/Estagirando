@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Classes;
-
+use App\Classes\Usuario;
+require_once __DIR__ . '/../../vendor/autoload.php';
 use App\BD\MySQL;
+
 
 class Professor extends Usuario {
 
@@ -100,7 +102,7 @@ class Professor extends Usuario {
 
         $resultados = $connection->search($sql, $tipos, $params);
 
-        if(empty($resultados)) return null;
+        if(empty($resultados)) return [];
 
         foreach($resultados as $resultado) {
             $professor = new Professor($resultado["Email"], $resultado["Senha"]);
