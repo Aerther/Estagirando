@@ -8,21 +8,21 @@ $mensagem = "";
 $novaSenha = "";
 
 if (isset($_POST["recuperar"]) ) {
-    if ($_POST["recuperar"]=="Recuperar") {
-        if($_POST["email"]!=""){
-            $usuario = new Usuario($_POST["email"], "");
+    // Não precisa checar se $_POST['recuperar'] é recuperar, se ele existir ele existe
+    // Do mesmo modo não precisa checar se email ta vazio, ele nem pode
+    // O único jeito de estar vazio é se o usuário tiver retirado o required no inspecionar
+    // E caso ele envie vai dar que email não foi cadastrado ou incorreto, de qualquer modo é má fé do usuário e problema dele
 
-            if (!$usuario->usuarioExiste()) {
-                $mensagem = "Email não cadastrado ou incorreto";
-            } else {
-                $usuario->criarNovaSenha();
+    $usuario = new Usuario($_POST["email"], "");
 
-                $novaSenha = $usuario->getSenha();
+    if (!$usuario->usuarioExiste()) {
+        $mensagem = "Email não cadastrado ou incorreto";
+    } else {
+        $usuario->criarNovaSenha();
 
-                $mensagem = "Senha redefinida com sucesso!";
-            }
+        $novaSenha = $usuario->getSenha();
 
-        }
+        $mensagem = "Senha redefinida com sucesso!";
     }
 }
 
@@ -33,14 +33,18 @@ if (isset($_POST["recuperar"]) ) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Estagirando</title>
-    <link rel="stylesheet" href="src/styles/reset.css">
+
+    <link rel="stylesheet" href="./src/styles/reset.css">
+    <link rel="stylesheet" href="./src/styles/style3.css">
+    
 </head>
 <body>
     <div class="container">
         <div class='header'>
             <h1>Esqueceu a sua senha?</h1>
-        <h2>Redefina a sua senha aqui!</h2>
+            <h2>Redefina a sua senha aqui!</h2>
         </div>
 
         <form action="./recuperarSenha.php" method="post">
@@ -64,8 +68,9 @@ if (isset($_POST["recuperar"]) ) {
         </div>
         </form>
     </div>
+
     <div class='btnreturn'>
-            <a href="index.php" class='return'>Voltar</a>
+        <a href="index.php" class='return'>Voltar</a>
     </div>
 </body>
 </html>
