@@ -114,7 +114,7 @@ class Aluno extends Usuario {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT a.*, u.*, f.*, t.Nome AS Nome_Turma FROM aluno a 
+        $sql = "SELECT a.*, u.*, f.*, c.Nome AS Nome_Curso FROM aluno a 
         JOIN usuario u ON u.ID_Usuario = a.ID_Aluno 
         JOIN foto f ON f.ID_Foto = u.ID_Foto
         JOIN curso c ON c.ID_Curso = a.ID_Curso

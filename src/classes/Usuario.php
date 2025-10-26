@@ -7,12 +7,11 @@ use App\BD\MySQL;
 class Usuario {
 
     protected int $idUsuario;
-    protected int $idFoto;
+    protected ?int $idFoto;
     protected string $nome; // Junção de Nome + Sobrenome
     protected string $senha;
     protected string $email;
     protected string $tipoUsuario;
-
     protected string $statusCadastro = "Ativo";
     protected array $preferencias = []; // index -> descrição , Ex.: 1 -> Redes
     protected array $naoPreferencias = []; 
@@ -31,16 +30,16 @@ class Usuario {
         string $tipoUsuario,
         int $idFoto,
         array $preferencias, 
-        array $naoPreferencias,
+        array $naoPreferencias
 
     ) : int {
         $conexao = new MySQL();
 
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
 
-        $tipos = "sssss";
-        $params = [$this->email, $this->senha, $nome, $sobrenome, $tipoUsuario, $idFoto];
-        $sql = "INSERT INTO usuario (Nome, Sobrenome, Email, Senha, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?)";
+        $tipos = "sssssis";
+        $params = [$nome, $sobrenome,$this->email, $this->senha, $tipoUsuario, $idFoto, $this->statusCadastro];
+        $sql = "INSERT INTO usuario (Nome, Sobrenome, Email, Senha, Tipo_Usuario, ID_Foto, Status_Cadastro) VALUES (?, ?, ?, ?, ?, ?,?)";
 
         $idUsuario = $conexao->execute($sql, $tipos, $params);
 
@@ -152,7 +151,7 @@ class Usuario {
         $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM Usuario u 
         WHERE u.Tipo_Usuario LIKE ?";
 
-        $resultados = $conexao->search($sql, $tipos, $params);
+        $resultados = $connection->search($sql, $tipos, $params);
 
         foreach($resultados as $resultado) {
             $usuario = new Usuario($resultado["Email"], $resultado["Senha"]);
@@ -162,7 +161,7 @@ class Usuario {
             $usuario->setNome($resultado["Nome"]);
             $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
             $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
-            $usuario->setPreferenciasUsuario();
+            //$usuario->setPreferenciasUsuario();
 
             $usuarios[] = $usuario;
         }
@@ -282,7 +281,7 @@ class Usuario {
         return $this->idFoto;
     }
 
-    public function setIdFoto(int $idFoto) : void {
+    public function setIdFoto(?int $idFoto) : void {
         $this->idFoto = $idFoto;
     }
 
