@@ -13,11 +13,11 @@
 
         </div>
         <div id='icone'>
-            <a href="./../pesquisa/pesquisa.php"><img src="./../../icones/pesquisa.png" alt="" id='iconeMenu'></a>
-            <a href="./../../solicitacoesOrientacao.php"><img src="./../../icones/solicitacoes.png" alt="" id='iconeMenu'></a>
-            <a href="./../editar/editarCadastro.php"><img src="./../../icones/edicao.png" alt="" id='iconeMenu'></a>   
-            <a href="./../visualizar/visualizarCadastro.php"><img src="./../../icones/iconProf.png" alt="" id='iconeMenu'></a>
-            <a href="./../../sair.php"><img src="./../../icones/logout.png" alt="" id='iconeMenu'></a>
+            <a href="./../pesquisa/pesquisa.php"><img src="./../../icones/pesquisa.png" alt="" class='iconeMenu' id='pesquisa'></a>
+            <a href="./../../solicitacoesOrientacao.php"><img src="./../../icones/solicitacoes.png" alt="" class='iconeMenu' id='solicitacoes'></a>
+            <a href="./../editar/editarCadastro.php"><img src="./../../icones/edicao.png" alt="" class='iconeMenu' id='edicao'></a>   
+            <a href="./../visualizar/visualizarCadastro.php"><img src="./../../icones/iconProf.png" alt="" class='iconeMenu' id='visualizar'></a>
+            <a href="./../../sair.php"><img src="./../../icones/logout.png" alt="" class='iconeMenu' id='logout'></a>
 
         </div>
         
