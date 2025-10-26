@@ -4,6 +4,11 @@ require_once __DIR__."/vendor/autoload.php";
 
 use App\Classes\Usuario;
 
+session_start();
+
+session_unset();
+session_destroy();
+
 $msgError = "";
 
 if(isset($_POST["botao-enviar"])) {

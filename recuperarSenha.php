@@ -7,7 +7,11 @@ use App\Classes\Usuario;
 $mensagem = "";
 $novaSenha = "";
 
-if (isset($_POST["recuperar"]) ) {
+session_start();
+
+if(!isset($_SESSION["tipo"])) $_SESSION["tipo"] = "submit";
+
+if (isset($_POST["recuperar"]) && $_SESSION["tipo"] == "submit") {
     // Não precisa checar se $_POST['recuperar'] é recuperar, se ele existir ele existe
     // Do mesmo modo não precisa checar se email ta vazio, ele nem pode
     // O único jeito de estar vazio é se o usuário tiver retirado o required no inspecionar
@@ -23,6 +27,8 @@ if (isset($_POST["recuperar"]) ) {
         $novaSenha = $usuario->getSenha();
 
         $mensagem = "Senha redefinida com sucesso!";
+
+        $_SESSION["tipo"] = "hidden";
     }
 }
 
@@ -48,24 +54,24 @@ if (isset($_POST["recuperar"]) ) {
         </div>
 
         <form action="./recuperarSenha.php" method="post">
-        <div class='content'>
-            <section>
-                <label for="email">E-mail:</label> <br>
-                <input type="email" name="email" id="email" class='aba' required>
-            </section>
+            <div class='content'>
+                <section>
+                    <label for="email">E-mail:</label> <br>
+                    <input type="email" name="email" id="email" class='aba' required>
+                </section>
 
-            <section>
-                <input type="submit" name="recuperar" value="Recuperar" class='save'>
-            </section>
+                <section>
+                    <input type=<?php echo $_SESSION["tipo"]; ?> name="recuperar" value="Recuperar" class='save'>
+                </section>
 
-            <section>
-                <?php if($mensagem) echo $mensagem; ?>
-            </section>
+                <section>
+                    <?php if($mensagem) echo $mensagem; ?>
+                </section>
 
-            <section class='novasenha'>
-                <?php if($novaSenha) echo "Nova Senha: " . $novaSenha; ?>oi
-            </section>
-        </div>
+                <section class='novasenha'>
+                    <?php if($novaSenha) echo "Nova Senha: " . $novaSenha; ?>
+                </section>
+            </div>
         </form>
     </div>
 

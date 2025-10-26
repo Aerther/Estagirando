@@ -118,7 +118,7 @@ class Usuario {
         session_start();
 
         $tipos = "i";
-        $params = [$_SESSION["idUsuario"]];
+        $params = [$idUsuario];
         $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM Usuario u 
         WHERE u.ID_Usuario = ? AND u.Status_Cadastro = 'ativo'";
 
@@ -337,25 +337,13 @@ class Usuario {
     }
 
     // Prefere
-    public function getPreferencias() : string {
-        $resultado = "";
-
-        foreach ($this->preferencias as $index => $preferencia) {
-            $resultado = $resultado . ", " .$preferencia;
-        }
-
-        return $resultado;
+    public function getPreferencias() : array {
+        return $this->preferencias;
     }
 
     // Não Prefere
-    public function getNaoPreferencias() : string {
-        $resultado = "";
-
-        foreach ($this->naoPreferencias as $index => $noPreferencia) {
-            $resultado = $resultado . ", " . $noPreferencia;
-        }
-
-        return $resultado;
+    public function getNaoPreferencias() : array {
+        return $this->naoPreferencias;
     }
 }
 

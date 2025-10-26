@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__."/vendor/autoload.php";
+require_once __DIR__."/../../vendor/autoload.php";
 
 use App\Classes\Aluno;
 
@@ -11,7 +11,9 @@ if(!isset($_GET["idUsuario"])) {
 $aluno = Aluno::findAluno($_GET["idUsuario"]);
 
 $foto = $aluno->getFoto();
-$turma = $aluno->getTurma();
+$curso = $aluno->getCurso();
+$preferencias = $aluno->getPreferencias();
+$naoPreferencias = $aluno->getNaoPreferencias();
 
 ?>
 
@@ -36,8 +38,8 @@ $turma = $aluno->getTurma();
                 <section class="dados-usuario">
                     <?php echo "<p>Nome: {$aluno->getNome()} <p class='status'>{$aluno->getStatusEstagio()}</p> </p>"; ?>
                     <?php echo "<p>Email: {$aluno->getEmail()}</p>"; ?>
-                    <?php echo "<p>Curso: {$aluno->getEmail()}</p>"; ?>
-                    <?php echo "<p>Ingressou em {$alnuo->getEmail()}</p>"; ?>
+                    <?php echo "<p>Curso: {$curso->getNome()}</p>"; ?>
+                    <?php echo "<p>Ingressou em {$aluno->getAnoIngresso()}</p>"; ?>
                 </section>
             </section>
 
@@ -51,14 +53,24 @@ $turma = $aluno->getTurma();
 
                 <section class="preferencias">
                     <p class="titulo-dados">Preferências</p>
-                    <p>Preferencia 1</p>
-                    <p>Preferencia 2</p>
+                    <?php
+
+                    foreach($preferencias as $preferencia) {
+                        echo "<p>{$preferencia}</p>";
+                    }
+
+                    ?>
                 </section>
 
                 <section class="nao-preferencias">
                     <p class="titulo-dados">Não Preferências</p>
-                    <p>Não Preferencia 1</p>
-                    <p>Não Preferencia 2</p>
+                    <?php
+
+                    foreach($naoPreferencias as $preferencia) {
+                        echo "<p>{$preferencia}</p>";
+                    }
+
+                    ?>
                 </section>
             </section>
         </main>
