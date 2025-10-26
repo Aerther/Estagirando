@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__."/classes/Aluno.php";
+require_once __DIR__."/vendor/autoload.php";
+
+use App\Classes\Aluno;
+
 $msgError = "";
 if (isset($_POST['cadastrar'])){
     if ($_POST['senha'] != $_POST['confSenha']) {
@@ -12,13 +15,13 @@ if (isset($_POST['cadastrar'])){
     $msgError = "A senha deve ter no mínimo 8 caracteres.";
     }
     else{
-        $aluno = new Aluno();
+        $aluno = new Aluno($_POST["email"], $_POST["senha"]);
         $aluno->salvarUsuario(
         $_POST['nome'],
         $_POST['sobrenome'],
-        'aluno', 
         [], // preferencias — preencher depois se houver
         [], // noPreferencias — idem
+        $_POST["ano"],
         $_POST['cidadeEstagiar'],
         $_POST['turno'],
         $_POST['situacao'],
