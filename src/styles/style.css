@@ -3,11 +3,8 @@
 body {
     width: 100vw;
     height: 100vh;
-
     background-color: white;
-
     gap: 20px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,12 +14,9 @@ body {
 .container {
     height: 75%;
     width: 80%;
-
     background-color: rgb(230, 230, 230);
-
     border: none;
     border-radius: 15px;
-
     display: grid;
     grid-template-columns: 2.5fr 3fr;
 }
@@ -30,9 +24,7 @@ body {
 .coluna-1 {
     display: grid;
     grid-template-rows: 1fr 1fr;
-
     position: relative;
-
     z-index: 1;
 }
 
