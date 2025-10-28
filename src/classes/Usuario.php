@@ -7,11 +7,12 @@ use App\BD\MySQL;
 class Usuario {
 
     protected int $idUsuario;
-    protected ?int $idFoto;
+    protected int $idFoto;
     protected string $nome; // Junção de Nome + Sobrenome
     protected string $senha;
     protected string $email;
     protected string $tipoUsuario;
+
     protected string $statusCadastro = "Ativo";
     protected array $preferencias = []; // index -> descrição , Ex.: 1 -> Redes
     protected array $naoPreferencias = []; 
@@ -31,15 +32,14 @@ class Usuario {
         int $idFoto,
         array $preferencias, 
         array $naoPreferencias
-
     ) : int {
         $conexao = new MySQL();
 
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
 
-        $tipos = "sssssis";
-        $params = [$nome, $sobrenome,$this->email, $this->senha, $tipoUsuario, $idFoto, $this->statusCadastro];
-        $sql = "INSERT INTO usuario (Nome, Sobrenome, Email, Senha, Tipo_Usuario, ID_Foto, Status_Cadastro) VALUES (?, ?, ?, ?, ?, ?,?)";
+        $tipos = "sssssi";
+        $params = [$nome, $sobrenome, $this->email, $this->senha, $tipoUsuario, $idFoto];
+        $sql = "INSERT INTO usuario (Nome, Sobrenome, Email, Senha, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?)";
 
         $idUsuario = $conexao->execute($sql, $tipos, $params);
 
@@ -153,6 +153,8 @@ class Usuario {
 
         $resultados = $connection->search($sql, $tipos, $params);
 
+        if(empty($resultados)) return [];
+
         foreach($resultados as $resultado) {
             $usuario = new Usuario($resultado["Email"], $resultado["Senha"]);
 
@@ -161,7 +163,7 @@ class Usuario {
             $usuario->setNome($resultado["Nome"]);
             $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
             $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
-            //$usuario->setPreferenciasUsuario();
+            $usuario->setPreferenciasUsuario();
 
             $usuarios[] = $usuario;
         }
@@ -281,7 +283,7 @@ class Usuario {
         return $this->idFoto;
     }
 
-    public function setIdFoto(?int $idFoto) : void {
+    public function setIdFoto(int $idFoto) : void {
         $this->idFoto = $idFoto;
     }
 
