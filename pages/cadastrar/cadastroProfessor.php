@@ -65,7 +65,7 @@ if($contadorpEnp > 0) {
 <body>
     <h1>Cadastro de Professor</h1>
     <div class="container">
-    <p><?php echo $mensagemErro;?></p>
+    <p id="erro"><?php echo $mensagemErro;?></p>
     <form action="./cadastroProfessor.php" method="post">
         <section>
             <label for="nome">Nome:</label>
