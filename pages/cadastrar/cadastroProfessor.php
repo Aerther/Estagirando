@@ -1,6 +1,7 @@
 <?php
+
 require_once __DIR__ . '/../../vendor/autoload.php';
-use App\Classes\Aluno;
+
 use App\Classes\Professor;
 use App\Classes\Preferencia;
 $mensagemdeerro = "";
@@ -31,6 +32,7 @@ if (isset($_POST['email']) && isset($_POST['confEmail']) && $_POST['email'] != $
 }
 
 $preferencias = Preferencia::findAllPreferencias();
+
 ?>
 
 <!DOCTYPE html>
@@ -43,58 +45,64 @@ $preferencias = Preferencia::findAllPreferencias();
 <body>
     <h1>Cadastro de Professor</h1>
     <div class="container">
-    <p><?php echo $mensagemdeerro;?></p>
-    <form action="" method="post">
+    <p><?php echo $mensagemErro;?></p>
+    <form action="./cadastroProfessor.php" method="post">
         <section>
             <label for="nome">Nome:</label>
             <input type="text" name="nome" required>
         </section>
+
         <section>
             <label for="sobrenome">Sobrenome:</label>
             <input type="text" name="sobrenome" required>
         </section>
+
         <section>
             <label for="email">Email:</label>
             <input type="email" name="email" required>
         </section>
+
         <section>
             <label for="confEmail">Confirme o email:</label>
             <input type="email" name="confEmail" required>
         </section>
+
         <section>
             <label for="senha">Senha:</label>
             <input type="password" name="senha" required>
         </section>
+
         <section>
             <label for="confSenha">Confirme a senha:</label>
             <input type="password" name="confSenha" required>
         </section>
+
         <section>
             <fieldset>
                 <legend>Disponível para orientar?</legend>
-                <label><input type="radio" name="disponivel" value="sim">Sim</label>
-                <label><input type="radio" name="disponivel" value="nao">Não</label>
+                <label><input type="radio" name="disponivel" value="sim"> Sim</label>
+                <label><input type="radio" name="disponivel" value="nao"> Não</label>
             </fieldset>
         </section>
+
         <section>
             <p>Preferências</p>
             <?php
             foreach ($preferencias as $preferencia){
-                echo "<input type='checkbox' >{$preferencia->getDescricao()}";
+                echo "<input type='checkbox' value={$preferencia->getIdPreferencia()}>{$preferencia->getDescricao()}";
             }
             ?>
-
-            
         </section>
+
         <section>
             <p>Não preferências</p>
                         <?php
             foreach ($preferencias as $preferencia){
-                echo "<input type='checkbox' >{$preferencia->getDescricao()}";
+                echo "<input type='checkbox' value={$preferencia->getIdPreferencia()}>{$preferencia->getDescricao()}";
             }
             ?>
-            
         </section>
+
         <section>
             <input type="submit" name="cadastrar" value="Cadastrar">
         </section>
