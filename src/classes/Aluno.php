@@ -24,7 +24,6 @@ class Aluno extends Usuario {
     public function salvarAluno(
         string $nome, 
         string $sobrenome,
-        int $idFoto,
         array $preferencias, 
         array $naoPreferencias, 
         int $anoIngresso,
@@ -34,7 +33,7 @@ class Aluno extends Usuario {
         string $modalidade,
         int $idCurso
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", $idFoto, $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", 2, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 

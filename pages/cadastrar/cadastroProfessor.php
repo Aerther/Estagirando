@@ -4,28 +4,29 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Classes\Professor;
 use App\Classes\Preferencia;
-use App\Classes\Usuario;
-$mensagemdeerro = "";
-$emailAlunos = Usuario::findAllUsuarios('Aluno');
-$emailProfessores = Usuario::findAllUsuarios('Professor');
-$preferencias = Preferencia::findAllPreferencias();
-$contadorEmail = 0;
-foreach ($emailAlunos as $emailAluno){
-    if (isset($_POST['email']) && $emailAluno -> getEmail() == $_POST['email']){
-        $contadorEmail = 1;
-    }
-}
-foreach ($emailProfessores as $emailProfessor){
-    if (isset($_POST['email']) && $emailProfessor -> getEmail() == $_POST['email']){
-        $contadorEmail = 1;
-    }
-}
-$contadorpEnp = 0;
-foreach($preferencias as $preferencia){
-    if(isset($_POST['p'.$preferencia->getDescricao()]) && isset($_POST['np'.$preferencia->getDescricao()])){
-        $contadorpEnp = 1;
-        $pOUnp = $preferencia->getDescricao();
-        break;
+
+$mensagemErro = "";
+
+if(isset($_POST["cadastrar"])) {
+    $usuario = new Professor($_POST["email"], $_POST["senha"]);
+
+    if(!$usuario->usuarioExiste()) {
+        if($_POST["senha"] != $_POST["confSenha"]) {
+            $mensagemErro = "Os campos de senha estão diferentes";
+
+        } else if($_POST["email"] != $_POST["confEmail"]) {
+            $mensagemErro = "Os campos de email estão diferentes";
+
+        } else if(strlen($_POST["senha"]) < 8) {
+            $mensagemErro = "Senha deve possuir no mínimo 8 caracteres";
+
+        } else {
+            $usuario->salvarProfessor();
+            
+            header();
+        }
+    } else {
+        $mensagemErro = "Email já cadastrado";
     }
 }
 
@@ -43,29 +44,10 @@ foreach ($preferencias as $preferencia) {
     }
 }
 
-
-
-//css deixa a mensagem de erro em vermelho please!
- if (isset($_POST['email']) && isset($_POST['confEmail']) && $_POST['email'] != $_POST['confEmail']){
-    $mensagemdeerro = "Você não inseriu o mesmo email nos campos 'Email:' e 'Confirme o email:'";
-}else if ($contadorEmail>0){
-    $mensagemdeerro = "O email inserido já possui um cadastro, você não pode usá-lo novamente";
-}else if (isset($_POST['senha']) && isset($_POST['confSenha']) && $_POST['senha'] != $_POST['confSenha']){
-    $mensagemdeerro = "Você não inseriu a mesma senha nos campos 'Senha:' e 'Confirme a senha:'";
-}else if (isset($_POST['senha']) && isset($_POST['confSenha']) && (strlen($_POST['senha']) < 8 || strlen($_POST['confSenha']) < 8)){
-    $mensagemdeerro = "A senha inserida deve conter no mínimo 8 caracteres";
-}
-
 $preferencias = Preferencia::findAllPreferencias();
 
-}else if($contadorpEnp > 0){
-    $mensagemdeerro = "Você não pode selecionar '$pOUnp' como preferência e não preferência, selecione cada opção em apenas um campo!";
-}else if (isset($_POST['cadastrar'])){
-    $cadastrarUsuario = new Usuario($_POST['email'], $_POST['senha']);
-    $cadastrarUsuario->salvarUsuario($_POST['nome'], $_POST['sobrenome'], 'Professor', 0, $preferenciasSelecionadas, $naoPreferenciasSelecionadas );
-    $cadastrarProfessor = new Professor($_POST['email'], $_POST['senha']);
-    $cadastrarProfessor->salvarProfessor($_POST['nome'], $_POST['sobrenome'], 0, $preferenciasSelecionadas, $naoPreferenciasSelecionadas,$_POST['disponivel']);
-    header ('location: /../estagirando/Estagirando/index.php');
+if($contadorpEnp > 0) {
+    $mensagemErro = "Você não pode selecionar '$pOUnp' como preferência e não preferência, selecione cada opção em apenas um campo!";
 }
 
 

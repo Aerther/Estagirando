@@ -20,12 +20,11 @@ class Professor extends Usuario {
     public function salvarProfessor(
         string $nome, 
         string $sobrenome,
-        int $idFoto,
         array $preferencias, 
         array $naoPreferencias, 
         string $statusDisponibilidade
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Professor", $idFoto, $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Professor", 1, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
@@ -103,7 +102,7 @@ class Professor extends Usuario {
 
         $resultados = $connection->search($sql, $tipos, $params);
 
-        
+        if(empty($resultados)) return [];
 
         foreach($resultados as $resultado) {
             $professor = new Professor($resultado["Email"], $resultado["Senha"]);
