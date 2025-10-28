@@ -30,10 +30,14 @@ if(isset($_POST["cadastrar"])) {
     }
 }
 
+$contadorpEnp = 0;
+
+$preferencias = Preferencia::findAllPreferencias();
+
 $preferenciasSelecionadas = [];
 $naoPreferenciasSelecionadas = [];
 
-foreach ($preferencias as $preferencia) {
+foreach($preferencias as $preferencia) {
     $nomePref = 'p' . $preferencia->getDescricao();
     $nomeNaoPref = 'np' . $preferencia->getDescricao();
     if (isset($_POST[$nomePref])) {
@@ -43,8 +47,6 @@ foreach ($preferencias as $preferencia) {
         $naoPreferenciasSelecionadas[$preferencia->getIdPreferencia()] = $preferencia->getDescricao();
     }
 }
-
-$preferencias = Preferencia::findAllPreferencias();
 
 if($contadorpEnp > 0) {
     $mensagemErro = "Você não pode selecionar '$pOUnp' como preferência e não preferência, selecione cada opção em apenas um campo!";
