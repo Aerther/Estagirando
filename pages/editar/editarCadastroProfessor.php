@@ -15,7 +15,6 @@
     </div>
     
     <div id='edicao'>
-        <button type="submit">Desativar Cadastro</button>
         <form action="editarCadastroProfessor.php" method="post">
 
             <label for="nomeProf">Nome: </label>
@@ -36,6 +35,9 @@
             <input type="radio" name="disponibilidade" id="disponibilidade2">
             <label for="disponibilidade2">Não</label>
 
+            <label for="preferencias">Preferências</label>
+
+            <label for="naoPreferencias"> Não preferências</label>
              <!--aqui deve conter a listagem das preferências do banco 
              com as opções do professor já marcadas-->
 
