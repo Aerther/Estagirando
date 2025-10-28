@@ -30,6 +30,8 @@ if(isset($_POST["cadastrar"])) {
     }
 }
 
+$contadorpEnp = 0;
+
 $preferenciasSelecionadas = [];
 $naoPreferenciasSelecionadas = [];
 
