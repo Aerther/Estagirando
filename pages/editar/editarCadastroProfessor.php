@@ -1,51 +1,162 @@
+<?php
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use App\Classes\Professor;
+use App\Classes\Preferencia;
+
+session_start();
+
+if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
+
+$mensagemErro = "";
+
+if(isset($_POST['cadastrar'])) {
+    $usuario = new Professor($_POST["email"], $_POST["senha"]);
+
+    $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
+    $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
+
+    if(!$usuario->usuarioExiste()) {
+        if(strlen($_POST["senha"]) < 8) {
+            $mensagemErro = "Senha deve possuir no mínimo 8 caracteres";
+
+        } else if(!empty(array_intersect($preferencias, $naoPreferencias))) {
+            $mensagemErro = "Você não pode selecionar o mesmo atributo tanto para Preferências e Não Preferências";
+
+        } else {
+            $usuario->atualizarProfessor(
+                $_POST["nome"],
+                $_POST["sobrenome"],
+                $_POST["email"],
+                $preferencias,
+                $naoPreferencias,
+                $_POST["disponivel"]
+            );
+
+            header("Location: ./../../privado.php");
+        }
+    } else {
+        $mensagemErro = "Email já cadastrado";
+    }
+}
+
+$preferencias = Preferencia::findAllPreferencias();
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./../../src/styles/reset.css">
+    <link rel="stylesheet" href="./../../src/styles/styleEditar.css">
+
     <title>Edição de Cadastro Professor</title>
 </head>
 <body>
-    <div id="menu">
-        <a href="./../pesquisa/pesquisa.php">Pesquisa</a>
-        <a href="./../../solicitacoesOrientacao.php">Solicitações</a>
-        <a href="./../visualizar/visualizarCadastro.php">Próprio Cadastro</a>
-        <a href="./../editar/editarCadastro.php">Edição de Cadastro</a>
-        <a href="./../../sair.php">Sair</a>
+    <div class="container">
+        <header>
+            <section>
+                <h2>Olá, ...</h2>
+            </section>
+
+            <section>
+                <a href="./../pesquisa/pesquisa.php">
+                    <img src="./../../icones/pesquisa.png" alt="" class='iconeMenu' id='pesquisa'>
+                </a>
+
+                <a href="./../../solicitacoesOrientacao.php">
+                    <img src="./../../icones/solicitacoes.png" alt="" class='iconeMenu' id='solicitacoes'>
+                </a>
+
+                <a href="./../editar/editarCadastro.php">
+                    <img src="./../../icones/edicao.png" alt="" class='iconeMenu' id='edicao'>
+                </a>   
+
+                <a href="./../visualizar/visualizarCadastro.php">
+                    <img src="./../../icones/iconProf.png" alt="" class='iconeMenu' id='visualizar'>
+                </a>
+
+                <a href="./../../sair.php">
+                    <img src="./../../icones/logout.png" alt="" class='iconeMenu' id='logout'>
+                </a>
+            </section>
+        </header>
+        
+        <main>
+            <p id="erro"><?php echo $mensagemErro;?></p>
+
+            <form action="editarCadastroProfessor.php" method="post">
+                <div class="dado">
+                    <section>
+                        <label for="nome">Nome:</label>
+                        <input type="text" name="nome"  value="<?php if (isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" required>
+                    </section>
+
+                    <section>
+                        <label for="sobrenome">Sobrenome:</label>
+                        <input type="text" name="sobrenome"  value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
+                    </section>
+                </div>
+
+                <div class="dado">
+                    <section>
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" required>
+                    </section>
+
+                    <section>
+                        <label for="senha">Senha:</label>
+                        <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
+                    </section>
+                </div>
+
+                <div class="preferencia">
+                
+                    <section>
+                        <p>Preferências</p>
+
+                        <?php 
+                        
+                        foreach($preferencias as $preferencia) {
+                            echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                        }
+
+                        ?>
+                    </section>
+
+                    <section>
+                        <p>Não preferências</p>
+
+                        <?php 
+                        
+                        foreach($preferencias as $preferencia) {
+                            echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                        }
+
+                        ?>
+                    </section>
+
+                </div>
+
+                <section id="radios">
+                    <label for="">Disponível para orientar?</label>
+
+                    <div id="disponibilidade">
+                        <label><input type="radio" name="disponivel" value="sim" required>Sim</label>
+                        <label><input type="radio" name="disponivel" value="nao" required>Não</label>
+                    </div>
+                </section>
+
+                <div id="btn">  
+                        <input type="submit" name="cadastrar" value="Cadastrar">
+                        <a href="./../../privado.php">Cancelar</a>
+                </div>
+            </form>
+        </main>
     </div>
-    
-    <div id='edicao'>
-        <form action="editarCadastroProfessor.php" method="post">
-
-            <label for="nomeProf">Nome: </label>
-            <input type="text" name="nome" id="nomeProf">
-
-            <label for="sobrenomeProf">Sobrenome: </label>
-            <input type="text" name="sobrenome" id="sobrenomeProf">
-
-            <label for="emailProf">E-mail: </label>
-            <input type="text" name="email" id="emailProf">
-
-            <label for="senhaProf">Senha: </label>
-            <input type="password" name="senha" id="senhaProf">
-
-            <label for="">Disponibilidade para orientar?</label>
-            <input type="radio" name="disponibilidade" id="disponibilidade1">
-            <label for="disponibilidade1">Sim</label>
-            <input type="radio" name="disponibilidade" id="disponibilidade2">
-            <label for="disponibilidade2">Não</label>
-
-            <label for="preferencias">Preferências</label>
-
-            <label for="naoPreferencias"> Não preferências</label>
-             <!--aqui deve conter a listagem das preferências do banco 
-             com as opções do professor já marcadas-->
-
-             <input type="submit" value="Salvar">
-             <input type="submit" value="Cancelar">
-        </form>
-
-    </div>
-    
 </body>
 </html>

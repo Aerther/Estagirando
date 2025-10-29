@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Classes\Professor;
@@ -54,7 +58,7 @@ $preferencias = Preferencia::findAllPreferencias();
 
     <title>Estagirando</title>
 
-    <link rel="stylesheet" href="../../src/styles/styleCadastroProf.css">
+    <link rel="stylesheet" href="./../../src/styles/styleCadastroProf.css">
 </head>
 <body>
     <h1>Cadastro de Professor</h1>
@@ -126,7 +130,6 @@ $preferencias = Preferencia::findAllPreferencias();
 
             <div id="disponibilidade">
                 <label><input type="radio" name="disponivel" value="sim" required>Sim</label>
-
                 <label><input type="radio" name="disponivel" value="nao" required>Não</label>
             </div>
         </section>
