@@ -121,21 +121,21 @@ $preferencias = Preferencia::findAllPreferencias();
 
         </div>
 
-        <section>
+        <section id="radios">
             <label for="">Disponível para orientar?</label>
 
             <div id="disponibilidade">
-                <label><input type="radio" name="disponivel" value="sim" required> Sim</label>
+                <label><input type="radio" name="disponivel" value="sim" required>Sim</label>
 
-                <label><input type="radio" name="disponivel" value="nao" required> Não</label>
+                <label><input type="radio" name="disponivel" value="nao" required>Não</label>
             </div>
         </section>
-
-        <section id="btn">
-            <input type="submit" name="cadastrar" value="Cadastrar">
-            <a href="./../../index.php">Cancelar</a>
-        </section>
-        <!-- Criar a exibição correta das mensagens conforme RF13-->
+        <div id="btn">  
+        
+                <input type="submit" name="cadastrar" value="Cadastrar">
+                <a href="./../../index.php">Cancelar</a>
+           
+        </div>
     </form> 
     </div>
 </body>
