@@ -69,48 +69,38 @@ if($contadorpEnp > 0) {
     <div class="container">
     <p id="erro"><?php echo $mensagemErro;?></p>
     <form action="./cadastroProfessor.php" method="post">
+        <div class="dado">
         <section>
             <label for="nome">Nome:</label>
             <input type="text" name="nome"  value="<?php if (isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" required>
         </section>
-
-        <section>
-            <label for="sobrenome">Sobrenome:</label>
-            <input type="text" name="sobrenome"  value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
-        </section>
-
         <section>
             <label for="email">Email:</label>
             <input type="email" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" required>
         </section>
-
-        <section>
-            <label for="confEmail">Confirme o email:</label>
-            <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail'])) echo htmlspecialchars($_POST['confEmail']); ?>" required>
-        </section>
-
         <section>
             <label for="senha">Senha:</label>
             <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
         </section>
-
+        </div>
+        <div class="dado">
+            <section>
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" name="sobrenome"  value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
+        </section>
+    
+        <section>
+            <label for="confEmail">Confirme o email:</label>
+            <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail'])) echo htmlspecialchars($_POST['confEmail']); ?>" required>
+        </section>
         <section>
             <label for="confSenha">Confirme a senha:</label>
             <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha'])) echo htmlspecialchars($_POST['confSenha']); ?>" required>
         </section>
+        </div>
 
-        <section>
-            <fieldset>
-                <legend>Disponível para orientar?</legend>
-                <label><input type="radio" name="disponivel" value="sim"> Sim</label>
-                <label><input type="radio" name="disponivel" value="nao"> Não</label>
-                <label><input type="radio" name="disponivel" value="sim"
-                 <?php if(isset($_POST['disponivel']) && $_POST['disponivel'] == 'sim') echo 'checked'; ?> >Sim</label>
-                <label><input type="radio" name="disponivel" value="nao"
-                 <?php if(isset($_POST['disponivel']) && $_POST['disponivel'] == 'nao') echo 'checked'; ?>>Não</label>
-            </fieldset>
-        </section>
-
+        <div class="preferencia">
+        
         <section>
             <p>Preferências</p>
             <?php
@@ -137,13 +127,24 @@ if($contadorpEnp > 0) {
             }
             ?>
         </section>
-
+        </div>
         <section>
+                <label for="">Disponível para orientar?</label>
+                <div id="disponibilidade">
+                <label><input type="radio" name="disponivel" value="sim"
+                <?php if(isset($_POST['disponivel']) && $_POST['disponivel'] == 'sim') echo 'checked'; ?> >Sim</label>
+                <label><input type="radio" name="disponivel" value="nao"
+                 <?php if(isset($_POST['disponivel']) && $_POST['disponivel'] == 'nao') echo 'checked'; ?>>Não</label>
+                </div>
+            
+        </section>
+        <section id="btn">
             <input type="submit" name="cadastrar" value="Cadastrar">
+            <a href="index.php">Cancelar</a>
         </section>
         <!-- Criar a exibição correta das mensagens conforme RF13-->
     </form> 
-        <a href="index.php">Cancelar</a>
+        
     </div>
 </body>
 </html>

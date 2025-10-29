@@ -1,22 +1,27 @@
 
 body {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 60px;
+    padding-top: 80px;
 }
 
 .container {
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    width: 0 auto;
+    max-width: 900px;
+}
+
+.dado{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 35px;
 }
 
 h1{
@@ -24,19 +29,18 @@ h1{
     font-size: 2.5rem;
     text-align: center;
     color: #000;
-    margin-bottom: 25px;
 }
 
 
 form{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 25px;
     width: 100%;
     justify-content: center;
     height: 90%;
+    
 }
-
 
 input[type="text"],
 input[type="email"],
@@ -77,6 +81,8 @@ section{
     flex-direction: column;
     justify-content: center;
     padding: 0;
+
+
 }
 
 #erro{
@@ -86,4 +92,23 @@ section{
     font-size: 2.0 rem;
 
     color: rgb(221, 48, 48);
+}
+
+
+#btn{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.preferencia{
+    align-items: center;
+    padding: 0;
+
+}
+
+#disponibilidade{
+    display: flex;
+    margin-right: 20px;
+    
 }
