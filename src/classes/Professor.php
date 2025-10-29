@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Classes;
-use App\Classes\Usuario;
+
 require_once __DIR__ . '/../../vendor/autoload.php';
+
+use App\Classes\Usuario;
+
 use App\BD\MySQL;
 
 

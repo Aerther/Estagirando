@@ -74,7 +74,7 @@ class Preferencia {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT * FROM Preferencia";
+        $sql = "SELECT * FROM preferencia";
 
         $resultados = $connection->search($sql, $tipos, $params);
 

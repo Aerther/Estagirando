@@ -6,5 +6,13 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\BD\\MySQL' => $baseDir . '/src/BD/MySQL.php',
+    'App\\Classes\\Aluno' => $baseDir . '/src/Classes/Aluno.php',
+    'App\\Classes\\Curso' => $baseDir . '/src/Classes/Curso.php',
+    'App\\Classes\\Foto' => $baseDir . '/src/Classes/Foto.php',
+    'App\\Classes\\Preferencia' => $baseDir . '/src/Classes/Preferencia.php',
+    'App\\Classes\\Professor' => $baseDir . '/src/Classes/Professor.php',
+    'App\\Classes\\SolicitacaoOrientacao' => $baseDir . '/src/Classes/SolicitacaoOrientacao.php',
+    'App\\Classes\\Usuario' => $baseDir . '/src/Classes/Usuario.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

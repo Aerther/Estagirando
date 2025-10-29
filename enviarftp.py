@@ -7,6 +7,9 @@ FTP_USER = "u157320114.grupo1"
 FTP_PASS = "G1@billy123"
 REMOTE_ROOT = "/"  # pasta raiz remota onde o conteúdo será copiado
 
+# Pastas que NÃO devem ser enviadas
+PASTAS_IGNORADAS = {"node_modules", ".git", "__pycache__"}
+
 # Conecta ao servidor FTP
 ftp = FTP(FTP_HOST)
 ftp.login(FTP_USER, FTP_PASS)
@@ -28,8 +31,11 @@ def garantir_pasta_remota(path):
             pass
 
 def enviar_estrutura():
-    """Percorre todos os arquivos e envia, criando as pastas conforme necessário."""
+    """Percorre todos os arquivos e envia, criando as pastas conforme necessário, ignorando pastas."""
     for raiz, pastas, arquivos in os.walk(LOCAL_ROOT):
+        # Remove do loop as pastas que queremos ignorar
+        pastas[:] = [p for p in pastas if p not in PASTAS_IGNORADAS]
+
         # Caminho relativo da pasta atual em relação à raiz local
         rel_path = os.path.relpath(raiz, LOCAL_ROOT)
         if rel_path == ".":
@@ -50,4 +56,4 @@ def enviar_estrutura():
 enviar_estrutura()
 
 ftp.quit()
-print("\n✅ Cópia completa — estrutura local replicada no FTP!")
+print("\n✅ Cópia completa — estrutura local replicada no FTP (ignorando pastas).")

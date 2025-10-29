@@ -1,72 +1,66 @@
-from ftplib import FTP
+from ftplib import FTP, error_perm
 
-# 🔧 CONFIGURAÇÕES
 FTP_HOST = "ftp.billyorg.com"
 FTP_USER = "u157320114.grupo1"
 FTP_PASS = "G1@billy123"
 
-# Conectar ao servidor
 ftp = FTP(FTP_HOST)
 ftp.login(FTP_USER, FTP_PASS)
+ftp.set_pasv(True)  # importante!
 
-def excluir_recursivo(ftp, caminho, manter):
-    """Apaga todos os arquivos e subpastas dentro do caminho remoto, exceto os do conjunto 'manter'."""
+def excluir_recursivo(ftp, caminho):
+    """Apaga todos os arquivos e subpastas dentro de um caminho remoto."""
     try:
         ftp.cwd(caminho)
-    except Exception:
-        return
+    except error_perm:
+        return  # pasta não existe
 
-    itens = ftp.nlst()
-    for item in itens:
+    for item in ftp.nlst():
+        if item in (".", ".."):
+            continue
+        full_path = f"{caminho}/{item}"
+        try:
+            ftp.cwd(full_path)  # tenta entrar, se conseguir é pasta
+            ftp.cwd("..")
+            excluir_recursivo(ftp, full_path)
+            ftp.rmd(full_path)
+            print(f"🗑️ Pasta removida: {full_path}")
+        except error_perm:
+            try:
+                ftp.delete(full_path)
+                print(f"❌ Arquivo removido: {full_path}")
+            except error_perm:
+                print(f"⚠️ Não conseguiu excluir: {full_path}")
+
+def limpar_tudo_exceto(ftp, manter):
+    """Remove tudo da raiz, exceto arquivos/pastas na lista 'manter'."""
+    raiz = ftp.pwd()
+    for item in ftp.nlst():
         if item in (".", "..") or item in manter:
             continue
 
+        full_path = f"{raiz}/{item}"
         try:
-            # Se conseguir entrar, é pasta
-            ftp.cwd(item)
+            ftp.cwd(item)  # tenta entrar → é pasta
             ftp.cwd("..")
-            excluir_recursivo(ftp, f"{caminho}/{item}", manter)
-            try:
-                ftp.rmd(f"{caminho}/{item}")
-                print(f"🗑️ Pasta removida: {caminho}/{item}")
-            except Exception as e:
-                print(f"⚠️ Não conseguiu remover pasta {item}: {e}")
-        except Exception:
-            # É arquivo
-            if item not in manter:
-                try:
-                    ftp.delete(f"{caminho}/{item}")
-                    print(f"❌ Arquivo removido: {caminho}/{item}")
-                except Exception as e:
-                    print(f"⚠️ Erro ao excluir {item}: {e}")
-
-def limpar_tudo_exceto(manter_arquivos):
-    """Remove tudo da raiz do FTP, exceto os arquivos especificados."""
-    raiz = ftp.pwd()
-    itens = ftp.nlst()
-    for item in itens:
-        if item in (".", "..") or item in manter_arquivos:
-            continue
-        try:
-            ftp.cwd(item)
-            ftp.cwd("..")
-            excluir_recursivo(ftp, f"{raiz}/{item}", manter_arquivos)
-            ftp.rmd(f"{raiz}/{item}")
+            excluir_recursivo(ftp, full_path)
+            ftp.rmd(full_path)
             print(f"🗑️ Pasta removida: {item}")
-        except Exception:
-            if item not in manter_arquivos:
-                ftp.delete(item)
+        except error_perm:
+            try:
+                ftp.delete(full_path)
                 print(f"❌ Arquivo removido: {item}")
+            except error_perm:
+                print(f"⚠️ Não conseguiu excluir arquivo: {item}")
 
-# ⚙️ Nome do(s) arquivo(s) a manter
-manter = {"index.html"}
+# --- EXECUÇÃO ---
+manter = ["index.html"]  # arquivos que não serão apagados
 
-# ⚠️ Confirmação de segurança
-confirmar = input(f"⚠️ Tem certeza que quer EXCLUIR TUDO do FTP exceto {', '.join(manter)}? (digite SIM): ")
+confirmar = input("⚠️ Tem certeza que quer excluir TUDO exceto index.html? (digite SIM): ")
 if confirmar == "SIM":
-    limpar_tudo_exceto(manter)
-    print("\n✅ Limpeza completa (apenas os arquivos especificados foram mantidos).")
+    limpar_tudo_exceto(ftp, manter)
+    print("✅ Limpeza concluída.")
 else:
-    print("\n❎ Operação cancelada.")
+    print("❎ Cancelado.")
 
 ftp.quit()

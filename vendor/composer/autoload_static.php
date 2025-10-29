@@ -21,6 +21,14 @@ class ComposerStaticInit3680327747392cf2a6522b76788d871b
     );
 
     public static $classMap = array (
+        'App\\BD\\MySQL' => __DIR__ . '/../..' . '/src/BD/MySQL.php',
+        'App\\Classes\\Aluno' => __DIR__ . '/../..' . '/src/Classes/Aluno.php',
+        'App\\Classes\\Curso' => __DIR__ . '/../..' . '/src/Classes/Curso.php',
+        'App\\Classes\\Foto' => __DIR__ . '/../..' . '/src/Classes/Foto.php',
+        'App\\Classes\\Preferencia' => __DIR__ . '/../..' . '/src/Classes/Preferencia.php',
+        'App\\Classes\\Professor' => __DIR__ . '/../..' . '/src/Classes/Professor.php',
+        'App\\Classes\\SolicitacaoOrientacao' => __DIR__ . '/../..' . '/src/Classes/SolicitacaoOrientacao.php',
+        'App\\Classes\\Usuario' => __DIR__ . '/../..' . '/src/Classes/Usuario.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

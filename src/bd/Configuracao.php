@@ -2,10 +2,16 @@
 
 define("HOST", "localhost");
 
-define("USUARIO", "root");
+// Usuario: u157320114_userG1G2
+define("USUARIO", "u157320114_userG1G2");
+//define("USUARIO", "root");
 
-define("SENHA", "");
+// Senha: extensaoG1G2BD
+define("SENHA", "extensaoG1G2BD");
+//define("SENHA", "");
 
-define("BANCO", "estagirando");
+// Banco: u157320114_extensaoG1G2
+define("BANCO", "u157320114_extensaoG1G2");
+//define("BANCO", "estagirando");
 
 ?>

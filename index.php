@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__."/vendor/autoload.php";
 
 use App\Classes\Usuario;
@@ -51,8 +55,8 @@ if(isset($_POST["botao-enviar"])) {
             </div>
 
             <div class="links-cad">
-                <a href="./pages/cadastrar/cadastroprofessor.php">Cadastrar-se como professor</a>
-                <a href="./pages/cadastrar/cadastroaluno.php">Cadastrar-se como aluno</a>
+                <a href="./pages/cadastrar/cadastroProfessor.php">Cadastrar-se como professor</a>
+                <a href="./pages/cadastrar/cadastroAluno.php">Cadastrar-se como aluno</a>
             </div>
         </section>
         
