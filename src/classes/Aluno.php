@@ -53,7 +53,8 @@ class Aluno extends Usuario {
         string $sobrenome, 
         string $email, 
         array $preferencias, 
-        array $naoPreferencias, 
+        array $naoPreferencias,
+        int $anoIngresso,
         string $cidadeEstagio,
         string $turnoDisponivel,
         string $statusEstagio,
@@ -66,9 +67,9 @@ class Aluno extends Usuario {
 
         session_start();
 
-        $tipos = "ssssii";
-        $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $idCurso, $_SESSION["idUsuario"]];
-        $sql = "UPDATE aluno2 SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, ID_Curso = ? WHERE ID_Aluno = ?";
+        $tipos = "ssssiii";
+        $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $anoIngresso, $idCurso, $_SESSION["idUsuario"]];
+        $sql = "UPDATE aluno2 SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, Ano_Ingresso = ?, ID_Curso = ? WHERE ID_Aluno = ?";
 
         $connection->execute($sql, $tipos, $params);
     }

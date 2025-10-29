@@ -241,9 +241,13 @@ class Usuario {
     public function usuarioExiste() {
         $connection = new MySQL();
 
-        $tipos = "s";
-        $params = [$this->email];
-        $sql = "SELECT 1 FROM usuario2 u WHERE BINARY u.Email = ?";
+        session_start();
+
+        $idUsuario = isset($_SESSION["idUsuario"]) ? $_SESSION["idUsuario"] : -1;
+
+        $tipos = "si";
+        $params = [$this->email, $idUsuario];
+        $sql = "SELECT 1 FROM usuario2 u WHERE BINARY u.Email = ? AND u.ID_Usuario != ?";
 
         $resultado = $connection->search($sql, $tipos, $params);
 
