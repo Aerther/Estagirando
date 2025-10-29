@@ -54,7 +54,7 @@ $preferencias = Preferencia::findAllPreferencias();
 
     <title>Estagirando</title>
 
-    <link rel="stylesheet" href="../../src/styles/styleCadastro.css">
+    <link rel="stylesheet" href="../../src/styles/styleCadastroProf.css">
 </head>
 <body>
     <h1>Cadastro de Professor</h1>
