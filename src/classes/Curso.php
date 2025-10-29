@@ -78,6 +78,8 @@ class Curso {
 
         $resultados = $connection->search($sql, $tipos, $params);
 
+        if(empty($resultados)) return [];
+
         foreach($resultados as $resultado) {
             $curso = new Curso($resultado["Nome"]);
             $curso->setIdCurso($resultado["ID_Curso"]);

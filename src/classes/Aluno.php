@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Classes;
-use App\Classes\Usuario;
+
 require_once __DIR__ . '/../../vendor/autoload.php';
+
+use App\Classes\Usuario;
+
 use App\BD\MySQL;
 
 class Aluno extends Usuario {
@@ -39,7 +42,7 @@ class Aluno extends Usuario {
 
         $tipos = "issssii";
         $params = [$idUsuario, $cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $anoIngresso, $idCurso];
-        $sql = "INSERT INTO aluno (ID_Aluno, Cidade_Estagio, Turno_Disponivel, Status_Estagio, Modalidade, Ano_Ingresso, ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO aluno2 (ID_Aluno, Cidade_Estagio, Turno_Disponivel, Status_Estagio, Modalidade, Ano_Ingresso, ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -65,7 +68,7 @@ class Aluno extends Usuario {
 
         $tipos = "ssssii";
         $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $idCurso, $_SESSION["idUsuario"]];
-        $sql = "UPDATE aluno SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, ID_Curso = ? WHERE ID_Aluno = ?";
+        $sql = "UPDATE aluno2 SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, ID_Curso = ? WHERE ID_Aluno = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -80,7 +83,7 @@ class Aluno extends Usuario {
 
         $tipos = "i";
         $params = [$idAluno];
-        $sql = "SELECT *, c.Nome AS Nome_Turma FROM aluno a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
+        $sql = "SELECT *, c.Nome AS Nome_Turma FROM aluno2 a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
@@ -113,8 +116,8 @@ class Aluno extends Usuario {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT a.*, u.*, f.*, c.Nome AS Nome_Curso FROM aluno a 
-        JOIN usuario u ON u.ID_Usuario = a.ID_Aluno 
+        $sql = "SELECT a.*, u.*, f.*, c.Nome AS Nome_Curso FROM aluno2 a 
+        JOIN usuario2 u ON u.ID_Usuario = a.ID_Aluno 
         JOIN foto f ON f.ID_Foto = u.ID_Foto
         JOIN curso c ON c.ID_Curso = a.ID_Curso
         WHERE u.Status_Cadastro = 'ativo'";

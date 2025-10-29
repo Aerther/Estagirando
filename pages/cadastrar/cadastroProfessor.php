@@ -10,6 +10,9 @@ $mensagemErro = "";
 if(isset($_POST["cadastrar"])) {
     $usuario = new Professor($_POST["email"], $_POST["senha"]);
 
+    $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
+    $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
+
     if(!$usuario->usuarioExiste()) {
         if($_POST["senha"] != $_POST["confSenha"]) {
             $mensagemErro = "Os campos de senha estão diferentes";
@@ -20,131 +23,120 @@ if(isset($_POST["cadastrar"])) {
         } else if(strlen($_POST["senha"]) < 8) {
             $mensagemErro = "Senha deve possuir no mínimo 8 caracteres";
 
+        } else if(!empty(array_intersect($preferencias, $naoPreferencias))) {
+            $mensagemErro = "Você não pode selecionar o mesmo atributo tanto para Preferências e Não Preferências";
+
         } else {
-            $usuario->salvarProfessor();
+            $usuario->salvarProfessor(
+                $_POST["nome"],
+                $_POST["sobrenome"],
+                $preferencias,
+                $naoPreferencias,
+                $_POST["disponivel"]
+            );
             
-            header();
+            header("Location: ./../../index.php");
         }
     } else {
         $mensagemErro = "Email já cadastrado";
     }
 }
 
-$contadorpEnp = 0;
-
 $preferencias = Preferencia::findAllPreferencias();
-
-$preferenciasSelecionadas = [];
-$naoPreferenciasSelecionadas = [];
-
-foreach($preferencias as $preferencia) {
-    $nomePref = 'p' . $preferencia->getDescricao();
-    $nomeNaoPref = 'np' . $preferencia->getDescricao();
-    if (isset($_POST[$nomePref])) {
-        $preferenciasSelecionadas[$preferencia->getIdPreferencia()] = $preferencia->getDescricao();
-    }
-    if (isset($_POST[$nomeNaoPref])) {
-        $naoPreferenciasSelecionadas[$preferencia->getIdPreferencia()] = $preferencia->getDescricao();
-    }
-}
-
-if($contadorpEnp > 0) {
-    $mensagemErro = "Você não pode selecionar '$pOUnp' como preferência e não preferência, selecione cada opção em apenas um campo!";
-}
-
 
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estagirando</title>
-    <link rel="stylesheet" href="../../src/styles/styleCadastro.css">
 
+    <title>Estagirando</title>
+
+    <link rel="stylesheet" href="../../src/styles/styleCadastro.css">
 </head>
 <body>
     <h1>Cadastro de Professor</h1>
     <div class="container">
     <p id="erro"><?php echo $mensagemErro;?></p>
+
     <form action="./cadastroProfessor.php" method="post">
         <div class="dado">
-        <section>
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome"  value="<?php if (isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" required>
-        </section>
-        <section>
-            <label for="email">Email:</label>
-            <input type="email" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" required>
-        </section>
-        <section>
-            <label for="senha">Senha:</label>
-            <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
-        </section>
+            <section>
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome"  value="<?php if (isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" required>
+            </section>
+            <section>
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" required>
+            </section>
+            <section>
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
+            </section>
         </div>
+
         <div class="dado">
             <section>
-            <label for="sobrenome">Sobrenome:</label>
-            <input type="text" name="sobrenome"  value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
-        </section>
-    
-        <section>
-            <label for="confEmail">Confirme o email:</label>
-            <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail'])) echo htmlspecialchars($_POST['confEmail']); ?>" required>
-        </section>
-        <section>
-            <label for="confSenha">Confirme a senha:</label>
-            <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha'])) echo htmlspecialchars($_POST['confSenha']); ?>" required>
-        </section>
+                <label for="sobrenome">Sobrenome:</label>
+                <input type="text" name="sobrenome"  value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
+            </section>
+        
+            <section>
+                <label for="confEmail">Confirme o email:</label>
+                <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail'])) echo htmlspecialchars($_POST['confEmail']); ?>" required>
+            </section>
+            <section>
+                <label for="confSenha">Confirme a senha:</label>
+                <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha'])) echo htmlspecialchars($_POST['confSenha']); ?>" required>
+            </section>
         </div>
 
         <div class="preferencia">
         
-        <section>
-            <p>Preferências</p>
-            <?php
-            foreach ($preferencias as $preferencia){
-                echo "<input type='checkbox' value={$preferencia->getIdPreferencia()}>{$preferencia->getDescricao()}";
-                $nomeCampo = 'p' . $preferencia->getDescricao();
-                $checked = isset($_POST[$nomeCampo]) ? 'checked' : '';
+            <section>
+                <p>Preferências</p>
 
-                 echo "<input type='checkbox' name='{$nomeCampo}' value='sim' $checked>{$preferencia->getDescricao()}";
-            }
+                <?php 
+                
+                foreach($preferencias as $preferencia) {
+                    echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                }
 
-            ?>
-        </section>
+                ?>
+            </section>
 
-        <section>
-            <p>Não preferências</p>
-                        <?php
-            foreach ($preferencias as $preferencia){
-                echo "<input type='checkbox' value={$preferencia->getIdPreferencia()}>{$preferencia->getDescricao()}";
-               $nomeCampo = 'np' . $preferencia->getDescricao();
-                $checked = isset($_POST[$nomeCampo]) ? 'checked' : '';
+            <section>
+                <p>Não preferências</p>
 
-                 echo "<input type='checkbox' name='{$nomeCampo}' value='sim' $checked>{$preferencia->getDescricao()}";
-            }
-            ?>
-        </section>
+                <?php 
+                
+                foreach($preferencias as $preferencia) {
+                    echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                }
+
+                ?>
+            </section>
+
         </div>
+
         <section>
-                <label for="">Disponível para orientar?</label>
-                <div id="disponibilidade">
-                <label><input type="radio" name="disponivel" value="sim"
-                <?php if(isset($_POST['disponivel']) && $_POST['disponivel'] == 'sim') echo 'checked'; ?> >Sim</label>
-                <label><input type="radio" name="disponivel" value="nao"
-                 <?php if(isset($_POST['disponivel']) && $_POST['disponivel'] == 'nao') echo 'checked'; ?>>Não</label>
-                </div>
-            
+            <label for="">Disponível para orientar?</label>
+
+            <div id="disponibilidade">
+                <label><input type="radio" name="disponivel" value="sim" required> Sim</label>
+
+                <label><input type="radio" name="disponivel" value="nao" required> Não</label>
+            </div>
         </section>
+
         <section id="btn">
             <input type="submit" name="cadastrar" value="Cadastrar">
-            <a href="index.php">Cancelar</a>
+            <a href="./../../index.php">Cancelar</a>
         </section>
         <!-- Criar a exibição correta das mensagens conforme RF13-->
     </form> 
-        
     </div>
 </body>
 </html>

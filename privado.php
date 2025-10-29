@@ -4,9 +4,6 @@ require_once __DIR__."/vendor/autoload.php";
 
 use App\Classes\Aluno;
 
-$aluno = new Aluno("arthurlassem11@gmail.com", "if5dXvPL");
-$aluno->salvarAluno("Arthur", "Lassem", [], [], "Feliz", "Manhã", "Estagiando", 1);
-
 ?>
 
 <!DOCTYPE html>

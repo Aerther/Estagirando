@@ -39,11 +39,11 @@ class Usuario {
 
         $tipos = "sssssi";
         $params = [$nome, $sobrenome, $this->email, $this->senha, $tipoUsuario, $idFoto];
-        $sql = "INSERT INTO usuario (Nome, Sobrenome, Email, Senha, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuario2 (Nome, Sobrenome, Email, Senha, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?)";
 
         $idUsuario = $conexao->execute($sql, $tipos, $params);
 
-        foreach($preferencias as $index => $preferencia) {
+        foreach($preferencias as $index) {
             $tipos = "iis";
             $params = [$idUsuario, $index, "sim"];
             $sql = "INSERT INTO usuario_preferencia (ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, ?)";
@@ -51,7 +51,7 @@ class Usuario {
             $conexao->execute($sql, $tipos, $params);
         }
 
-        foreach($naoPreferencias as $index => $preferencia) {
+        foreach($naoPreferencias as $index) {
             $tipos = "iis";
             $params = [$idUsuario, $index, "não"];
             $sql = "INSERT INTO usuario_preferencia (ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, ?)";
@@ -76,11 +76,11 @@ class Usuario {
 
         $tipos = "sssi";
         $params = [$email, $nome, $sobrenome, $_SESSION["idUsuario"]];
-        $sql = "UPDATE usuario SET Email = ?, Nome = ?, Sobrenome = ? WHERE ID_Usuario = ?";
+        $sql = "UPDATE usuario2 SET Email = ?, Nome = ?, Sobrenome = ? WHERE ID_Usuario = ?";
 
         $conexao->execute($sql, $tipos, $params);
 
-        foreach($preferencias as $index => $preferencia) {
+        foreach($preferencias as $index) {
             $tipos = "ii";
             $params = [$index, $_SESSION["idUsuario"]];
             $sql = "UPDATE usuario_preferencia SET Prefere = 'sim' WHERE ID_Preferencia = ? AND ID_Usuario = ?";
@@ -88,7 +88,7 @@ class Usuario {
             $conexao->execute($sql, $tipos, $params);
         }
 
-        foreach($naoPreferencias as $index => $preferencia) {
+        foreach($naoPreferencias as $index) {
             $tipos = "ii";
             $params = [$index, $_SESSION["idUsuario"]];
             $sql = "UPDATE usuario_preferencia SET Prefere = 'não' WHERE ID_Preferencia = ? AND ID_Usuario = ?";
@@ -105,7 +105,7 @@ class Usuario {
 
         $tipos = "i";
         $params = [$_SESSION["idUsuario"]];
-        $sql = "UPDATE Usuario SET Status_Cadastro = 'inativo' WHERE ID_Usuario = ?";
+        $sql = "UPDATE usuario2 SET Status_Cadastro = 'inativo' WHERE ID_Usuario = ?";
 
         $conexao->execute($sql, $tipos, $params);
     }
@@ -118,7 +118,7 @@ class Usuario {
 
         $tipos = "i";
         $params = [$idUsuario];
-        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM Usuario u 
+        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM usuario2 u 
         WHERE u.ID_Usuario = ? AND u.Status_Cadastro = 'ativo'";
 
         $resultados = $conexao->search($sql, $tipos, $params);
@@ -148,7 +148,7 @@ class Usuario {
 
         $tipos = "s";
         $params = [$tipoUsuario];
-        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM Usuario u 
+        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM usuario2 u 
         WHERE u.Tipo_Usuario LIKE ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
@@ -205,7 +205,7 @@ class Usuario {
 
         $tipos = "s";
         $params = [$this->email];
-        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM Usuario u WHERE BINARY u.Email = ?";
+        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM usuario2 u WHERE BINARY u.Email = ?";
 
         $resultado = $conexao->search($sql, $tipos, $params);
 
@@ -243,7 +243,7 @@ class Usuario {
 
         $tipos = "s";
         $params = [$this->email];
-        $sql = "SELECT 1 FROM usuario u WHERE BINARY u.Email = ?";
+        $sql = "SELECT 1 FROM usuario2 u WHERE BINARY u.Email = ?";
 
         $resultado = $connection->search($sql, $tipos, $params);
 
@@ -260,7 +260,7 @@ class Usuario {
 
         $tipos = "ss";
         $params = [$senhaCriptografada, $this->email];
-        $sql = "UPDATE usuario SET senha = ? WHERE BINARY email = ?";
+        $sql = "UPDATE usuario2 SET senha = ? WHERE BINARY email = ?";
 
         $connection->execute($sql, $tipos, $params);
 
