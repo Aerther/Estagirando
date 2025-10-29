@@ -21,7 +21,7 @@ class Curso {
 
         $tipos = "s";
         $params = [$this->nome];
-        $sql = "INSERT INTO Curso (Nome) VALUES (?)";
+        $sql = "INSERT INTO curso (Nome) VALUES (?)";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -32,7 +32,7 @@ class Curso {
 
         $tipos = "si";
         $params = [$nome, $this->idCurso];
-        $sql = "UPDATE Curso SET Nome = ? WHERE ID_Curso = ?";
+        $sql = "UPDATE curso SET Nome = ? WHERE ID_Curso = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -43,7 +43,7 @@ class Curso {
 
         $tipos = "i";
         $params = [$this->idCurso];
-        $sql = "DELETE FROM Curso WHERE ID_Curso = ?";
+        $sql = "DELETE FROM curso WHERE ID_Curso = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -54,7 +54,7 @@ class Curso {
 
         $tipos = "i";
         $params = [$idCurso];
-        $sql = "SELECT * FROM Curso c WHERE c.ID_Curso = ?";
+        $sql = "SELECT * FROM curso c WHERE c.ID_Curso = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
@@ -74,7 +74,7 @@ class Curso {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT * FROM Curso";
+        $sql = "SELECT * FROM curso";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
