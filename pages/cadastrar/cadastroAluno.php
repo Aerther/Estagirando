@@ -74,6 +74,7 @@ $cursos = Curso::findAllCursos();
     <p id="erro"><?php echo $mensagemErro;?></p>
 
     <form action="./cadastroAluno.php" method="post">
+        <div id="form1">
         <div class="dado">
         <section>
             <label for="nome">Nome:</label>
@@ -132,6 +133,7 @@ $cursos = Curso::findAllCursos();
             ?>
         </section>
         </div>
+        </div>
 
         <div id="dado2">
 
@@ -180,6 +182,7 @@ $cursos = Curso::findAllCursos();
         </section>
 
         </div>
+        
 
         <div id="dado3">
         <section>

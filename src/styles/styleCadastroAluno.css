@@ -28,7 +28,7 @@ h1{
 }
 
 
-form{
+#form1{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 25px;
@@ -114,3 +114,10 @@ section{
     grid-template-columns: 1fr 1fr;
 }
 
+#dado2{
+    display: flex;
+}
+
+#dado3{
+    display: flex;
+}
