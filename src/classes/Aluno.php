@@ -65,7 +65,7 @@ class Aluno extends Usuario {
 
         $connection = new MySQL();
 
-        session_start();
+        if(session_status() != 2) session_start();
 
         $tipos = "ssssiii";
         $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $anoIngresso, $idCurso, $_SESSION["idUsuario"]];
@@ -94,6 +94,7 @@ class Aluno extends Usuario {
         
         $aluno->setIdUsuario( $usuario->getIdUsuario() );
         $aluno->setNome( $usuario->getNome() );
+        $aluno->setSobrenome( $usuario->getSobrenome() );
         $aluno->setTipoUsuario( $usuario->getTipoUsuario() );
         $aluno->setIdFoto( $usuario->getIdFoto() );
         $aluno->setStatusCadastro( $usuario->getStatusCadastro() );
@@ -132,6 +133,7 @@ class Aluno extends Usuario {
             
             $aluno->setIdUsuario($resultado["ID_Usuario"]);
             $aluno->setNome($resultado["Nome"]);
+            $aluno->setSobrenome($resultado["Sobrenome"]);
             $aluno->setTipoUsuario($resultado["Tipo_Usuario"]);
             $aluno->setIdFoto($resultado["ID_Foto"]);
             $aluno->setStatusCadastro($resultado["Status_Cadastro"]);

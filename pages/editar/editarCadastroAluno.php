@@ -10,16 +10,20 @@ session_start();
 
 if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
+if($_SESSION["tipoUsuario"] != "Aluno") header("Location: ./../../privado.php");
+
 $mensagemErro = "";
 
-if(isset($_POST['cadastrar'])) {
-    $usuario = new Aluno($_POST["email"], $_POST["senha"]);
-
+if(isset($_POST['salvar'])) {
+    $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
+    
     $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
     $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
 
+    $usuario = new Aluno($_POST["email"], $_POST["senha"]);
+
     if(!$usuario->usuarioExiste()) {
-        if(strlen($_POST["senha"]) < 8) {
+        if(strlen($senha) < 8 && !empty($senha)) {
             $mensagemErro = "Senha deve possuir no mínimo 8 caracteres";
 
         } else if(!empty(array_intersect($preferencias, $naoPreferencias))) {
@@ -40,6 +44,10 @@ if(isset($_POST['cadastrar'])) {
                 $_POST["curso"]
             );
 
+            if(isset($_POST["senha"])) {
+                $usuario->atualizarSenha($senha);
+            }
+
             header("Location: ./../../privado.php");
         }
     } else {
@@ -47,6 +55,7 @@ if(isset($_POST['cadastrar'])) {
     }
 }
 
+$aluno = Aluno::findAluno($_SESSION["idUsuario"]);
 $preferencias = Preferencia::findAllPreferencias();
 $cursos = Curso::findAllCursos();
 
@@ -60,170 +69,198 @@ $cursos = Curso::findAllCursos();
 
     <title>Estagirando</title>
 
-    <link rel= "stylesheet" href="./../../src/styles/styleEdicaoAluno.css">
+    <link rel="stylesheet" href="./../../src/styles/reset.css">
+    <link rel= "stylesheet" href="./../../src/styles/styleEditar.css">
 
 </head>
 <body>
-    <div id="menu">
-        <div id='saudacao'>
-            <h1>Bem vindo Aluno!</h1>
-        </div>
+    <div class="container">
+        <header>
+            <section class="texto-inicial">
+                <h2>Bem-vindo Aluno!</h2>
+            </section>
 
-        <div id='icone'>
-            <a href="./../pesquisa/pesquisa.php"><img src="./../../icones/pesquisa.png" alt="" class='iconeMenu' id='pesquisa'></a>
-            <a href="./../../solicitacoesOrientacao.php"><img src="./../../icones/solicitacoes.png" alt="" class='iconeMenu' id='solicitacoes'></a>
-            <a href="./../editar/editarCadastro.php"><img src="./../../icones/edicao.png" alt="" class='iconeMenu' id='edicao'></a>   
-            <a href="./../visualizar/visualizarCadastro.php"><img src="./../../icones/iconProf.png" alt="" class='iconeMenu' id='visualizar'></a>
-            <a href="./../../sair.php"><img src="./../../icones/logout.png" alt="" class='iconeMenu' id='logout'></a>
-        </div>
-    </div>
-    <div id="edicao">
-        <p id="erro"><?php echo $mensagemErro;?></p>
+            <section class="icones">
+                <a href="./../pesquisa/pesquisa.php">
+                    <img src="./../../icones/pesquisa.png" alt="Icone" class='iconeMenu' id='pesquisa'>
+                </a>
 
-        <form action="editarCadastroAluno.php" method="post">
-            <div class='dados'>
-                <section>
-                    <label for="nome">Nome:</label>
-                    <input type="text" name="nome" value="<?php if (isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" required>
-                </section>
+                <a href="./../../solicitacoesOrientacao.php">
+                    <img src="./../../icones/solicitacoes.png" alt="Icone" class='iconeMenu' id='solicitacoes'>
+                </a>
 
-                <section>
-                    <label for="sobrenome">Sobrenome:</label>
-                    <input type="text" name="sobrenome" value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
-                </section>
-            </div>
+                <a href="./../editar/editarCadastro.php">
+                    <img src="./../../icones/edicao.png" alt="Icone" class='iconeMenu' id='edicao'>
+                </a>   
 
-            <div class='dados'>
-                <section>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" required>
-                </section>
+                <a href="./../visualizar/visualizarCadastro.php">
+                    <img src="./../../icones/iconAluno.png" alt="Icone" class='iconeMenu' id='visualizar'>
+                </a>
 
-                <section>
-                    <label for="senha">Senha:</label>
-                    <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
-                </section>
-            </div>
-
-            <div class='dados'>
-                <section>
-                    <label for="curso">Curso:</label>
-                    <select id="curso" name="curso">
-                        <?php
-
-                        $cursoSelecionado = isset($_POST["curso"]) ? $_POST["curso"] : -1;
-
-                        foreach($cursos as $curso) {
-                            $selected = $curso->getIdCurso() == $cursoSelecionado ? 'selected' : '';
-
-                            echo "<option value={$curso->getIdCurso()} {$selected}>{$curso->getNome()}</option>";
-                        }
-
-                        ?>
-                    </select>
-                </section>
-                
-                <section>
-                    <label for="ano">Ingresso em:</label>
-                    <input type="number" name="ano" min='2015' max='2025' value="<?php if (isset($_POST['ano'])) echo htmlspecialchars($_POST['ano']); ?>" required>
-                </section>
-            </div>
+                <a href="./../../sair.php">
+                    <img src="./../../icones/logout.png" alt="Icone" class='iconeMenu' id='logout'>
+                </a>
+            </section>
+        </header>
         
-            <div clas='dados'>
-                <section>
-                    <label for="turno">Turno disponível:</label>
+        <main>
+            <form action="./editarCadastroAluno.php" method="post">
+                <section class="dados">
+                    <section class="imagem">
 
-                    <?php 
-                    
-                    $opcoes = ["manha" => "", "tarde" => ""];
+                        <figure>
+                            <img src="./../../icones/iconAluno.png" alt="Icone Aluno">
+                        </figure>
 
-                    if(isset($_POST["turno"])) $opcoes[$_POST["turno"]] = "selected";
+                    </section>
 
-                    ?>
+                    <section class="dados-input compact">
+                        <section>
+                            <label for="nome">Nome:</label>
+                            <input type="text" name="nome"  value="<?php echo $aluno->getNome(); ?>" required>
+                        </section>
 
-                    <select id="turno" name="turno">
-                        <option value="manha" <?php echo $opcoes["manha"]; ?>>Manhã</option>
-                        <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
-                    </select>
-                </section>
-                
-                <section>
-                    <label for="situacao">Situação Atual:</label>
-                    
-                    <?php 
-                    
-                    $opcoes = ["procurando" => "", "estagiando" => "", "ocupado" => ""];
+                        <section>
+                            <label for="sobrenome">Sobrenome:</label>
+                            <input type="text" name="sobrenome"  value="<?php echo $aluno->getSobrenome(); ?>" required>
+                        </section>
 
-                    if(isset($_POST["situacao"])) $opcoes[$_POST["situacao"]] = "selected";
+                        <section>
+                            <label for="modalidade">Modalidade:</label>
 
-                    ?>
+                            <?php 
+                            
+                            $opcoes = ["presencial" => "", "remoto" => "", "hibrido" => ""];
 
-                    <select id="situacao" name="situacao">
-                        <option value="procurando" <?php echo $opcoes["procurando"]; ?>>Procurando Estágio</option>
-                        <option value="estagiando" <?php echo $opcoes["estagiando"]; ?>>Estagiando</option>
-                        <option value="ocupado" <?php echo $opcoes["ocupado"]; ?>>Ocupado</option>
-                    </select>
-                </section>
-            </div>
+                            $opcoes[$aluno->getModalidade()] = "selected";
 
-            <div class='dados'>
-                <section>
-                    <label for="modalidade">Modalidade:</label>
+                            ?>
 
-                    <?php 
-                    
-                    $opcoes = ["presencial" => "", "remoto" => "", "hibrido" => ""];
+                            <select id="modalidade" name="modalidade">
+                                <option value="presencial" <?php echo $opcoes["presencial"]; ?>>Presencial</option>
+                                <option value="remoto" <?php echo $opcoes["remoto"]; ?>>Remoto</option>
+                                <option value="hibrido" <?php echo $opcoes["hibrido"]; ?>>Híbrido</option>
+                            </select>
+                        </section>
 
-                    if(isset($_POST["modalidade"])) $opcoes[$_POST["modalidade"]] = "selected";
+                        <section class="more-space">
+                            <label for="turno">Turno disponível:</label>
 
-                    ?>
+                            <?php 
+                            
+                            $opcoes = ["manha" => "", "tarde" => ""];
 
-                    <select id="modalidade" name="modalidade">
-                        <option value="presencial" <?php echo $opcoes["presencial"]; ?>>Presencial</option>
-                        <option value="remoto" <?php echo $opcoes["remoto"]; ?>>Remoto</option>
-                        <option value="hibrido" <?php echo $opcoes["hibrido"]; ?>>Híbrido</option>
-                    </select>
-                </section>
-                
-                <section>
-                    <label for="cidadeEstagiar">Cidade para Estagiar:</label>
-                    <input type="text" name="cidadeEstagiar" value="<?php if (isset($_POST['cidadeEstagiar'])) echo htmlspecialchars($_POST['cidadeEstagiar']); ?>" required>
-                </section>
-            </div>
+                            $opcoes[$aluno->getTurnoDisponivel()] = "selected";
 
-            <div class='dados'>
-                <section>
-                    <label for="pref">Preferências</label>
+                            ?>
 
-                    <?php 
+                            <select id="turno" name="turno">
+                                <option value="manha" <?php echo $opcoes["manha"]; ?>>Manhã</option>
+                                <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
+                            </select>
+                        </section>
                         
-                        foreach($preferencias as $preferencia) {
-                            echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                        }
+                        <section class="more-space">
+                            <label for="situacao">Situação Atual:</label>
+                            
+                            <?php 
+                            
+                            $opcoes = ["Procurando Estágio" => "", "Estagiando" => "", "Ocupado" => ""];
 
-                    ?>
-                </section>
+                            $opcoes[$aluno->getStatusEstagio()] = "selected";
 
-                <section>
-                    <label for="nPref">Não Preferências</label>
-                    
-                    <?php 
+                            ?>
+
+                            <select id="situacao" name="situacao">
+                                <option value="procurando" <?php echo $opcoes["Procurando Estágio"]; ?>>Procurando Estágio</option>
+                                <option value="estagiando" <?php echo $opcoes["Estagiando"]; ?>>Estagiando</option>
+                                <option value="ocupado" <?php echo $opcoes["Ocupado"]; ?>>Ocupado</option>
+                            </select>
+                        </section>
+                    </section>
+
+                    <section class="dados-input compact">
+                        <section>
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" value="<?php echo $aluno->getEmail(); ?>" required>
+                        </section>
+
+                        <section>
+                            <label for="senha">Senha:</label>
+                            <input type="password" name="senha" placeholder="Se vazio, senha não muda">
+                        </section>
+
+                        <section>
+                            <label for="curso">Curso:</label>
+                            <select id="curso" name="curso">
+                                <?php
+
+                                $cursoSelecionado = $aluno->getIdCurso();
+
+                                foreach($cursos as $curso) {
+                                    $selected = $curso->getIdCurso() == $cursoSelecionado ? 'selected' : '';
+
+                                    echo "<option value={$curso->getIdCurso()} {$selected}>{$curso->getNome()}</option>";
+                                }
+
+                                ?>
+                            </select>
+                        </section>
                         
-                        foreach($preferencias as $preferencia) {
-                            echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                        }
+                        <section class="more-space">
+                            <label for="ano">Ingressou em:</label>
+                            <input type="number" name="ano" min='2015' max='2025' value="<?php echo $aluno->getAnoIngresso(); ?>" required>
+                        </section>
 
-                    ?>
+                        <section class="more-space">
+                            <label for="cidadeEstagiar">Cidade para Estagiar:</label>
+                            <input type="text" name="cidadeEstagiar" value="<?php echo $aluno->getCidadeEstagio(); ?>" required>
+                        </section>
+                    </section>
                 </section>
-            </div>
-        
-            <div id='btn'>
-                <section>
-                    <input type="submit" name="cadastrar" value="Salvar">
-                    <a href="./../home/homeAluno.php">Cancelar</a>
+
+                <section class="preferencias">
+                    <section>
+                        <p>Preferências</p>
+
+                        <div>
+                            <?php 
+                        
+                            foreach($preferencias as $preferencia) {
+                                $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getPreferencias()) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                            }
+
+                            ?>
+                        </div>
+                    </section>
+
+                    <section>
+                        <p>Não preferências</p>
+                        
+                        <div>
+                            <?php 
+                        
+                            foreach($preferencias as $preferencia) {
+                                $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getNaoPreferencias()) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                            }
+
+                            ?>
+                        </div>
+                    </section>
                 </section>
-            </div>
-        </form>
+
+                <section class="links">
+                    <?php echo "<p class='erro'>{$mensagemErro}</p>"; ?>
+
+                    <div>
+                        <input class='link' type="submit" name="salvar" value="Salvar">
+                        <a class='link' href="./../../privado.php">Cancelar</a>
+                    </div>
+                </section>
+            </form>
+        </main>
     </div>
 </body>
 </html>

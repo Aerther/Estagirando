@@ -55,7 +55,7 @@ class SolicitacaoOrientacao {
     public function salvarSolicitacaoOrientacao() : void {
         $connection = new MySQL();
 
-        session_start();
+        if(session_status() != 2) session_start();
 
         $tipos = "ssssissssssi";
 
@@ -83,7 +83,7 @@ class SolicitacaoOrientacao {
     public static function findSolicitacaoOrientacao($idSolicitacaoOrientacao) : SolicitacaoOrientacao {
         $connection = new MySQL();
 
-        session_start();
+        if(session_status() != 2) session_start();
         
         $tipos = "ii";
         $params = [$idSolicitacaoOrientacao, $_SESSION["idUsuario"]];
@@ -128,7 +128,7 @@ class SolicitacaoOrientacao {
 
         $sos = [];
 
-        session_start();
+        if(session_status() != 2) session_start();
 
         $tipos = "i";
         $params = [$_SESSION["idUsuario"]];

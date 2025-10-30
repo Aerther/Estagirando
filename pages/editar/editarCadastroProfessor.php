@@ -9,16 +9,20 @@ session_start();
 
 if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
+if($_SESSION["tipoUsuario"] != "Professor") header("Location: ./../../privado.php");
+
 $mensagemErro = "";
 
-if(isset($_POST['cadastrar'])) {
-    $usuario = new Professor($_POST["email"], $_POST["senha"]);
-
+if(isset($_POST['salvar'])) {
+    $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
+    
     $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
     $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
 
+    $usuario = new Professor($_POST["email"], $senha);
+
     if(!$usuario->usuarioExiste()) {
-        if(strlen($_POST["senha"]) < 8) {
+        if(strlen($senha) < 8 && !empty($senha)) {
             $mensagemErro = "Senha deve possuir no mínimo 8 caracteres";
 
         } else if(!empty(array_intersect($preferencias, $naoPreferencias))) {
@@ -34,6 +38,10 @@ if(isset($_POST['cadastrar'])) {
                 $_POST["disponivel"]
             );
 
+            if(isset($_POST["senha"])) {
+                $usuario->atualizarSenha($senha);
+            }
+
             header("Location: ./../../privado.php");
         }
     } else {
@@ -41,6 +49,7 @@ if(isset($_POST['cadastrar'])) {
     }
 }
 
+$professor = Professor::findProfessor($_SESSION["idUsuario"]);
 $preferencias = Preferencia::findAllPreferencias();
 
 ?>
@@ -59,102 +68,126 @@ $preferencias = Preferencia::findAllPreferencias();
 <body>
     <div class="container">
         <header>
-            <section>
-                <h2>Olá, ...</h2>
+            <section class="texto-inicial">
+                <h2>Bem-vindo Professor!</h2>
             </section>
 
-            <section>
+            <section class="icones">
                 <a href="./../pesquisa/pesquisa.php">
-                    <img src="./../../icones/pesquisa.png" alt="" class='iconeMenu' id='pesquisa'>
+                    <img src="./../../icones/pesquisa.png" alt="Icone" class='iconeMenu' id='pesquisa'>
                 </a>
 
                 <a href="./../../solicitacoesOrientacao.php">
-                    <img src="./../../icones/solicitacoes.png" alt="" class='iconeMenu' id='solicitacoes'>
+                    <img src="./../../icones/solicitacoes.png" alt="Icone" class='iconeMenu' id='solicitacoes'>
                 </a>
 
                 <a href="./../editar/editarCadastro.php">
-                    <img src="./../../icones/edicao.png" alt="" class='iconeMenu' id='edicao'>
+                    <img src="./../../icones/edicao.png" alt="Icone" class='iconeMenu' id='edicao'>
                 </a>   
 
                 <a href="./../visualizar/visualizarCadastro.php">
-                    <img src="./../../icones/iconProf.png" alt="" class='iconeMenu' id='visualizar'>
+                    <img src="./../../icones/iconProf.png" alt="Icone" class='iconeMenu' id='visualizar'>
                 </a>
 
                 <a href="./../../sair.php">
-                    <img src="./../../icones/logout.png" alt="" class='iconeMenu' id='logout'>
+                    <img src="./../../icones/logout.png" alt="Icone" class='iconeMenu' id='logout'>
                 </a>
             </section>
         </header>
         
         <main>
-            <p id="erro"><?php echo $mensagemErro;?></p>
+            <form action="./editarCadastroProfessor.php" method="post">
+                <section class="dados">
+                    <section class="imagem">
 
-            <form action="editarCadastroProfessor.php" method="post">
-                <div class="dado">
-                    <section>
-                        <label for="nome">Nome:</label>
-                        <input type="text" name="nome"  value="<?php if (isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" required>
+                        <figure>
+                            <img src="./../../icones/iconProf.png" alt="Icone Professor">
+                        </figure>
+
                     </section>
 
-                    <section>
-                        <label for="sobrenome">Sobrenome:</label>
-                        <input type="text" name="sobrenome"  value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
-                    </section>
-                </div>
+                    <section class="dados-input">
+                        <section>
+                            <label for="nome">Nome:</label>
+                            <input type="text" name="nome"  value="<?php echo $professor->getNome(); ?>" required>
+                        </section>
 
-                <div class="dado">
-                    <section>
+                        <section>
+                            <label for="sobrenome">Sobrenome:</label>
+                            <input type="text" name="sobrenome"  value="<?php echo $professor->getSobrenome(); ?>" required>
+                        </section>
+
+                        <section class="radio">
+                            <label for="disponivel">Disponível para orientar?</label>
+
+                            <div class="disponibilidade">
+                                <?php 
+
+                                $opcoes = ["sim" => "", "nao" => ""];
+
+                                $opcoes[$professor->getStatusDisponibilidade()] = "checked";
+                                
+                                echo "<label><input type='radio' name='disponivel' value='sim' {$opcoes['sim']} required>Sim</label>";
+                                echo "<label><input type='radio' name='disponivel' value='nao' {$opcoes['nao']} required>Não</label>";
+
+                                ?>
+                            </div>
+                        </section>
+                    </section>
+
+                    <section class="dados-input">
+                        <section>
                         <label for="email">Email:</label>
-                        <input type="email" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" required>
+                        <input type="email" name="email" value="<?php echo $professor->getEmail(); ?>" required>
                     </section>
 
                     <section>
                         <label for="senha">Senha:</label>
-                        <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
+                        <input type="password" name="senha" placeholder="Se vazio, senha não muda">
                     </section>
-                </div>
+                    </section>
+                </section>
 
-                <div class="preferencia">
-                
+                <section class="preferencias">
                     <section>
                         <p>Preferências</p>
 
-                        <?php 
+                        <div>
+                            <?php 
                         
-                        foreach($preferencias as $preferencia) {
-                            echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                        }
+                            foreach($preferencias as $preferencia) {
+                                $selected = array_key_exists($preferencia->getIdPreferencia(), $professor->getPreferencias()) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                            }
 
-                        ?>
+                            ?>
+                        </div>
                     </section>
 
                     <section>
                         <p>Não preferências</p>
-
-                        <?php 
                         
-                        foreach($preferencias as $preferencia) {
-                            echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                        }
+                        <div>
+                            <?php 
+                        
+                            foreach($preferencias as $preferencia) {
+                                $selected = array_key_exists($preferencia->getIdPreferencia(), $professor->getNaoPreferencias()) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                            }
 
-                        ?>
+                            ?>
+                        </div>
                     </section>
-
-                </div>
-
-                <section id="radios">
-                    <label for="">Disponível para orientar?</label>
-
-                    <div id="disponibilidade">
-                        <label><input type="radio" name="disponivel" value="sim" required>Sim</label>
-                        <label><input type="radio" name="disponivel" value="nao" required>Não</label>
-                    </div>
                 </section>
 
-                <div id="btn">  
-                        <input type="submit" name="cadastrar" value="Cadastrar">
-                        <a href="./../../privado.php">Cancelar</a>
-                </div>
+                <section class="links">
+                    <?php echo "<p class='erro'>{$mensagemErro}</p>"; ?>
+
+                    <div>
+                        <input class='link' type="submit" name="salvar" value="Salvar">
+                        <a class='link' href="./../../privado.php">Cancelar</a>
+                    </div>
+                </section>
             </form>
         </main>
     </div>

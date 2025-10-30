@@ -1,11 +1,4 @@
-/*body {
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-}
-
+/*
 #menu {
     width: 100%;                  
     background-color: #ffffff;    
@@ -53,6 +46,253 @@
     height: 100vh;
 
     display: grid;
-    grid-template-rows: 200px;
+    grid-template-rows: 90px 1fr;
     grid-template-columns: 100%;
+}
+
+header, main {
+    width: 100%;
+    height: 100%;
+}
+
+/* Header */
+
+header {
+    border-bottom: 1px solid #b3b3b3;
+
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.texto-inicial {
+    padding-left: 40px;
+
+    display: flex;
+    align-items: center;
+}
+
+.texto-inicial h2 {
+    font-size: 36px;
+
+    color: #3d3d3d;
+    
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.icones {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(auto, 80px));
+    align-items: center;
+}
+
+.icones a {
+    display: inline-block;
+
+    width: 40px;
+    height: 40px;
+}
+
+.icones a img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Main */
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    width: 97%;
+    height: 95%;
+
+    background-color: rgb(230, 230, 230);
+    border-radius: 15px;
+
+    padding: 10px;
+
+    display: grid;
+    grid-template-rows: 43% 39% 18%;
+    grid-template-columns: 100%;
+}
+
+.dados, .preferencias, .links {
+    width: 100%;
+    height: 100%;
+}
+
+/* Seção Dados */
+
+.dados {
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 20% 40% 40%;
+}
+
+.imagem figure {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem figure img {
+    width: auto;
+    height: 80%;
+
+    filter: brightness(0);
+}
+
+.dados-input {
+    height: 100%;
+
+    padding-left: 10px;
+
+    padding-top: 10px;
+
+    display: grid;
+    grid-template-rows: repeat(auto-fill, minmax(auto, 70px));
+    grid-template-columns: 100%;
+}
+
+.compact {
+    grid-template-rows: repeat(5, 40px) !important;
+}
+
+.dados-input section {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    align-items: center;
+}
+
+.more-space {
+    gap: 30px;
+
+    grid-template-columns: auto 1fr !important;
+}
+
+.dados-input section label {
+    font-size: 22px;
+}
+
+.dados-input section input:not([type~="radio"]), select, option {
+    width: clamp(120px, 20vw, 300px);
+    height: 30px;
+
+    padding: 0 10px;
+
+    font-size: 20px;
+    
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.radio {
+    display: grid;
+    grid-template-rows: 0.8fr 1fr !important;
+    grid-template-columns: 100% !important;
+}
+
+.disponibilidade {
+    width: 100%;
+
+    gap: 80px;
+
+    padding-left: 30px;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.disponibilidade label {
+    gap: 10px;
+
+    display: flex;
+    align-items: center;
+}
+
+/* Seção Preferencias */
+
+.preferencias {
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 50% 50%;
+}
+
+.preferencias section {
+    padding-left: 50px;
+
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    grid-template-columns: 100%;
+}
+
+.preferencias section div {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(auto-fill, minmax(auto, 40px));
+}
+
+.preferencias section div label {
+    font-size: 20px;
+}
+
+/* Links */
+
+.links {
+    gap: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.erro {
+    color: red;
+
+    font-size: 18px;
+}
+
+.links div {
+    gap: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link {
+    display: inline-block;
+
+    width: 120px;
+    height: 40px;
+
+    text-decoration: none;
+
+    border: 1px solid black;
+    border-radius: 10px;
+
+    background-color: #d5d5d5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link:hover {
+    background-color: #b3b3b3;
+}
+
+.link:active {
+    color: #d5d5d5;
+    background-color: black;
 }

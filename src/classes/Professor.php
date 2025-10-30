@@ -51,7 +51,7 @@ class Professor extends Usuario {
 
         $connection = new MySQL();
 
-        session_start();
+        if(session_status() != 2) session_start();
 
         $tipos = "si";
         $params = [$statusDisponibilidade, $_SESSION["idUsuario"]];
@@ -80,8 +80,9 @@ class Professor extends Usuario {
         
         $professor->setIdUsuario( $usuario->getIdUsuario() );
         $professor->setNome( $usuario->getNome() );
+        $professor->setSobrenome( $usuario->getSobrenome() );
         $professor->setTipoUsuario( $usuario->getTipoUsuario() );
-        $professor->setLinkFoto( $usuario->getLinkFoto() );
+        $professor->setIdFoto( $usuario->getIdFoto() );
         $professor->setStatusCadastro( $usuario->getStatusCadastro() );
         $professor->setPreferencias();
 

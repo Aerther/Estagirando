@@ -8,7 +8,8 @@ class Usuario {
 
     protected int $idUsuario;
     protected int $idFoto;
-    protected string $nome; // Junção de Nome + Sobrenome
+    protected string $nome;
+    protected string $sobrenome;
     protected string $senha;
     protected string $email;
     protected string $tipoUsuario;
@@ -53,7 +54,7 @@ class Usuario {
 
         foreach($naoPreferencias as $index) {
             $tipos = "iis";
-            $params = [$idUsuario, $index, "não"];
+            $params = [$idUsuario, $index, "nao"];
             $sql = "INSERT INTO usuario_preferencia (ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, ?)";
 
             $conexao->execute($sql, $tipos, $params);
@@ -72,13 +73,16 @@ class Usuario {
     ) : void {
         $conexao = new MySQL();
 
-        session_start();
+        if(session_status() != 2) session_start();
 
         $tipos = "sssi";
         $params = [$email, $nome, $sobrenome, $_SESSION["idUsuario"]];
         $sql = "UPDATE usuario2 SET Email = ?, Nome = ?, Sobrenome = ? WHERE ID_Usuario = ?";
 
         $conexao->execute($sql, $tipos, $params);
+
+        $this->deletarPreferencias();
+        $this->inserirPreferencias($preferencias, $naoPreferencias);
 
         foreach($preferencias as $index) {
             $tipos = "ii";
@@ -91,17 +95,31 @@ class Usuario {
         foreach($naoPreferencias as $index) {
             $tipos = "ii";
             $params = [$index, $_SESSION["idUsuario"]];
-            $sql = "UPDATE usuario_preferencia SET Prefere = 'não' WHERE ID_Preferencia = ? AND ID_Usuario = ?";
+            $sql = "UPDATE usuario_preferencia SET Prefere = 'nao' WHERE ID_Preferencia = ? AND ID_Usuario = ?";
 
             $conexao->execute($sql, $tipos, $params);
         }
+    }
+
+    public function atualizarSenha(string $senha) : void {
+        $connection = new MySQL();
+
+        if(session_status() != 2) session_start();
+
+        $senha = password_hash($senha, PASSWORD_BCRYPT);
+
+        $tipos = "si";
+        $params = [$senha, $_SESSION["idUsuario"]];
+        $sql = "UPDATE usuario2 SET Senha = ? WHERE ID_Usuario = ?";
+
+        $connection->execute($sql, $tipos, $params);
     }
 
     // 'Excluir'
     public function desativarCadastro() : void {
         $conexao = new MySQL();
 
-        session_start();
+        if(session_status() != 2) session_start();
 
         $tipos = "i";
         $params = [$_SESSION["idUsuario"]];
@@ -114,11 +132,11 @@ class Usuario {
     public static function findUsuario(int $idUsuario) : Usuario {
         $conexao = new MySQL();
 
-        session_start();
+        if(session_status() != 2) session_start();
 
         $tipos = "i";
         $params = [$idUsuario];
-        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM usuario2 u 
+        $sql = "SELECT * FROM usuario2 u 
         WHERE u.ID_Usuario = ? AND u.Status_Cadastro = 'ativo'";
 
         $resultados = $conexao->search($sql, $tipos, $params);
@@ -133,6 +151,7 @@ class Usuario {
         $usuario->setIdUsuario($resultado["ID_Usuario"]);
         $usuario->setIdFoto($resultado["ID_Foto"]);
         $usuario->setNome($resultado["Nome"]);
+        $usuario->setSobrenome($resultado["Sobrenome"]);
         $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
         $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
         $usuario->setPreferencias();
@@ -148,7 +167,7 @@ class Usuario {
 
         $tipos = "s";
         $params = [$tipoUsuario];
-        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM usuario2 u 
+        $sql = "SELECT * FROM usuario2 u 
         WHERE u.Tipo_Usuario LIKE ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
@@ -161,14 +180,49 @@ class Usuario {
             $usuario->setIdUsuario($resultado["ID_Usuario"]);
             $usuario->setIdFoto($resultado["ID_Foto"]);
             $usuario->setNome($resultado["Nome"]);
+            $usuario->setSobrenome($resultado["Sobrenome"]);
             $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
             $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
-            $usuario->setPreferenciasUsuario();
+            $usuario->setPreferencias();
 
             $usuarios[] = $usuario;
         }
 
         return $usuarios;
+    }
+
+    public function inserirPreferencias(array $preferencias, array $naoPreferencias) : void {
+        $connection = new MySQL();
+
+        if(session_status() != 2) session_start();
+
+        $tipos = "ii";
+
+        foreach($preferencias as $preferencia) {
+            $params = [$_SESSION["idUsuario"], $preferencia];
+
+            $sql = "INSERT INTO usuario_preferencia (ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, 'sim')";
+            $connection->execute($sql, $tipos, $params);
+        }
+
+        foreach($naoPreferencias as $preferencia) {
+            $params = [$_SESSION["idUsuario"], $preferencia];
+
+            $sql = "INSERT INTO usuario_preferencia (ID_Usuario, ID_Preferencia, Prefere) VALUES (?, ?, 'nao')";
+            $connection->execute($sql, $tipos, $params);
+        }
+    }
+
+    public function deletarPreferencias() : void {
+        $connection = new MySQL();
+
+        if(session_status() != 2) session_start();
+
+        $tipos = "i";
+        $params = [$_SESSION["idUsuario"]];
+        $sql = "DELETE FROM usuario_preferencia WHERE ID_Usuario = ?";
+
+        $connection->execute($sql, $tipos, $params);
     }
 
     // Setta as preferencias do usuario
@@ -190,7 +244,7 @@ class Usuario {
 
         // Pegar preferencias que não gosta
         $sql = "SELECT * FROM preferencia p 
-        JOIN usuario_preferencia up ON up.ID_Preferencia = p.ID_Preferencia WHERE up.Prefere = 'não' AND up.ID_Usuario = ?";
+        JOIN usuario_preferencia up ON up.ID_Preferencia = p.ID_Preferencia WHERE up.Prefere = 'nao' AND up.ID_Usuario = ?";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 
@@ -223,7 +277,7 @@ class Usuario {
         if(!password_verify($this->senha, $usuario["Senha"])) return false;
 
         // Settando dados da session
-        session_start();
+        if(session_status() != 2) session_start();
 
         $_SESSION["idUsuario"] = $usuario["ID_Usuario"];
         $_SESSION["nome"] = $usuario["Nome"];
@@ -241,7 +295,7 @@ class Usuario {
     public function usuarioExiste() {
         $connection = new MySQL();
 
-        session_start();
+        if(session_status() != 2) session_start();
 
         $idUsuario = isset($_SESSION["idUsuario"]) ? $_SESSION["idUsuario"] : -1;
 
@@ -312,6 +366,15 @@ class Usuario {
 
     public function setNome(string $nome) : void {
         $this->nome = $nome;
+    }
+
+    // Sobrenome
+    public function getSobrenome() : string {
+        return $this->sobrenome;
+    }
+
+    public function setSobrenome(string $sobrenome) : void {
+        $this->sobrenome = $sobrenome;
     }
 
     // Senha
