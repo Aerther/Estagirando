@@ -65,7 +65,7 @@ $cursos = Curso::findAllCursos();
 
     <title>Estagirando</title>
     
-    <link rel= "stylesheet" href="./../../src/styles/styleCadastroaluno.css">
+    <link rel= "stylesheet" href="./../../src/styles/styleCadastroAluno.css">
 </head>
 <body id="body">
     <h1>Cadastro de Aluno</h1>
@@ -74,14 +74,10 @@ $cursos = Curso::findAllCursos();
     <p id="erro"><?php echo $mensagemErro;?></p>
 
     <form action="./cadastroAluno.php" method="post">
+        <div class="dado">
         <section>
             <label for="nome">Nome:</label>
             <input type="text" name="nome" value="<?php if (isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" required>
-        </section>
-
-        <section>
-            <label for="sobrenome">Sobrenome:</label>
-            <input type="text" name="sobrenome" value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
         </section>
 
         <section>
@@ -90,20 +86,29 @@ $cursos = Curso::findAllCursos();
         </section>
 
         <section>
-            <label for="confEmail">Confirme o Email:</label>
-            <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail'])) echo htmlspecialchars($_POST['confEmail']); ?>" required>
+            <label for="senha">Senha:</label>
+            <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
+        </section>
+        </div>
+
+        <div class="dado">
+        <section>
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" name="sobrenome" value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
         </section>
 
         <section>
-            <label for="senha">Senha:</label>
-            <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
+            <label for="confEmail">Confirme o Email:</label>
+            <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail'])) echo htmlspecialchars($_POST['confEmail']); ?>" required>
         </section>
 
         <section>
             <label for="confSenha">Confirme a Senha:</label>
             <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha'])) echo htmlspecialchars($_POST['confSenha']); ?>" required>
         </section>
+        </div>
 
+        <div class="preferencia">
         <section>
             <label for="pref">Preferências</label>
             <?php 
@@ -126,6 +131,9 @@ $cursos = Curso::findAllCursos();
 
             ?>
         </section>
+        </div>
+
+        <div id="dado2">
 
         <section>
             <label for="ano">Ano de Ingresso:</label>
@@ -171,6 +179,9 @@ $cursos = Curso::findAllCursos();
             </select>
         </section>
 
+        </div>
+
+        <div id="dado3">
         <section>
             <label for="modalidade">Modalidade:</label>
             
@@ -207,11 +218,13 @@ $cursos = Curso::findAllCursos();
             </select>
         </section>
 
+        <div id="btn">
         <section>
             <input type="submit" name="cadastrar" value="Cadastrar">
             <a href="./../../index.php">Cancelar</a>
         </section>
-
+        </div>
+        </div>
     </form> 
         
 </div>
