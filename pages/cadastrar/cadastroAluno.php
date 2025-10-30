@@ -90,101 +90,12 @@ $cursos = Curso::findAllCursos();
             <label for="senha">Senha:</label>
             <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
         </section>
-        </div>
-
-        <div class="dado">
-        <section>
-            <label for="sobrenome">Sobrenome:</label>
-            <input type="text" name="sobrenome" value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
-        </section>
-
-        <section>
-            <label for="confEmail">Confirme o Email:</label>
-            <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail'])) echo htmlspecialchars($_POST['confEmail']); ?>" required>
-        </section>
-
-        <section>
-            <label for="confSenha">Confirme a Senha:</label>
-            <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha'])) echo htmlspecialchars($_POST['confSenha']); ?>" required>
-        </section>
-        </div>
-
-        <div class="preferencia">
-        <section>
-            <label for="pref">Preferências</label>
-            <?php 
-                
-                foreach($preferencias as $preferencia) {
-                    echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                }
-
-            ?>
-        </section>
-
-        <section>
-            <label for="nPref">Não Preferências</label>
-            
-            <?php 
-                
-                foreach($preferencias as $preferencia) {
-                    echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                }
-
-            ?>
-        </section>
-        </div>
-        </div>
-
-        <div id="dado2">
 
         <section>
             <label for="ano">Ano de Ingresso:</label>
             <input type="number" name="ano" min='2015' max='2025' value="<?php if (isset($_POST['ano'])) echo htmlspecialchars($_POST['ano']); ?>" required>
         </section>
 
-        <section>
-            <label for="curso">Selecione o curso:</label>
-                <select id="curso" name="curso">
-                    <?php
-
-                    $cursoSelecionado = isset($_POST["curso"]) ? $_POST["curso"] : -1;
-
-                    foreach($cursos as $curso) {
-                        $selected = $curso->getIdCurso() == $cursoSelecionado ? 'selected' : '';
-
-                        echo "<option value={$curso->getIdCurso()} {$selected}>{$curso->getNome()}</option>";
-                    }
-
-                    ?>
-                </select>
-        </section>
-
-        <section>
-            <label for="cidede">Cidade para Estagiar:</label>
-            <input type="text" name="cidadeEstagiar" value="<?php if (isset($_POST['cidadeEstagiar'])) echo htmlspecialchars($_POST['cidadeEstagiar']); ?>" required>
-        </section>
-
-        <section>
-            <label for="turno">Turno disponível:</label>
-            
-            <?php 
-            
-            $opcoes = ["manha" => "", "tarde" => ""];
-
-            if(isset($_POST["turno"])) $opcoes[$_POST["turno"]] = "selected";
-
-            ?>
-
-            <select id="turno" name="turno">
-                <option value="manha" <?php echo $opcoes["manha"]; ?>>Manhã</option>
-                <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
-            </select>
-        </section>
-
-        </div>
-        
-
-        <div id="dado3">
         <section>
             <label for="modalidade">Modalidade:</label>
             
@@ -219,6 +130,87 @@ $cursos = Curso::findAllCursos();
                 <option value="estagiando" <?php echo $opcoes["estagiando"]; ?>>Estagiando</option>
                 <option value="ocupado" <?php echo $opcoes["ocupado"]; ?>>Ocupado</option>
             </select>
+        </section>
+        </div>
+
+        <div class="dado">
+        <section>
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" name="sobrenome" value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
+        </section>
+
+        <section>
+            <label for="confEmail">Confirme o Email:</label>
+            <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail'])) echo htmlspecialchars($_POST['confEmail']); ?>" required>
+        </section>
+
+        <section>
+            <label for="confSenha">Confirme a Senha:</label>
+            <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha'])) echo htmlspecialchars($_POST['confSenha']); ?>" required>
+        </section>
+
+        <section>
+            <label for="cidadeEstagiar">Cidade para Estagiar:</label>
+            <input type="text" name="cidadeEstagiar" value="<?php if (isset($_POST['cidadeEstagiar'])) echo htmlspecialchars($_POST['cidadeEstagiar']); ?>" required>
+        </section>
+
+        <section>
+            <label for="curso">Selecione o curso:</label>
+            <select id="curso" name="curso">
+                <?php
+
+                $cursoSelecionado = isset($_POST["curso"]) ? $_POST["curso"] : -1;
+
+                foreach($cursos as $curso) {
+                    $selected = $curso->getIdCurso() == $cursoSelecionado ? 'selected' : '';
+
+                    echo "<option value={$curso->getIdCurso()} {$selected}>{$curso->getNome()}</option>";
+                }
+
+                ?>
+            </select>
+        </section>
+
+        <section>
+            <label for="turno">Turno disponível:</label>
+            
+            <?php 
+            
+            $opcoes = ["manha" => "", "tarde" => ""];
+
+            if(isset($_POST["turno"])) $opcoes[$_POST["turno"]] = "selected";
+
+            ?>
+
+            <select id="turno" name="turno">
+                <option value="manha" <?php echo $opcoes["manha"]; ?>>Manhã</option>
+                <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
+            </select>
+        </section>
+        </div>
+
+        <div class="preferencia">
+        <section>
+            <label for="pref">Preferências</label>
+            <?php 
+                
+                foreach($preferencias as $preferencia) {
+                    echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                }
+
+            ?>
+        </section>
+
+        <section>
+            <label for="nPref">Não Preferências</label>
+            
+            <?php 
+                
+                foreach($preferencias as $preferencia) {
+                    echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                }
+
+            ?>
         </section>
 
         <div id="btn">
