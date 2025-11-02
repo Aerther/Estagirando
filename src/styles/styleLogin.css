@@ -57,7 +57,7 @@ body {
 .texto-coluna-1 > h3 {
     font-size: 1.3rem;
     font-weight: 350;
-    font-family: 'Times New Roman', Times, serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .links-cad {
@@ -68,7 +68,7 @@ body {
     font-size: 1rem;
     font-style: italic;
     color: #646464;
-    font-family: 'Times New Roman', Times, serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .coluna-2 {
@@ -79,7 +79,7 @@ body {
 }
 
 #label{
-    font-family: 'Times New Roman', Times, serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .error {
@@ -159,13 +159,13 @@ input:not([name="botao-enviar"]) {
 }
 
 h1 {
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 
     font-size: 1.5rem;
 }
 
 h2 {
-    font-family: 'Times New Roman', Times, serif;
+    font-family:Arial, Helvetica, sans-serif;
 
     font-size: 1.2rem;
 

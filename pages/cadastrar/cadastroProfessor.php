@@ -38,8 +38,10 @@ if(isset($_POST["cadastrar"])) {
                 $naoPreferencias,
                 $_POST["disponivel"]
             );
-            
-            header("Location: ./../../index.php");
+            $mensagemErro = "<div id='msg'>
+            <p id='erro'>Cadastro realizado com sucesso!</p>
+            <a href='./../../index.php' id='voltar'>Voltar</a></div>";
+            //header("Location: ./../../index.php");
         }
     } else {
         $mensagemErro = "Email já cadastrado";
@@ -136,7 +138,7 @@ $preferencias = Preferencia::findAllPreferencias();
         <div id="btn">  
         
                 <input type="submit" name="cadastrar" value="Cadastrar">
-                <a href="./../../index.php">Cancelar</a>
+                <a href="./../../index.php" id='cancelar'>Cancelar</a>
            
         </div>
     </form> 

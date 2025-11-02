@@ -33,23 +33,19 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
             </section>
 
             <section class="icones">
-                <a href="./pesquisa/pesquisa.php">
+                <a href="./pesquisa/pesquisa.php" title="Pesquisa avançada">
                     <img src="./icones/pesquisa.png" alt="Icone" class='iconeMenu' id='pesquisa'>
                 </a>
 
-                <a href="./solicitacoesOrientacao.php">
+                <a href="./solicitacoesOrientacao.php" title="Solicitações de Orientação">
                     <img src="./icones/solicitacoes.png" alt="Icone" class='iconeMenu' id='solicitacoes'>
-                </a>
+                </a>  
 
-                <a href="./pages/editar/<?php echo $linkEditarCadastro; ?>">
-                    <img src="./icones/edicao.png" alt="Icone" class='iconeMenu' id='edicao'>
-                </a>   
-
-                <a href="./visualizar/visualizarCadastro.php">
+                <a href="./visualizar/visualizarCadastro.php" title="Visualizar cadastro">
                     <img src="./icones/<?php echo $linkIcone; ?>" alt="Icone" class='iconeMenu' id='visualizar'>
                 </a>
 
-                <a href="./sair.php">
+                <a href="./sair.php" title="Logout">
                     <img src="./icones/logout.png" alt="Icone" class='iconeMenu' id='logout'>
                 </a>
             </section>

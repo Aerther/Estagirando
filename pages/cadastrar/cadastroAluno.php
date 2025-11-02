@@ -44,8 +44,10 @@ if(isset($_POST["cadastrar"])) {
                 $_POST["modalidade"],
                 $_POST["curso"]
             );
-            
-            header("Location: ./../../index.php");
+            $mensagemErro = "<div id='msg'>
+            <p id='erro'>Cadastro realizado com sucesso!</p>
+            <a href='./../../index.php' id='voltar'>Voltar</a></div>";
+            //header("Location: ./../../index.php");
         }
     } else {
         $mensagemErro = "Email já cadastrado";
@@ -216,7 +218,7 @@ $cursos = Curso::findAllCursos();
         <div id="btn">
         <section>
             <input type="submit" name="cadastrar" value="Cadastrar">
-            <a href="./../../index.php">Cancelar</a>
+            <a href="./../../index.php" id='cancelar'>Cancelar</a>
         </section>
         </div>
         </div>

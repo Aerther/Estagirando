@@ -21,7 +21,7 @@ body {
 }
 
 h1{
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size: 2.5rem;
     text-align: center;
     color: #000;
@@ -49,10 +49,10 @@ select, option{
 }
 
 
-input[type="submit"], a {
+input[type="submit"]{
     display: inline-block;
     background-color: #d9d9d9;
-    font-family: 'Times New Roman', Times, serif;
+    font-family:Arial, Helvetica, sans-serif;
     color: #000;
     border: 1px solid #999;
     border-radius: 10px;
@@ -65,7 +65,7 @@ input[type="submit"], a {
 
 
 label, p{
-    font-family: 'Times New Roman', Times, serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size: 20px;
 }
 
@@ -139,4 +139,39 @@ section{
 
 #dado3{
     display: flex;
+}
+#cancelar{
+
+    background-color: #d9d9d9;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #000;
+    border: 1px solid #999;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: center;
+    width: 100px;
+
+}
+
+#voltar{
+    background-color: #e2e2e2;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #000;
+    border: 1px solid #999;
+    border-radius: 10px;
+    padding: 3px;
+    font-size: 15px;
+    text-decoration: none;
+    text-align: center;
+    width: 80px;
+}
+
+#msg{
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center;
 }
