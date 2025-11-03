@@ -8,12 +8,17 @@ require_once __DIR__."/vendor/autoload.php";
 
 use App\Classes\Usuario;
 
+$msgError = "";
+
 session_start();
+
+if(isset($_SESSION['cadastrado'])){
+    $msgError = "Cadastro realizado com sucesso!";
+}
 
 session_unset();
 session_destroy();
 
-$msgError = "";
 
 if(isset($_POST["botao-enviar"])) {
     $usuario = new Usuario($_POST["email"], $_POST["senha"]);

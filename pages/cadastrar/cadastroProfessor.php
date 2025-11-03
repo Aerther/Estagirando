@@ -38,10 +38,10 @@ if(isset($_POST["cadastrar"])) {
                 $naoPreferencias,
                 $_POST["disponivel"]
             );
-            $mensagemErro = "<div id='msg'>
-            <p id='erro'>Cadastro realizado com sucesso!</p>
-            <a href='./../../index.php' id='voltar'>Voltar</a></div>";
-            //header("Location: ./../../index.php");
+            session_start();
+            $_SESSION['cadastrado']=true;
+            header("Location: ./../../index.php");
+            
         }
     } else {
         $mensagemErro = "Email já cadastrado";
