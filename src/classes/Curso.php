@@ -74,7 +74,7 @@ class Curso {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT * FROM curso";
+        $sql = "SELECT * FROM curso c ORDER BY c.Nome";
 
         $resultados = $connection->search($sql, $tipos, $params);
 

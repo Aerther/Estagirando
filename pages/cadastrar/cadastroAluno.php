@@ -44,8 +44,11 @@ if(isset($_POST["cadastrar"])) {
                 $_POST["modalidade"],
                 $_POST["curso"]
             );
+
             session_start();
-            $_SESSION['cadastrado']=true;
+
+            $_SESSION['cadastrado'] = true;
+            
             header("Location: ./../../index.php");
         }
     } else {

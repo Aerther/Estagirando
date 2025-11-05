@@ -71,41 +71,73 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                     </section>
 
                     <section class="dados-usuario">
-                        <?php echo "<p>Nome: {$aluno->getNome()} <p class='status'>{$aluno->getStatusEstagio()}</p> </p>"; ?>
-                        <?php echo "<p>Email: {$aluno->getEmail()}</p>"; ?>
-                        <?php echo "<p>Curso: {$curso->getNome()}</p>"; ?>
-                        <?php echo "<p>Ingressou em {$aluno->getAnoIngresso()}</p>"; ?>
+                        <?php 
+
+                        $status = ucwords($aluno->getStatusEstagio());
+
+                        $cor = str_contains($status, "Procurando") ? "green" : "red";
+ 
+                        echo "<p>Nome: {$aluno->getNome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
+                        echo "<p>Email: {$aluno->getEmail()}</p>";
+                        echo "<p>Curso: {$curso->getNome()}</p>";
+                        echo "<p>Ingressou em {$aluno->getAnoIngresso()}</p>"; 
+                        
+                        ?>
+                    </section>
+
+                    <section class="dados-usuario">
+                        <p class="titulo-dados">Disponibilidade do Estágio</p>
+
+                        <?php 
+
+                        echo "<p>Modalidade: {$aluno->getModalidade()}</p>";
+                        echo "<p>Turno: {$aluno->getTurnoDisponivel()}</p>"; 
+                            
+                        ?>
                     </section>
                 </section>
 
                 <section class="linha-2">
-                    <section class="disponibilidade">
-                        <p class="titulo-dados">Disponibilidade do Estágio</p>
-                        <?php echo "<p>Cidade: {$aluno->getCidadeEstagio()}</p>"; ?>
-                        <?php echo "<p>Modalidade: {$aluno->getModalidade()}</p>"; ?>
-                        <?php echo "<p>Turno: {$aluno->getTurnoDisponivel()}</p>"; ?>
+                    <section class="cidades">
+                        <p class="titulo-dados">Cidades Para Estagiar</p>
+                        
+                        <div>
+                            <?php
+
+                            foreach($preferencias as $preferencia) {
+                                echo "<p>{$preferencia}</p>";
+                            }
+
+                            ?>
+                        </div>
                     </section>
 
                     <section class="preferencias">
                         <p class="titulo-dados">Preferências</p>
-                        <?php
+                        
+                        <div>
+                            <?php
 
-                        foreach($preferencias as $preferencia) {
-                            echo "<p>{$preferencia}</p>";
-                        }
+                            foreach($preferencias as $preferencia) {
+                                echo "<p>{$preferencia}</p>";
+                            }
 
-                        ?>
+                            ?>
+                        </div>
                     </section>
 
                     <section class="nao-preferencias">
                         <p class="titulo-dados">Não Preferências</p>
-                        <?php
+                        
+                        <div>
+                            <?php
 
-                        foreach($naoPreferencias as $preferencia) {
-                            echo "<p>{$preferencia}</p>";
-                        }
+                            foreach($naoPreferencias as $preferencia) {
+                                echo "<p>{$preferencia}</p>";
+                            }
 
-                        ?>
+                            ?>
+                        </div>
                     </section>
                 </section>
             </div>

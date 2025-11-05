@@ -10,7 +10,7 @@ session_start();
 
 if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
-if($_SESSION["tipoUsuario"] != "Aluno") header("Location: ./../../privado.php");
+if($_SESSION["tipoUsuario"] != "aluno") header("Location: ./../../privado.php");
 
 $mensagemErro = "";
 
@@ -37,7 +37,7 @@ if(isset($_POST['salvar'])) {
                 $preferencias,
                 $naoPreferencias,
                 $_POST["ano"],
-                $_POST["cidadeEstagiar"],
+                $_POST["cidadesEstagiar"],
                 $_POST["turno"],
                 $_POST["situacao"],
                 $_POST["modalidade"],
@@ -110,7 +110,7 @@ $cursos = Curso::findAllCursos();
 
                     </section>
 
-                    <section class="dados-input compact">
+                    <section class="dados-input">
                         <section>
                             <label for="nome">Nome:</label>
                             <input type="text" name="nome"  value="<?php echo $aluno->getNome(); ?>" required>
@@ -161,21 +161,21 @@ $cursos = Curso::findAllCursos();
                             
                             <?php 
                             
-                            $opcoes = ["Procurando Estágio" => "", "Estagiando" => "", "Ocupado" => ""];
+                            $opcoes = ["procurando estágio" => "", "estagiando" => "", "ocupado" => ""];
 
                             $opcoes[$aluno->getStatusEstagio()] = "selected";
 
                             ?>
 
                             <select id="situacao" name="situacao">
-                                <option value="procurando" <?php echo $opcoes["Procurando Estágio"]; ?>>Procurando Estágio</option>
-                                <option value="estagiando" <?php echo $opcoes["Estagiando"]; ?>>Estagiando</option>
-                                <option value="ocupado" <?php echo $opcoes["Ocupado"]; ?>>Ocupado</option>
+                                <option value="procurando estágio" <?php echo $opcoes["procurando estágio"]; ?>>Procurando Estágio</option>
+                                <option value="estagiando" <?php echo $opcoes["estagiando"]; ?>>Estagiando</option>
+                                <option value="ocupado" <?php echo $opcoes["ocupado"]; ?>>Ocupado</option>
                             </select>
                         </section>
                     </section>
 
-                    <section class="dados-input compact">
+                    <section class="dados-input">
                         <section>
                             <label for="email">Email:</label>
                             <input type="email" name="email" value="<?php echo $aluno->getEmail(); ?>" required>
@@ -207,15 +207,20 @@ $cursos = Curso::findAllCursos();
                             <label for="ano">Ingressou em:</label>
                             <input type="number" name="ano" min='2015' max='2025' value="<?php echo $aluno->getAnoIngresso(); ?>" required>
                         </section>
-
-                        <section class="more-space">
-                            <label for="cidadeEstagiar">Cidade para Estagiar:</label>
-                            <input type="text" name="cidadeEstagiar" value="<?php echo $aluno->getCidadeEstagio(); ?>" required>
-                        </section>
                     </section>
                 </section>
 
                 <section class="preferencias">
+                    <section class="cidades">
+                        <p>Cidades Para Estagiar</p>
+
+                        <input type="text" name="cidadeEstagiar" placeholder="Pesquisar Cidade...">
+                        
+                        <div>
+                            <label><input type="checkbox" name="cidadesEstagiar[]" value="-1"> Qualquer Cidade</label>
+                        </div>
+                    </section>
+
                     <section>
                         <p>Preferências</p>
 

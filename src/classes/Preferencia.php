@@ -74,7 +74,7 @@ class Preferencia {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT * FROM preferencia";
+        $sql = "SELECT * FROM preferencia p ORDER BY p.Descricao";
 
         $resultados = $connection->search($sql, $tipos, $params);
 

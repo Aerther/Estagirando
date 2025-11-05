@@ -19,7 +19,6 @@ if(isset($_SESSION['cadastrado'])){
 session_unset();
 session_destroy();
 
-
 if(isset($_POST["botao-enviar"])) {
     $usuario = new Usuario($_POST["email"], $_POST["senha"]);
 
@@ -48,6 +47,12 @@ if(isset($_POST["botao-enviar"])) {
     <script src="./src/js/main.js" defer></script>
 
     <title>Estagirando</title>
+
+    <style>
+        .error p {
+            color: <?php echo str_contains($msgError, "sucesso") ? "green" : "red"; ?>;
+        }
+    </style>
 </head>
 <body>
     <h1>Bem-vindo ao Estagirando!</h1>

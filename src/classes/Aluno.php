@@ -16,6 +16,7 @@ class Aluno extends Usuario {
     private string $modalidade;
     private int $idCurso;
     private int $anoIngresso;
+    private array $cidadesEstagiar = [];
 
     public function __construct(string $email, string $senha) {
         parent::__construct($email, $senha);
@@ -36,7 +37,7 @@ class Aluno extends Usuario {
         string $modalidade,
         int $idCurso
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "Aluno", 2, $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "aluno", 2, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
@@ -106,6 +107,7 @@ class Aluno extends Usuario {
         $aluno->setModalidade($resultado["Modalidade"]);
         $aluno->setAnoIngresso($resultado["Ano_Ingresso"]);
         $aluno->setIdCurso($resultado["ID_Curso"]);
+        //$aluno->setCidadesEstagiar();
 
         return $aluno;
     }
@@ -145,11 +147,28 @@ class Aluno extends Usuario {
             $aluno->setModalidade($resultado["Modalidade"]);
             $aluno->setAnoIngresso($resultado["Ano_Ingresso"]);
             $aluno->setIdCurso($resultado["ID_Curso"]);
+            //$aluno->setCidadesEstagiar();
 
             $alunos[] = $aluno;
         }
 
         return $alunos;
+    }
+
+    public function setCidadesEstagiar() : void {
+        $conexao = new MySQL();
+
+        $tipos = "";
+        $params = [];
+
+        // Mudar
+        $sql = "";
+
+        $resultados = $conexao->search($sql, $tipos, $params);
+
+        foreach($resultados as $resultado) {
+            $this->cidadesEstagiar[$resultado["ID_Cidade"]] = ["nome" => $resultado["Nome"], "uf" => $resultado["UF"]];
+        }
     }
 
     // Getters e Setters

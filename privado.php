@@ -9,8 +9,9 @@ require_once __DIR__."/vendor/autoload.php";
 session_start();
 
 // Settagem dos links
-$linkEditarCadastro = $_SESSION["tipoUsuario"] == "Aluno" ? "editarCadastroAluno.php" : "editarCadastroProfessor.php";
-$linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.png";
+$linkEditarCadastro = $_SESSION["tipoUsuario"] == "aluno" ? "editarCadastroAluno.php" : "editarCadastroProfessor.php";
+$linkIcone = $_SESSION["tipoUsuario"] == "aluno" ? "iconAluno.png" : "iconProf.png";
+$linkVisualizarCadastro = ($_SESSION["tipoUsuario"] == "aluno" ? "visualizarAluno.php" : "visualizarProfessor.php") . "?id={$_SESSION['idUsuario']}";
 
 ?>
 
@@ -33,15 +34,15 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
             </section>
 
             <section class="icones">
-                <a href="./pesquisa/pesquisa.php" title="Pesquisa avançada">
+                <a href="./pages/pesquisa/pesquisa.php" title="Pesquisa">
                     <img src="./icones/pesquisa.png" alt="Icone" class='iconeMenu' id='pesquisa'>
                 </a>
 
-                <a href="./solicitacoesOrientacao.php" title="Solicitações de Orientação">
+                <a href="./pages/solicitacoesOrientacao.php" title="Solicitações de Orientação">
                     <img src="./icones/solicitacoes.png" alt="Icone" class='iconeMenu' id='solicitacoes'>
                 </a>  
 
-                <a href="./visualizar/visualizarCadastro.php" title="Visualizar cadastro">
+                <a href="./pages/visualizar/<?php echo $linkVisualizarCadastro; ?>" title="Visualizar Cadastro">
                     <img src="./icones/<?php echo $linkIcone; ?>" alt="Icone" class='iconeMenu' id='visualizar'>
                 </a>
 

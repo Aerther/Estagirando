@@ -234,7 +234,7 @@ class Usuario {
 
         // Pegar preferencias que gosta
         $sql = "SELECT * FROM preferencia p 
-        JOIN usuario_preferencia up ON up.ID_Preferencia = p.ID_Preferencia WHERE up.Prefere = 'sim' AND up.ID_Usuario = ?";
+        JOIN usuario_preferencia up ON up.ID_Preferencia = p.ID_Preferencia WHERE up.Prefere = 'sim' AND up.ID_Usuario = ? ORDER BY p.Descricao";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 
@@ -244,7 +244,7 @@ class Usuario {
 
         // Pegar preferencias que não gosta
         $sql = "SELECT * FROM preferencia p 
-        JOIN usuario_preferencia up ON up.ID_Preferencia = p.ID_Preferencia WHERE up.Prefere = 'nao' AND up.ID_Usuario = ?";
+        JOIN usuario_preferencia up ON up.ID_Preferencia = p.ID_Preferencia WHERE up.Prefere = 'nao' AND up.ID_Usuario = ? ORDER BY p.Descricao";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 
