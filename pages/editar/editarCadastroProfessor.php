@@ -137,9 +137,8 @@ $preferencias = Preferencia::findAllPreferencias();
                         <input type="email" name="email" value="<?php echo $professor->getEmail(); ?>" required>
                     </section>
 
-                    <section>
-                        <label for="senha">Senha:</label>
-                        <input type="password" name="senha" placeholder="Se vazio, senha não muda">
+                    <section id=divEditSenha>
+                        <a href="editarSenhaProf.php" id='editSenha'>Editar senha</a>
                     </section>
                     </section>
                 </section>

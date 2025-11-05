@@ -159,9 +159,22 @@ $cursos = Curso::findAllCursos();
         </section>
 
         <section>
+            <?php 
+            
+            $opcoes = [1 => "", 2 => "", 3 => "", 4 => ""];
+
+            if(isset($_POST["curso"])) $opcoes[$_POST["curso"]] = "selected";
+
+            ?>
             <label for="curso">Selecione o curso:</label>
             <select id="curso" name="curso">
+                <option value="1" <?php echo $opcoes[1]; ?>>Informática</option>
+                <option value="2" <?php echo $opcoes[2]; ?>>Administração</option>
+                <option value="3" <?php echo $opcoes[3]; ?>>Química</option>
+                <option value="4" <?php echo $opcoes[4]; ?>>Meio Ambiente</option>
                 <?php
+                /*
+
 
                 $cursoSelecionado = isset($_POST["curso"]) ? $_POST["curso"] : -1;
 
@@ -169,8 +182,7 @@ $cursos = Curso::findAllCursos();
                     $selected = $curso->getIdCurso() == $cursoSelecionado ? 'selected' : '';
 
                     echo "<option value={$curso->getIdCurso()} {$selected}>{$curso->getNome()}</option>";
-                }
-
+                }*/
                 ?>
             </select>
         </section>
