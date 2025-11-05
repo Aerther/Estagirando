@@ -10,12 +10,15 @@ if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
 if(!isset($_GET["id"])) header("Location: ./../../privado.php");
 
+if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"]) header("Location: ./../../privado.php");
+
 $aluno = Aluno::findAluno($_GET["id"]);
 
 $foto = $aluno->getFoto();
 $curso = $aluno->getCurso();
 $preferencias = $aluno->getPreferencias();
 $naoPreferencias = $aluno->getNaoPreferencias();
+$cidadesEstagiar = $aluno->getCidadesEstagiar();
 
 // Settagem dos links
 $linkEditarCadastro = $_SESSION["tipoUsuario"] == "Aluno" ? "editarCadastroAluno.php" : "editarCadastroProfessor.php";
@@ -104,8 +107,8 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                         <div>
                             <?php
 
-                            foreach($preferencias as $preferencia) {
-                                echo "<p>{$preferencia}</p>";
+                            foreach($cidadesEstagiar as $cidade) {
+                                echo "<p>{$cidade['nome']}, {$cidade['uf']}</p>";
                             }
 
                             ?>

@@ -215,6 +215,8 @@ $cursos = Curso::findAllCursos();
                         <p>Cidades Para Estagiar</p>
 
                         <input type="text" name="cidadeEstagiar" placeholder="Pesquisar Cidade...">
+
+                        <ul class='sugestoes'></ul>
                         
                         <div>
                             <label><input type="checkbox" name="cidadesEstagiar[]" value="-1"> Qualquer Cidade</label>

@@ -185,10 +185,10 @@ form {
 }
 
 .cidades {
-    grid-template-rows: 40px 45px 1fr !important;
+    grid-template-rows: 40px 45px 0.7fr 1fr !important;
 }
 
-.preferencias section div {
+.preferencias section div, .sugestoes {
     width: 100%;
     height: 100%;
 
@@ -202,6 +202,10 @@ form {
     border-radius: 20px;
 
     overflow-y: scroll;
+}
+
+.sugestoes {
+    height: 90%;
 }
 
 .preferencias section div label {
@@ -263,7 +267,6 @@ form {
 #divEditSenha{
     display: flex;
     flex-direction: row;
-
 }
 
 #titleEdit{
@@ -271,9 +274,6 @@ form {
     margin-top: 20px;
     font-size: 34px;
 }
-
-
-
 
 .dados-senha section {
     display: grid;

@@ -31,7 +31,7 @@ class Aluno extends Usuario {
         array $preferencias, 
         array $naoPreferencias, 
         int $anoIngresso,
-        string $cidadeEstagio,
+        string $cidadesEstagiar,
         string $turnoDisponivel,
         string $statusEstagio,
         string $modalidade,
@@ -46,6 +46,14 @@ class Aluno extends Usuario {
         $sql = "INSERT INTO aluno2 (ID_Aluno, Cidade_Estagio, Turno_Disponivel, Status_Estagio, Modalidade, Ano_Ingresso, ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $connection->execute($sql, $tipos, $params);
+
+        foreach($cidadesEstagiar as $index) {
+            $tipos = "ii";
+            $params = [$idUsuario, $index];
+            $sql = "INSERT INTO usuario_cidade (ID_Usuario, ID_Cidade) VALUES (?, ?)";
+
+            $conexao->execute($sql, $tipos, $params);
+        }
     }
 
     // Atualizar
@@ -56,7 +64,7 @@ class Aluno extends Usuario {
         array $preferencias, 
         array $naoPreferencias,
         int $anoIngresso,
-        string $cidadeEstagio,
+        string $cidadesEstagiar,
         string $turnoDisponivel,
         string $statusEstagio,
         string $modalidade,
@@ -73,6 +81,9 @@ class Aluno extends Usuario {
         $sql = "UPDATE aluno2 SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, Ano_Ingresso = ?, ID_Curso = ? WHERE ID_Aluno = ?";
 
         $connection->execute($sql, $tipos, $params);
+
+        $this->deletarCidadesEstagiar();
+        $this->inserirCidadesEstagiar($cidadesEstagiar);
     }
 
     // Find Aluno
@@ -107,7 +118,7 @@ class Aluno extends Usuario {
         $aluno->setModalidade($resultado["Modalidade"]);
         $aluno->setAnoIngresso($resultado["Ano_Ingresso"]);
         $aluno->setIdCurso($resultado["ID_Curso"]);
-        //$aluno->setCidadesEstagiar();
+        $aluno->setCidadesEstagiar();
 
         return $aluno;
     }
@@ -147,7 +158,7 @@ class Aluno extends Usuario {
             $aluno->setModalidade($resultado["Modalidade"]);
             $aluno->setAnoIngresso($resultado["Ano_Ingresso"]);
             $aluno->setIdCurso($resultado["ID_Curso"]);
-            //$aluno->setCidadesEstagiar();
+            $aluno->setCidadesEstagiar();
 
             $alunos[] = $aluno;
         }
@@ -155,20 +166,47 @@ class Aluno extends Usuario {
         return $alunos;
     }
 
+    // Setta as cidades escolhidas pelo aluno
     public function setCidadesEstagiar() : void {
         $conexao = new MySQL();
 
-        $tipos = "";
-        $params = [];
-
-        // Mudar
-        $sql = "";
+        $tipos = "i";
+        $params = [$this->idUsuario];
+        $sql = "SELECT * FROM cidade c JOIN usuario_cidade uc ON uc.ID_Cidade = c.ID_Cidade WHERE uc.ID_Usuario = ? ORDER BY c.UF, c.Nome";
 
         $resultados = $conexao->search($sql, $tipos, $params);
 
         foreach($resultados as $resultado) {
             $this->cidadesEstagiar[$resultado["ID_Cidade"]] = ["nome" => $resultado["Nome"], "uf" => $resultado["UF"]];
         }
+    }
+
+    public function inserirCidadesEstagiar(array $cidadesEstagiar) : void {
+        $connection = new MySQL();
+
+        if(session_status() != 2) session_start();
+
+        $tipos = "ii";
+
+        foreach($cidadesEstagiar as $idCidade) {
+            $params = [$_SESSION["idUsuario"], $idCidade];
+
+            $sql = "INSERT INTO usuario_cidade (ID_Usuario, ID_Cidade) VALUES (?, ?)";
+
+            $connection->execute($sql, $tipos, $params);
+        }
+    }
+
+    public function deletarCidadesEstagiar() : void {
+        $connection = new MySQL();
+
+        if(session_status() != 2) session_start();
+
+        $tipos = "i";
+        $params = [$_SESSION["idUsuario"]];
+        $sql = "DELETE FROM usuario_cidade WHERE ID_Usuario = ?";
+
+        $connection->execute($sql, $tipos, $params);
     }
 
     // Getters e Setters
@@ -230,6 +268,11 @@ class Aluno extends Usuario {
 
     public function setModalidade($modalidade) : void {
         $this->modalidade = $modalidade;
+    }
+
+    // Cidades Estagiar
+    public function getCidadesEstagiar() : array {
+        return $this->cidadesEstagiar;
     }
 }
 
