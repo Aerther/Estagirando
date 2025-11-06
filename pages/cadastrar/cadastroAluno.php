@@ -18,6 +18,9 @@ if(isset($_POST["cadastrar"])) {
     $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
     $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
 
+    $cidadesEstagiar = isset($_POST["cidadesEstagiar"]) ? $_POST["cidadesEstagiar"] : [];
+
+
     if(!$usuario->usuarioExiste()) {
         if($_POST["senha"] != $_POST["confSenha"]) {
             $mensagemErro = "Os campos de senha estão diferentes";
@@ -35,13 +38,16 @@ if(isset($_POST["cadastrar"])) {
             $usuario->salvarAluno(
                 $_POST["nome"],
                 $_POST["sobrenome"],
+                "1",
+                "1",
                 $preferencias,
                 $naoPreferencias,
                 $_POST["ano"],
-                $_POST["cidadeEstagiar"],
+                $cidadesEstagiar,
                 $_POST["turno"],
                 $_POST["situacao"],
                 $_POST["modalidade"],
+                "1",
                 $_POST["curso"]
             );
 
@@ -239,8 +245,7 @@ $cidadesEstagiar = [];
                             <?php 
                         
                             foreach($preferencias as $preferencia) {
-                                $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getPreferencias()) ? "checked" : "";
-                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
@@ -254,8 +259,7 @@ $cidadesEstagiar = [];
                             <?php 
                         
                             foreach($preferencias as $preferencia) {
-                                $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getNaoPreferencias()) ? "checked" : "";
-                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>

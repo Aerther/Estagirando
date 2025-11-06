@@ -10,7 +10,7 @@ use App\BD\MySQL;
 
 class Aluno extends Usuario {
 
-    private string $cidadeEstagio;
+    private string $cidadesEstagio;
     private string $turnoDisponivel;
     private string $statusEstagio;
     private string $modalidade;
@@ -46,8 +46,8 @@ class Aluno extends Usuario {
         $connection = new MySQL();
 
         $tipos = "issssii";
-        $params = [$idUsuario, $cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $anoIngresso, $matricula, $idCurso];
-        $sql = "INSERT INTO aluno2 (ID_Aluno, Cidade_Estagio, Turno_Disponivel, Status_Estagio, Modalidade, Ano_Ingresso, Matricula, ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $params = [$idUsuario, $turnoDisponivel, $statusEstagio, $modalidade, $matricula, $anoIngresso,  $idCurso];
+        $sql = "INSERT INTO aluno2 (ID_Aluno, Turno_Disponivel, Status_Estagio, Modalidade, Matricula, Ano_Ingresso,  ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $connection->execute($sql, $tipos, $params);
 
@@ -56,7 +56,7 @@ class Aluno extends Usuario {
             $params = [$idUsuario, $index];
             $sql = "INSERT INTO usuario_cidade (ID_Usuario, ID_Cidade) VALUES (?, ?)";
 
-            $conexao->execute($sql, $tipos, $params);
+            $connection->execute($sql, $tipos, $params);
         }
     }
 
@@ -103,7 +103,7 @@ class Aluno extends Usuario {
 
         $tipos = "i";
         $params = [$idAluno];
-        $sql = "SELECT * FROM aluno2 a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
+        $sql = "SELECT a.*, c.Nome AS Nome_Curso FROM aluno2 a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
