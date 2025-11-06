@@ -77,7 +77,7 @@ class Aluno extends Usuario {
         string $matricula,
         int $idCurso
     ) : void {
-        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, $preferencias, $naoPreferencias);
+        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, "aluno", 2, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 

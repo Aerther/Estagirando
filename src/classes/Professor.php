@@ -51,7 +51,7 @@ class Professor extends Usuario {
         array $naoPreferencias, 
         string $statusDisponibilidade
     ) : void {
-        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, $preferencias, $naoPreferencias);
+        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, "professor", 1,  $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
