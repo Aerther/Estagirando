@@ -108,6 +108,11 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                             <?php
 
                             foreach($cidadesEstagiar as $cidade) {
+                                if($cidade["nome"] == "Todos") {
+                                    echo "<p>Qualquer Cidade</p>";
+                                    continue;
+                                }
+
                                 echo "<p>{$cidade['nome']}, {$cidade['uf']}</p>";
                             }
 

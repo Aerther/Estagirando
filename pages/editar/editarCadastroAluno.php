@@ -58,6 +58,7 @@ if(isset($_POST['salvar'])) {
 $aluno = Aluno::findAluno($_SESSION["idUsuario"]);
 $preferencias = Preferencia::findAllPreferencias();
 $cursos = Curso::findAllCursos();
+$cidadesEstagiar = $aluno->getCidadesEstagiar();
 
 ?>
 
@@ -71,6 +72,8 @@ $cursos = Curso::findAllCursos();
 
     <link rel="stylesheet" href="./../../src/styles/reset.css">
     <link rel= "stylesheet" href="./../../src/styles/styleEditar.css">
+
+    <script src="./../../src/js/editarCad.js" defer></script>
 
 </head>
 <body>
@@ -214,12 +217,27 @@ $cursos = Curso::findAllCursos();
                     <section class="cidades">
                         <p>Cidades Para Estagiar</p>
 
-                        <input type="text" name="cidadeEstagiar" placeholder="Pesquisar Cidade...">
+                        <input type="text" name="cidadeEstagiar" id="cidadeEstagiar" placeholder="Cidade, Estado (sigla)">
 
-                        <ul class='sugestoes'></ul>
+                        <div class='sugestoes'></div>
                         
-                        <div>
-                            <label><input type="checkbox" name="cidadesEstagiar[]" value="-1"> Qualquer Cidade</label>
+                        <div class="checkboxes">
+                            <label>Cidades Escolhidas</label>
+
+                            <?php
+
+                            $checked = (isset($cidadesEstagiar['1'])) ? "checked" : "";
+
+                            echo "<label><input type='checkbox' name='cidadesEstagiar[]' value=1 id='qualquerCidade' {$checked}> Qualquer Cidade</label>";
+
+                            foreach($cidadesEstagiar as $index => $cidade) {
+                                if ($cidade['nome'] === 'Todos') continue;
+                                
+                                echo "<label><input type='checkbox' name='cidadesEstagiar[]' value={$index} onchange='resetarQualquerCidade()' checked> {$cidade['nome']}, {$cidade['uf']}</label>";
+                            }
+
+                            ?>
+
                         </div>
                     </section>
 

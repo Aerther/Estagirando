@@ -31,7 +31,7 @@ class Aluno extends Usuario {
         array $preferencias, 
         array $naoPreferencias, 
         int $anoIngresso,
-        string $cidadesEstagiar,
+        array $cidadesEstagiar,
         string $turnoDisponivel,
         string $statusEstagio,
         string $modalidade,
@@ -64,7 +64,7 @@ class Aluno extends Usuario {
         array $preferencias, 
         array $naoPreferencias,
         int $anoIngresso,
-        string $cidadesEstagiar,
+        array $cidadesEstagiar,
         string $turnoDisponivel,
         string $statusEstagio,
         string $modalidade,
@@ -112,7 +112,6 @@ class Aluno extends Usuario {
         $aluno->setStatusCadastro( $usuario->getStatusCadastro() );
         $aluno->setPreferencias();
 
-        $aluno->setCidadeEstagio($resultado["Cidade_Estagio"]);
         $aluno->setTurnoDisponivel($resultado["Turno_Disponivel"]);
         $aluno->setStatusEstagio($resultado["Status_Estagio"]);
         $aluno->setModalidade($resultado["Modalidade"]);
@@ -152,7 +151,6 @@ class Aluno extends Usuario {
             $aluno->setStatusCadastro($resultado["Status_Cadastro"]);
             $aluno->setPreferencias();
 
-            $aluno->setCidadeEstagio($resultado["Cidade_Estagio"]);
             $aluno->setTurnoDisponivel($resultado["Turno_Disponivel"]);
             $aluno->setStatusEstagio($resultado["Status_Estagio"]);
             $aluno->setModalidade($resultado["Modalidade"]);

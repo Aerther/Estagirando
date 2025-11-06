@@ -5,6 +5,8 @@
     display: grid;
     grid-template-rows: 90px 1fr;
     grid-template-columns: 100%;
+
+    overflow: auto;
 }
 
 header, main {
@@ -64,15 +66,17 @@ main {
 
 form {
     width: 97%;
-    height: 95%;
+    height: 140vh;
 
     background-color: rgb(230, 230, 230);
     border-radius: 15px;
 
+    margin: 20px;
+
     padding: 10px;
 
     display: grid;
-    grid-template-rows: 43% 39% 18%;
+    grid-template-rows: 32% 50% 18%;
     grid-template-columns: 100%;
 }
 
@@ -204,14 +208,41 @@ form {
     overflow-y: scroll;
 }
 
-.sugestoes {
-    height: 90%;
-}
-
-.preferencias section div label {
+.preferencias section div label, .item-sugestao {
     font-size: 20px;
 }
 
+.sugestoes {
+    height: 90% !important;
+
+    padding: 20px !important;
+    justify-items: center;
+}
+
+.item-sugestao {
+    width: 100%;
+
+    padding: 5px;
+
+    border: 1px solid #b3b3b3;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 5px 0px;
+
+    transition: transform 0.4s ease-in-out, width 0.4s ease-in-out, border 0.4s ease-in-out;
+}
+
+.item-sugestao:hover {
+    width: 92%;
+
+    transform: scale(1.15);
+
+    border: 1px solid #3d3d3d;
+}
 /* Links */
 
 .links {

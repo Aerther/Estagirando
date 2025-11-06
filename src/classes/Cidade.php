@@ -69,14 +69,14 @@ class Cidade {
     }
 
     // Find All Cursos
-    public static function findAllCidades($uf = "") : array {
+    public static function findAllCidades($nome = "", $uf = "", $limit = 6000) : array {
         $connection = new MySQL();
 
         $cidades = [];
 
-        $tipos = "s";
-        $params = [$uf];
-        $sql = "SELECT * FROM cidade c WHERE c.UF LIKE ? ORDER BY c.Nome";
+        $tipos = "ssi";
+        $params = ["{$uf}%", "{$nome}%", $limit];
+        $sql = "SELECT * FROM cidade c WHERE c.UF LIKE ? AND c.Nome LIKE ? ORDER BY c.UF, c.Nome LIMIT ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
@@ -95,7 +95,7 @@ class Cidade {
     // Getters e Setters
     
     // ID Curso
-    public function getIdCurso() : int {
+    public function getIdCidade() : int {
         return $this->idCidade;
     }
 
