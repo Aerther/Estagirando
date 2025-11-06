@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/11/2025 às 03:50
+-- Tempo de geração: 06/11/2025 às 20:07
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -29,20 +29,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `aluno2` (
   `ID_Aluno` int(11) NOT NULL,
-  `Cidade_Estagio` varchar(40) DEFAULT NULL,
   `Turno_Disponivel` varchar(15) DEFAULT NULL,
   `Status_Estagio` varchar(30) DEFAULT NULL,
   `ID_Curso` int(11) DEFAULT NULL,
   `Modalidade` varchar(15) DEFAULT NULL,
-  `Ano_Ingresso` int(10) DEFAULT NULL
+  `Ano_Ingresso` int(10) DEFAULT NULL,
+  `Matricula` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `aluno2`
 --
 
-INSERT INTO `aluno2` (`ID_Aluno`, `Cidade_Estagio`, `Turno_Disponivel`, `Status_Estagio`, `ID_Curso`, `Modalidade`, `Ano_Ingresso`) VALUES
-(22, NULL, 'manha', 'procurando estágio', 1, 'presencial', 2023);
+INSERT INTO `aluno2` (`ID_Aluno`, `Turno_Disponivel`, `Status_Estagio`, `ID_Curso`, `Modalidade`, `Ano_Ingresso`, `Matricula`) VALUES
+(22, 'manha', 'procurando estágio', 1, 'presencial', 2023, NULL);
 
 -- --------------------------------------------------------
 
@@ -5765,16 +5765,18 @@ CREATE TABLE `usuario2` (
   `Senha` varchar(255) DEFAULT NULL,
   `Tipo_Usuario` varchar(20) DEFAULT NULL,
   `Status_Cadastro` varchar(20) DEFAULT 'ativo',
-  `ID_Foto` int(11) DEFAULT NULL
+  `ID_Foto` int(11) DEFAULT NULL,
+  `CPF` varchar(20) DEFAULT NULL,
+  `Data_Nascimento` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `usuario2`
 --
 
-INSERT INTO `usuario2` (`ID_Usuario`, `Nome`, `Sobrenome`, `Email`, `Senha`, `Tipo_Usuario`, `Status_Cadastro`, `ID_Foto`) VALUES
-(22, 'teste', 'teste', 'teste@gmail.com', '$2y$10$JxdTrXjgOhFv500eJYuPxukFPztm4J5tmUHAGJb3/DE/ykedZXIkK', 'aluno', 'ativo', 2),
-(23, 'teste', 'teste', 'testep@gmail.com', '$2y$10$m1ocPBeQxmDBiUvPTRAYHetUIq/Fe.EvOp5FK/jDV0jU5wglikWdy', 'professor', 'ativo', 1);
+INSERT INTO `usuario2` (`ID_Usuario`, `Nome`, `Sobrenome`, `Email`, `Senha`, `Tipo_Usuario`, `Status_Cadastro`, `ID_Foto`, `CPF`, `Data_Nascimento`) VALUES
+(22, 'teste', 'teste', 'teste@gmail.com', '$2y$10$OwZ4LYXkFEUTucShco/ZpewhcPKp131L6CQ5EGuDR2ouQimBDr5wW', 'aluno', 'ativo', 2, NULL, NULL),
+(23, 'teste', 'teste', 'testep@gmail.com', '$2y$10$m1ocPBeQxmDBiUvPTRAYHetUIq/Fe.EvOp5FK/jDV0jU5wglikWdy', 'professor', 'ativo', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 

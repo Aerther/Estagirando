@@ -30,6 +30,8 @@ class Usuario {
         string $nome, 
         string $sobrenome, 
         string $tipoUsuario,
+        string $dataNascimento,
+        string $cpf,
         int $idFoto,
         array $preferencias, 
         array $naoPreferencias
@@ -39,8 +41,8 @@ class Usuario {
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
 
         $tipos = "sssssi";
-        $params = [$nome, $sobrenome, $this->email, $this->senha, $tipoUsuario, $idFoto];
-        $sql = "INSERT INTO usuario2 (Nome, Sobrenome, Email, Senha, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?)";
+        $params = [$nome, $sobrenome, $this->email, $this->senha, $dataNascimento, $cpf, $tipoUsuario, $idFoto];
+        $sql = "INSERT INTO usuario2 (Nome, Sobrenome, Email, Senha, Data_Nascimento, CPF, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $idUsuario = $conexao->execute($sql, $tipos, $params);
 
@@ -68,6 +70,8 @@ class Usuario {
         string $nome, 
         string $sobrenome, 
         string $email,
+        string $dataNascimento,
+        string $cpf,
         array $preferencias, 
         array $naoPreferencias
     ) : void {
@@ -76,8 +80,8 @@ class Usuario {
         if(session_status() != 2) session_start();
 
         $tipos = "sssi";
-        $params = [$email, $nome, $sobrenome, $_SESSION["idUsuario"]];
-        $sql = "UPDATE usuario2 SET Email = ?, Nome = ?, Sobrenome = ? WHERE ID_Usuario = ?";
+        $params = [$email, $nome, $sobrenome, $dataNascimento, $cpf, $_SESSION["idUsuario"]];
+        $sql = "UPDATE usuario2 SET Email = ?, Nome = ?, Sobrenome = ?, Data_Nascimento = ?, CPF = ? WHERE ID_Usuario = ?";
 
         $conexao->execute($sql, $tipos, $params);
 
@@ -154,6 +158,8 @@ class Usuario {
         $usuario->setSobrenome($resultado["Sobrenome"]);
         $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
         $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
+        $usuario->setDataNascimento($resultado["Data_Nascimento"]);
+        $usuario->setCPF($resultado["CPF"]);
         $usuario->setPreferencias();
 
         return $usuario;
@@ -183,6 +189,8 @@ class Usuario {
             $usuario->setSobrenome($resultado["Sobrenome"]);
             $usuario->setTipoUsuario($resultado["Tipo_Usuario"]);
             $usuario->setStatusCadastro($resultado["Status_Cadastro"]);
+            $usuario->setDataNascimento($resultado["Data_Nascimento"]);
+            $usuario->setCPF($resultado["CPF"]);
             $usuario->setPreferencias();
 
             $usuarios[] = $usuario;
@@ -412,6 +420,24 @@ class Usuario {
     // Não Prefere
     public function getNaoPreferencias() : array {
         return $this->naoPreferencias;
+    }
+
+    // Data Nascimento
+    public function getDataNascimento() : string {
+        return $this->dataNascimento;
+    }
+
+    public function setDataNascimento(string $dataNascimento) : void {
+        $this->dataNascimento = $dataNascimento;
+    }
+
+    // CPF
+    public function getCPF() : string {
+        return $this->cpf;
+    }
+
+    public function setCPF(string $cpf) : void {
+        $this->cpf = $cpf;
     }
 }
 

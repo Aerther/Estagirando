@@ -16,6 +16,7 @@ class Aluno extends Usuario {
     private string $modalidade;
     private int $idCurso;
     private int $anoIngresso;
+    private string $matricula;
     private array $cidadesEstagiar = [];
 
     public function __construct(string $email, string $senha) {
@@ -28,6 +29,8 @@ class Aluno extends Usuario {
     public function salvarAluno(
         string $nome, 
         string $sobrenome,
+        string $dataNascimento,
+        string $cpf,
         array $preferencias, 
         array $naoPreferencias, 
         int $anoIngresso,
@@ -35,15 +38,16 @@ class Aluno extends Usuario {
         string $turnoDisponivel,
         string $statusEstagio,
         string $modalidade,
+        string $matricula,
         int $idCurso
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "aluno", 2, $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, $dataNascimento, $cpf, "aluno", 2, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
         $tipos = "issssii";
-        $params = [$idUsuario, $cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $anoIngresso, $idCurso];
-        $sql = "INSERT INTO aluno2 (ID_Aluno, Cidade_Estagio, Turno_Disponivel, Status_Estagio, Modalidade, Ano_Ingresso, ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $params = [$idUsuario, $cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $anoIngresso, $matricula, $idCurso];
+        $sql = "INSERT INTO aluno2 (ID_Aluno, Cidade_Estagio, Turno_Disponivel, Status_Estagio, Modalidade, Ano_Ingresso, Matricula, ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $connection->execute($sql, $tipos, $params);
 
@@ -60,7 +64,9 @@ class Aluno extends Usuario {
     public function atualizarAluno(
         string $nome, 
         string $sobrenome, 
-        string $email, 
+        string $email,
+        string $dataNascimento,
+        string $cpf,
         array $preferencias, 
         array $naoPreferencias,
         int $anoIngresso,
@@ -68,17 +74,18 @@ class Aluno extends Usuario {
         string $turnoDisponivel,
         string $statusEstagio,
         string $modalidade,
+        string $matricula,
         int $idCurso
     ) : void {
-        parent::atualizarUsuario($nome, $sobrenome, $email, $preferencias, $naoPreferencias);
+        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
         if(session_status() != 2) session_start();
 
         $tipos = "ssssiii";
-        $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $anoIngresso, $idCurso, $_SESSION["idUsuario"]];
-        $sql = "UPDATE aluno2 SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, Ano_Ingresso = ?, ID_Curso = ? WHERE ID_Aluno = ?";
+        $params = [$cidadeEstagio, $turnoDisponivel, $statusEstagio, $modalidade, $anoIngresso, $matricula, $idCurso, $_SESSION["idUsuario"]];
+        $sql = "UPDATE aluno2 SET Cidade_Estagio = ?, Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?, Ano_Ingresso = ?, Matricula = ?, ID_Curso = ? WHERE ID_Aluno = ?";
 
         $connection->execute($sql, $tipos, $params);
 
@@ -96,7 +103,7 @@ class Aluno extends Usuario {
 
         $tipos = "i";
         $params = [$idAluno];
-        $sql = "SELECT *, c.Nome AS Nome_Turma FROM aluno2 a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
+        $sql = "SELECT * FROM aluno2 a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
@@ -110,12 +117,15 @@ class Aluno extends Usuario {
         $aluno->setTipoUsuario( $usuario->getTipoUsuario() );
         $aluno->setIdFoto( $usuario->getIdFoto() );
         $aluno->setStatusCadastro( $usuario->getStatusCadastro() );
+        $aluno->setDataNascimento( $usuario->getDataNascimento() );
+        $aluno->setCPF( $usuario->getCPF() );
         $aluno->setPreferencias();
 
         $aluno->setTurnoDisponivel($resultado["Turno_Disponivel"]);
         $aluno->setStatusEstagio($resultado["Status_Estagio"]);
         $aluno->setModalidade($resultado["Modalidade"]);
         $aluno->setAnoIngresso($resultado["Ano_Ingresso"]);
+        $aluno->setMatricula($resultado["Matricula"]);
         $aluno->setIdCurso($resultado["ID_Curso"]);
         $aluno->setCidadesEstagiar();
 
@@ -130,7 +140,7 @@ class Aluno extends Usuario {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT a.*, u.*, f.*, c.Nome AS Nome_Curso FROM aluno2 a 
+        $sql = "SELECT a.*, u.*, f.* FROM aluno2 a 
         JOIN usuario2 u ON u.ID_Usuario = a.ID_Aluno 
         JOIN foto f ON f.ID_Foto = u.ID_Foto
         JOIN curso c ON c.ID_Curso = a.ID_Curso
@@ -155,6 +165,7 @@ class Aluno extends Usuario {
             $aluno->setStatusEstagio($resultado["Status_Estagio"]);
             $aluno->setModalidade($resultado["Modalidade"]);
             $aluno->setAnoIngresso($resultado["Ano_Ingresso"]);
+            $aluno->setMatricula($resultado["Matricula"]);
             $aluno->setIdCurso($resultado["ID_Curso"]);
             $aluno->setCidadesEstagiar();
 
@@ -266,6 +277,15 @@ class Aluno extends Usuario {
 
     public function setModalidade($modalidade) : void {
         $this->modalidade = $modalidade;
+    }
+    
+    // Matricula
+    public function getMatricula() : string {
+        return $this->matricula;
+    }
+
+    public function setMatricula($matricula) : void {
+        $this->matricula = $matricula;
     }
 
     // Cidades Estagiar
