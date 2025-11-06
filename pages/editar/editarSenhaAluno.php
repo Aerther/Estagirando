@@ -2,23 +2,23 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use App\Classes\Professor;
+use App\Classes\Aluno;
 
 session_start();
 
 if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
-if($_SESSION["tipoUsuario"] != "Professor") header("Location: ./../../privado.php");
+if($_SESSION["tipoUsuario"] != "aluno") header("Location: ./../../privado.php");
 
 $mensagemErro = "";
 
-$professor = Professor::findProfessor($_SESSION["idUsuario"]);
-$email = $professor->getEmail();
+$aluno = Aluno::findAluno($_SESSION["idUsuario"]);
+$email = $aluno->getEmail();
 if(isset($_POST['salvar'])) {
     $novaSenha = isset($_POST["novaSenha"]) ? $_POST["novaSenha"] : "";
 
     
-    $usuario = new Professor($email, $novaSenha);
+    $usuario = new Aluno($email, $novaSenha);
 
     
     if($_POST["novaSenha"] != $_POST["confSenha"]) {
@@ -28,15 +28,12 @@ if(isset($_POST['salvar'])) {
 
     }else {
         $usuario->atualizarSenha($novaSenha);
-        header("Location: editarCadastroProfessor.php");
+        header("Location: editarCadastroAluno.php");
         session_start();
         $_SESSION['senhaEditada']=true;
     }
-        
-    
+         
 }
-
-
 
 ?>
 
@@ -49,13 +46,13 @@ if(isset($_POST['salvar'])) {
     <link rel="stylesheet" href="./../../src/styles/reset.css">
     <link rel="stylesheet" href="./../../src/styles/styleEditar.css">
 
-    <title>Edição de Senha do Professor</title>
+    <title>Edição de Senha do Aluno</title>
 </head>
 <body>
     <div class="container">
         <header>
             <section class="texto-inicial">
-                <h2>Bem-vindo Professor!</h2>
+                <h2>Bem-vindo Aluno!</h2>
             </section>
 
             <section class="icones">
@@ -68,7 +65,7 @@ if(isset($_POST['salvar'])) {
                 </a>
 
                 <a href="./../visualizar/visualizarCadastro.php" title="Visualizar cadastro">
-                    <img src="./../../icones/iconProf.png" alt="Icone" class='iconeMenu' id='visualizar'>
+                    <img src="./../../icones/iconAluno.png" alt="Icone" class='iconeMenu' id='visualizar'>
                 </a>
 
                 <a href="./../../sair.php" title="Logout">
@@ -80,7 +77,7 @@ if(isset($_POST['salvar'])) {
         <main>
 
         
-            <form action="./editarSenhaProf.php" method="post">
+            <form action="./editarSenhaAluno.php" method="post">
                 <h1 id='titleEdit'>Edite sua senha!</h1>
                 <section class="dados">
                 
@@ -104,7 +101,7 @@ if(isset($_POST['salvar'])) {
 
                     <div>
                         <input class='link' type="submit" name="salvar" value="Salvar">
-                        <a class='link' href="editarCadastroProfessor.php">Cancelar</a>
+                        <a class='link' href="editarCadastroAluno.php">Cancelar</a>
                     </div>
                 </section>
             </form>
