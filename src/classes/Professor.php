@@ -21,12 +21,12 @@ class Professor extends Usuario {
 
     // Salvar
     public function salvarProfessor(
-        string $nome, 
+        string $nome,
         string $sobrenome,
         string $dataNascimento,
         string $cpf,
-        array $preferencias, 
-        array $naoPreferencias, 
+        array $preferencias,
+        array $naoPreferencias,
         string $statusDisponibilidade
     ) : void {
         $idUsuario = parent::salvarUsuario($nome, $sobrenome, "professor", $dataNascimento, $cpf, 1, $preferencias, $naoPreferencias);
