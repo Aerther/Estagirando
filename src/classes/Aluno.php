@@ -96,7 +96,7 @@ class Aluno extends Usuario {
 
         $tipos = "i";
         $params = [$idAluno];
-        $sql = "SELECT *, c.Nome AS Nome_Turma FROM aluno2 a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
+        $sql = "SELECT a.*, c.Nome AS Nome_Curso FROM aluno2 a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 

@@ -6,6 +6,12 @@ use App\Classes\Professor;
 use App\Classes\Preferencia;
 
 session_start();
+$msgSenha = "";
+if(isset($_SESSION['senhaEditada']) && $_SESSION['senhaEditada']){
+
+    $msgSenha = "Senha editada com sucesso!";
+    $_SESSION['senhaEditada']=false;
+}
 
 if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
@@ -138,7 +144,8 @@ $preferencias = Preferencia::findAllPreferencias();
                     </section>
 
                     <section id=divEditSenha>
-                        <a href="editarSenhaProf.php" id='editSenha'>Editar senha</a>
+                        <a href="editarSenhaProf.php" id='editSenha'>Editar senha </a>
+                        <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
                     </section>
                     </section>
                 </section>
