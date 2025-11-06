@@ -40,7 +40,7 @@ class Usuario {
 
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
 
-        $tipos = "ssssssi";
+        $tipos = "sssssssi";
         $params = [$nome, $sobrenome, $this->email, $this->senha, $dataNascimento, $cpf, $tipoUsuario, $idFoto];
         $sql = "INSERT INTO usuario2 (Nome, Sobrenome, Email, Senha, Data_Nascimento, CPF, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 

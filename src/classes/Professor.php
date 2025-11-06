@@ -29,7 +29,7 @@ class Professor extends Usuario {
         array $naoPreferencias, 
         string $statusDisponibilidade
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "professor", $dataNascimento, $cpf, 1, $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, $dataNascimento, $cpf,"professor", 1, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 

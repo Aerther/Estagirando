@@ -8,7 +8,7 @@ session_start();
 
 if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
-if($_SESSION["tipoUsuario"] != "Professor") header("Location: ./../../privado.php");
+if($_SESSION["tipoUsuario"] != "professor") header("Location: ./../../privado.php");
 
 $mensagemErro = "";
 

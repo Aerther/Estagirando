@@ -34,6 +34,8 @@ if(isset($_POST["cadastrar"])) {
             $usuario->salvarProfessor(
                 $_POST["nome"],
                 $_POST["sobrenome"],
+                "1",
+                "1",
                 $preferencias,
                 $naoPreferencias,
                 $_POST["disponivel"]
