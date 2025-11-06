@@ -76,7 +76,7 @@ form {
     padding: 10px;
 
     display: grid;
-    grid-template-rows: 32% 50% 18%;
+    grid-template-rows: 36% 46% 18%;
     grid-template-columns: 100%;
 }
 

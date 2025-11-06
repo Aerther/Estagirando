@@ -40,7 +40,7 @@ class Usuario {
 
         $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
 
-        $tipos = "sssssi";
+        $tipos = "ssssssi";
         $params = [$nome, $sobrenome, $this->email, $this->senha, $dataNascimento, $cpf, $tipoUsuario, $idFoto];
         $sql = "INSERT INTO usuario2 (Nome, Sobrenome, Email, Senha, Data_Nascimento, CPF, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -79,7 +79,7 @@ class Usuario {
 
         if(session_status() != 2) session_start();
 
-        $tipos = "sssi";
+        $tipos = "sssssi";
         $params = [$email, $nome, $sobrenome, $dataNascimento, $cpf, $_SESSION["idUsuario"]];
         $sql = "UPDATE usuario2 SET Email = ?, Nome = ?, Sobrenome = ?, Data_Nascimento = ?, CPF = ? WHERE ID_Usuario = ?";
 

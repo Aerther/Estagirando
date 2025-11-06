@@ -23,11 +23,13 @@ class Professor extends Usuario {
     public function salvarProfessor(
         string $nome, 
         string $sobrenome,
+        string $dataNascimento,
+        string $cpf,
         array $preferencias, 
         array $naoPreferencias, 
         string $statusDisponibilidade
     ) : void {
-        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "professor", 1, $preferencias, $naoPreferencias);
+        $idUsuario = parent::salvarUsuario($nome, $sobrenome, "professor", $dataNascimento, $cpf, 1, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
@@ -42,12 +44,14 @@ class Professor extends Usuario {
     public function atualizarProfessor(
         string $nome, 
         string $sobrenome, 
-        string $email, 
+        string $email,
+        string $dataNascimento,
+        string $cpf,
         array $preferencias, 
         array $naoPreferencias, 
         string $statusDisponibilidade
     ) : void {
-        parent::atualizarUsuario($nome, $sobrenome, $email, $preferencias, $naoPreferencias);
+        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 

@@ -34,6 +34,8 @@ if(isset($_POST['salvar'])) {
                 $_POST["nome"],
                 $_POST["sobrenome"],
                 $_POST["email"],
+                $_POST["dataNascimento"],
+                $_POST["cpf"],
                 $preferencias,
                 $naoPreferencias,
                 $_POST["ano"],
@@ -41,6 +43,7 @@ if(isset($_POST['salvar'])) {
                 $_POST["turno"],
                 $_POST["situacao"],
                 $_POST["modalidade"],
+                $_POST["matricula"],
                 $_POST["curso"]
             );
 
@@ -74,7 +77,6 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
     <link rel= "stylesheet" href="./../../src/styles/styleEditar.css">
 
     <script src="./../../src/js/editarCad.js" defer></script>
-
 </head>
 <body>
     <div class="container">
@@ -122,6 +124,11 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         <section>
                             <label for="sobrenome">Sobrenome:</label>
                             <input type="text" name="sobrenome"  value="<?php echo $aluno->getSobrenome(); ?>" required>
+                        </section>
+
+                        <section class="more-space">
+                            <label for="dataNascimento">Data Nascimento:</label>
+                            <input type="date" name="dataNascimento"  value="<?php echo $aluno->getDataNascimento(); ?>" max="<?php echo date('Y-m-d'); ?>" required>
                         </section>
 
                         <section>
@@ -190,6 +197,16 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         </section>
 
                         <section>
+                            <label for="cpf">CPF:</label>
+                            <input type="texto" name="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" id="cpf" placeholder="___.___.___-__" value="<?php echo $aluno->getCPF(); ?>" required>
+                        </section>
+
+                        <section>
+                            <label for="matricula">Matricula:</label>
+                            <input type="string" name="matricula"  value="<?php echo $aluno->getMatricula(); ?>" required>
+                        </section>
+
+                        <section>
                             <label for="curso">Curso:</label>
                             <select id="curso" name="curso">
                                 <?php
@@ -208,7 +225,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         
                         <section class="more-space">
                             <label for="ano">Ingressou em:</label>
-                            <input type="number" name="ano" min='2015' max='2025' value="<?php echo $aluno->getAnoIngresso(); ?>" required>
+                            <input type="number" name="ano" max='2025' value="<?php echo $aluno->getAnoIngresso(); ?>" required>
                         </section>
                     </section>
                 </section>
@@ -283,5 +300,10 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
             </form>
         </main>
     </div>
+    
+    <script src="https://unpkg.com/inputmask/dist/inputmask.min.js"></script>
+    <script>
+        Inputmask("999.999.999-99").mask(document.getElementById('cpf'));
+    </script>
 </body>
 </html>
