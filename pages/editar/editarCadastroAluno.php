@@ -44,7 +44,7 @@ if(isset($_POST['salvar'])) {
                 $_POST["curso"]
             );
 
-            if(isset($_POST["senha"])) {
+            if(!empty($senha)) {
                 $usuario->atualizarSenha($senha);
             }
 
