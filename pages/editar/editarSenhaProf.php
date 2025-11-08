@@ -47,7 +47,7 @@ if(isset($_POST['salvar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./../../src/styles/reset.css">
-    <link rel="stylesheet" href="./../../src/styles/styleEditar.css">
+    <link rel="stylesheet" href="./../../src/styles/styleEditarSenha.css">
 
     <title>Edição de Senha do Professor</title>
 </head>

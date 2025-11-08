@@ -301,45 +301,7 @@ form {
 
 }
 
-#titleEdit{
-    text-align: center;
-    margin-top: 20px;
-    font-size: 34px;
-}
 
-.dados-senha section {
-    display: grid;
-    align-items: center;
-}
-
-.dados-senha section label {
-    font-size: 22px;
-}
-
-.dados-senha section input:not([type~="radio"]), select, option, .cidades > input {
-    width: clamp(120px, 20vw, 300px);
-    height: 30px;
-
-    padding: 0 10px;
-
-    font-size: 20px;
-    
-    border: 1px solid black;
-    border-radius: 10px;
-}
-
-.dados-senha {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 15px;
-}
-
-.dados-senha section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .sucesso {
     color: rgb(11, 150, 15);

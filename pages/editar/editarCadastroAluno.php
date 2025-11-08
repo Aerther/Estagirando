@@ -7,6 +7,12 @@ use App\Classes\Preferencia;
 use App\Classes\Curso;
 
 session_start();
+$msgSenha = "";
+if(isset($_SESSION['senhaEditada']) && $_SESSION['senhaEditada']){
+
+    $msgSenha = "Senha editada com sucesso!";
+    $_SESSION['senhaEditada']=false;
+}
 
 if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
@@ -191,9 +197,9 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <input type="email" name="email" value="<?php echo $aluno->getEmail(); ?>" required>
                         </section>
 
-                        <section>
-                            <label for="senha">Senha:</label>
-                            <input type="password" name="senha" placeholder="Se vazio, senha não muda">
+                        <section id=divEditSenha>
+                            <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
+                            <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
                         </section>
 
                         <section>
