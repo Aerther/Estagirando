@@ -9,8 +9,7 @@ use App\Classes\Usuario;
 use App\BD\MySQL;
 
 class Aluno extends Usuario {
-
-    private string $cidadesEstagio;
+    
     private string $turnoDisponivel;
     private string $statusEstagio;
     private string $modalidade;

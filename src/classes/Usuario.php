@@ -14,6 +14,9 @@ class Usuario {
     protected string $email;
     protected string $tipoUsuario;
 
+    protected string $cpf;
+    protected string $dataNascimento;
+
     protected string $statusCadastro = "Ativo";
     protected array $preferencias = []; // index -> descrição , Ex.: 1 -> Redes
     protected array $naoPreferencias = []; 
