@@ -185,6 +185,7 @@ form {
 
     border: 1px solid #3d3d3d;
 }
+
 /* Links */
 
 .links {
@@ -237,13 +238,11 @@ form {
     background-color: black;
 }
 
-#divEditSenha{
+#divEditSenha {
     display: flex;
     flex-direction: row;
 
 }
-
-
 
 .sucesso {
     color: rgb(11, 150, 15);

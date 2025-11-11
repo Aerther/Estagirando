@@ -34,8 +34,8 @@ if(isset($_POST["cadastrar"])) {
             $usuario->salvarProfessor(
                 $_POST["nome"],
                 $_POST["sobrenome"],
-                "1",
-                "1",
+                $_POST["dataNascimento"],
+                $_POST["cpf"],
                 $preferencias,
                 $naoPreferencias,
                 $_POST["disponivel"]
@@ -62,88 +62,131 @@ $preferencias = Preferencia::findAllPreferencias();
 
     <title>Estagirando</title>
 
-    <link rel="stylesheet" href="./../../src/styles/styleCadastroProf.css">
+    <link rel="stylesheet" href="./../../src/styles/reset.css">
+    <link rel="stylesheet" href="./../../src/styles/styleCadastro.css">
+
+    <script src="./../../src/js/editarCad.js" defer></script>
 </head>
 <body>
-    <h1>Cadastro de Professor</h1>
     <div class="container">
-    <p id="erro"><?php echo $mensagemErro;?></p>
+        <header>
+            <h1>Cadastro de Professor</h1>
+        </header>
 
-    <form action="./cadastroProfessor.php" method="post">
-        <div class="dado">
-            <section>
-                <label for="nome">Nome:</label>
-                <input type="text" name="nome"  value="<?php if (isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" required>
-            </section>
-            <section>
-                <label for="email">Email:</label>
-                <input type="email" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" required>
-            </section>
-            <section>
-                <label for="senha">Senha:</label>
-                <input type="password" name="senha" value="<?php if (isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>" required>
-            </section>
-        </div>
+        <main>
+            <form action="./cadastroProfessor.php" method="post">
+                <section class="dados">
+                    <section>
+                        <label for="nome">Nome:</label>
+                        <input type="text" name="nome" value="<?php if (isset($_POST['nome']))
+                            echo htmlspecialchars($_POST['nome']); ?>" required>
+                    </section>
 
-        <div class="dado">
-            <section>
-                <label for="sobrenome">Sobrenome:</label>
-                <input type="text" name="sobrenome"  value="<?php if (isset($_POST['sobrenome'])) echo htmlspecialchars($_POST['sobrenome']); ?>" required>
-            </section>
-        
-            <section>
-                <label for="confEmail">Confirme o email:</label>
-                <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail'])) echo htmlspecialchars($_POST['confEmail']); ?>" required>
-            </section>
-            <section>
-                <label for="confSenha">Confirme a senha:</label>
-                <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha'])) echo htmlspecialchars($_POST['confSenha']); ?>" required>
-            </section>
-        </div>
+                    <section>
+                        <label for="sobrenome">Sobrenome:</label>
+                        <input type="text" name="sobrenome" value="<?php if (isset($_POST['sobrenome']))
+                            echo htmlspecialchars($_POST['sobrenome']); ?>" required>
+                    </section>
 
-        <div class="preferencia">
-        
-            <section>
-                <p>Preferências</p>
+                    <section>
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" value="<?php if (isset($_POST['email']))
+                            echo htmlspecialchars($_POST['email']); ?>" required>
+                    </section>
 
-                <?php 
-                
-                foreach($preferencias as $preferencia) {
-                    echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                }
+                    <section class="more-space">
+                        <label for="confEmail">Confirme o Email:</label>
+                        <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail']))
+                            echo htmlspecialchars($_POST['confEmail']); ?>" required>
+                    </section>
 
-                ?>
-            </section>
+                    <section>
+                        <label for="senha">Senha:</label>
+                        <input type="password" name="senha" value="<?php if (isset($_POST['senha']))
+                            echo htmlspecialchars($_POST['senha']); ?>" required>
+                    </section>
 
-            <section>
-                <p>Não preferências</p>
+                    <section class="more-space">
+                        <label for="confSenha">Confirme a Senha:</label>
+                        <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha']))
+                            echo htmlspecialchars($_POST['confSenha']); ?>" required>
+                    </section>
+                </section>
 
-                <?php 
-                
-                foreach($preferencias as $preferencia) {
-                    echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                }
+                <section class="dados">
+                    <section class="more-space">
+                        <label for="cpf">CPF:</label>
+                        <input type="texto" name="cpf" id="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" placeholder="___.___.___-__" value="<?php if (isset($_POST['cpf'])) echo $_POST['cpf'] ?>" required>
+                    </section>
 
-                ?>
-            </section>
+                    <section class="more-space">
+                        <label for="dataNascimento">Data Nascimento:</label>
+                        <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
+                    </section>
 
-        </div>
+                    <section class="radio">
+                        <label for="disponivel">Disponível para orientar?</label>
 
-        <section id="radios">
-            <label for="">Disponível para orientar?</label>
+                        <div class="disponibilidade">
+                            <?php 
 
-            <div id="disponibilidade">
-                <label><input type="radio" name="disponivel" value="sim" required>Sim</label>
-                <label><input type="radio" name="disponivel" value="nao" required>Não</label>
-            </div>
-        </section>
-        <div id="btn">  
-        
-                <input type="submit" name="cadastrar" value="Cadastrar">
-                <a href="./../../index.php" id='cancelar'>Cancelar</a>
-           
-        </div>
-    </form> 
+                            $opcoes = ["sim" => "", "nao" => ""];
+
+                            if(isset($_POST["disponivel"])) $opcoes[$_POST["disponivel"]] = "checked";
+                            
+                            echo "<label><input type='radio' name='disponivel' value='sim' {$opcoes['sim']} required>Sim</label>";
+                            echo "<label><input type='radio' name='disponivel' value='nao' {$opcoes['nao']} required>Não</label>";
+                            
+                            ?>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="preferencias">
+                    <section>
+                        <p>Preferências</p>
+
+                        <div>
+                            <?php
+
+                            foreach ($preferencias as $preferencia) {
+                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                            }
+
+                            ?>
+                        </div>
+                    </section>
+
+                    <section>
+                        <p>Não preferências</p>
+
+                        <div>
+                            <?php
+
+                            foreach ($preferencias as $preferencia) {
+                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                            }
+
+                            ?>
+                        </div>
+                    </section>
+                </section>
+
+                <section id="btn" class="links">
+                    <?php echo "<p class='erro'>{$mensagemErro}</p>"; ?>
+
+                    <div>
+                        <input class="link" type="submit" name="cadastrar" value="Cadastrar">
+                        <a class="link" href="./../../index.php" id='cancelar'>Cancelar</a>
+                    </div>
+                </section>
+            </form>
+        </main>
     </div>
+
+    <script src="https://unpkg.com/inputmask/dist/inputmask.min.js"></script>
+    <script>
+        Inputmask("999.999.999-99").mask(document.getElementById('cpf'));
+    </script>
 </body>
 </html>

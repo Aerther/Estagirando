@@ -181,7 +181,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <input type="email" name="email" value="<?php echo $aluno->getEmail(); ?>" required>
                         </section>
 
-                        <section id=divEditSenha>
+                        <section id="divEditSenha">
                             <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
                             <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
                         </section>
