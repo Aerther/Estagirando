@@ -143,12 +143,10 @@ class Usuario {
 
         $tipos = "i";
         $params = [$idUsuario];
-        $sql = "SELECT * FROM usuario2 u 
+        $sql = "SELECT *, DATE_FORMAT(u.Data_Nascimento, '%d/%m/%Y') AS Data_Nascimento FROM usuario2 u 
         WHERE u.ID_Usuario = ? AND u.Status_Cadastro = 'ativo'";
 
         $resultados = $conexao->search($sql, $tipos, $params);
-
-        if(empty($resultados)) return null;
 
         $resultado = $resultados[0];
 

@@ -51,7 +51,7 @@ class Professor extends Usuario {
         array $naoPreferencias, 
         string $statusDisponibilidade
     ) : void {
-        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, "professor", 1,  $preferencias, $naoPreferencias);
+        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
@@ -67,8 +67,6 @@ class Professor extends Usuario {
     // Find Professor
     public static function findProfessor($idProfessor) : Professor {
         $usuario = parent::findUsuario($idProfessor);
-
-        if(empty($usuario)) return null;
 
         $connection = new MySQL();
 
@@ -88,6 +86,8 @@ class Professor extends Usuario {
         $professor->setTipoUsuario( $usuario->getTipoUsuario() );
         $professor->setIdFoto( $usuario->getIdFoto() );
         $professor->setStatusCadastro( $usuario->getStatusCadastro() );
+        $professor->setDataNascimento( $usuario->getDataNascimento() );
+        $professor->setCPF( $usuario->getCPF() );
         $professor->setPreferencias();
 
         $professor->setStatusDisponibilidade($resultado["Status_Disponibilidade"]);
@@ -118,7 +118,6 @@ class Professor extends Usuario {
             $professor->setIdUsuario($resultado["ID_Usuario"]);
             $professor->setNome($resultado["Nome"]);
             $professor->setTipoUsuario($resultado["Tipo_Usuario"]);
-            $professor->setLinkFoto($resultado["Link_Foto"]);
             $professor->setStatusCadastro($resultado["Status_Cadastro"]);
             $professor->setPreferencias();
 

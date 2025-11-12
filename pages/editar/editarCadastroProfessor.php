@@ -20,18 +20,13 @@ if($_SESSION["tipoUsuario"] != "professor") header("Location: ./../../privado.ph
 $mensagemErro = "";
 
 if(isset($_POST['salvar'])) {
-    $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
-    
     $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
     $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
 
-    $usuario = new Professor($_POST["email"], $senha);
+    $usuario = new Professor($_POST["email"], "");
 
     if(!$usuario->usuarioExiste()) {
-        if(strlen($senha) < 8 && !empty($senha)) {
-            $mensagemErro = "Senha deve possuir no mínimo 8 caracteres";
-
-        } else if(!empty(array_intersect($preferencias, $naoPreferencias))) {
+        if(!empty(array_intersect($preferencias, $naoPreferencias))) {
             $mensagemErro = "Você não pode selecionar o mesmo atributo tanto para Preferências e Não Preferências";
 
         } else {
@@ -39,14 +34,12 @@ if(isset($_POST['salvar'])) {
                 $_POST["nome"],
                 $_POST["sobrenome"],
                 $_POST["email"],
+                $_POST["dataNascimento"],
+                $_POST["cpf"],
                 $preferencias,
                 $naoPreferencias,
                 $_POST["disponivel"]
             );
-
-            if(isset($_POST["senha"])) {
-                $usuario->atualizarSenha($senha);
-            }
 
             header("Location: ./../../privado.php");
         }
@@ -68,6 +61,8 @@ $preferencias = Preferencia::findAllPreferencias();
 
     <link rel="stylesheet" href="./../../src/styles/reset.css">
     <link rel="stylesheet" href="./../../src/styles/styleEditar.css">
+
+    <script src="./../../src/js/editarCad.js" defer></script>
 
     <title>Edição de Cadastro Professor</title>
 </head>
@@ -123,16 +118,26 @@ $preferencias = Preferencia::findAllPreferencias();
 
                     <section class="dados-input">
                         <section>
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" value="<?php echo $professor->getEmail(); ?>" required>
-                    </section>
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" value="<?php echo $professor->getEmail(); ?>" required>
+                        </section>
 
-                    <section id=divEditSenha>
-                        <a href="editarSenhaProf.php" id='editSenha'>Editar senha </a>
-                        <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
+                        <section>
+                            <label for="cpf">CPF:</label>
+                            <input type="texto" name="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" id="cpf" placeholder="___.___.___-__" value="<?php echo $professor->getCPF(); ?>" required>
+                        </section>
+
+                        <section class="more-space">
+                            <label for="dataNascimento">Data Nascimento:</label>
+                            <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $professor->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
+                        </section>
+
+                        <section id=divEditSenha>
+                            <a href="editarSenhaProf.php" id='editSenha'>Editar senha </a>
+                            <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
+                        </section>
+                        </section>
                     </section>
-                    </section>
-                </section>
 
                 <section class="preferencias">
                     <section>
@@ -177,5 +182,10 @@ $preferencias = Preferencia::findAllPreferencias();
             </form>
         </main>
     </div>
+
+    <script src="https://unpkg.com/inputmask/dist/inputmask.min.js"></script>
+    <script>
+        Inputmask("999.999.999-99").mask(document.getElementById('cpf'));
+    </script>
 </body>
 </html>

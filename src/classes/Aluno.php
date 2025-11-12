@@ -76,7 +76,7 @@ class Aluno extends Usuario {
         string $matricula,
         int $idCurso
     ) : void {
-        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, "aluno", 2, $preferencias, $naoPreferencias);
+        parent::atualizarUsuario($nome, $sobrenome, $email, $dataNascimento, $cpf, $preferencias, $naoPreferencias);
 
         $connection = new MySQL();
 
@@ -95,8 +95,6 @@ class Aluno extends Usuario {
     // Find Aluno
     public static function findAluno($idAluno) : Aluno {
         $usuario = parent::findUsuario($idAluno);
-
-        if(empty($usuario)) return null;
 
         $connection = new MySQL();
 

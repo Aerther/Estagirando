@@ -21,18 +21,13 @@ if($_SESSION["tipoUsuario"] != "aluno") header("Location: ./../../privado.php");
 $mensagemErro = "";
 
 if(isset($_POST['salvar'])) {
-    $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
-    
     $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
     $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
 
-    $usuario = new Aluno($_POST["email"], $_POST["senha"]);
+    $usuario = new Aluno($_POST["email"], "");
 
     if(!$usuario->usuarioExiste()) {
-        if(strlen($senha) < 8 && !empty($senha)) {
-            $mensagemErro = "Senha deve possuir no mínimo 8 caracteres";
-
-        } else if(!empty(array_intersect($preferencias, $naoPreferencias))) {
+        if(!empty(array_intersect($preferencias, $naoPreferencias))) {
             $mensagemErro = "Você não pode selecionar o mesmo atributo tanto para Preferências e Não Preferências";
 
         } else {
@@ -52,10 +47,6 @@ if(isset($_POST['salvar'])) {
                 $_POST["matricula"],
                 $_POST["curso"]
             );
-
-            if(!empty($senha)) {
-                $usuario->atualizarSenha($senha);
-            }
 
             header("Location: ./../../privado.php");
         }
@@ -118,7 +109,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                         <section class="more-space">
                             <label for="dataNascimento">Data Nascimento:</label>
-                            <input type="date" name="dataNascimento"  value="<?php echo $aluno->getDataNascimento(); ?>" max="<?php echo date('Y-m-d'); ?>" required>
+                            <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $aluno->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                         </section>
 
                         <section>

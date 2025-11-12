@@ -64,7 +64,7 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
 
                         $cor = str_contains($status, "Procurando") ? "green" : "red";
  
-                        echo "<p>Nome: {$aluno->getNome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
+                        echo "<p>Nome: {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
                         echo "<p>Email: {$aluno->getEmail()}</p>";
                         echo "<p>Curso: {$curso->getNome()}</p>";
                         echo "<p>Ingressou em {$aluno->getAnoIngresso()}</p>"; 
@@ -73,6 +73,12 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                     </section>
 
                     <section class="dados-usuario">
+                        <?php
+
+                        echo "<p>Data de Nascimento: {$aluno->getDataNascimento()}</p>";
+
+                        ?>
+
                         <p class="titulo-dados">Disponibilidade do Estágio</p>
 
                         <?php 
