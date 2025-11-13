@@ -46,7 +46,7 @@ class Aluno extends Usuario {
 
         $tipos = "issssii";
         $params = [$idUsuario, $turnoDisponivel, $statusEstagio, $modalidade, $matricula, $anoIngresso,  $idCurso];
-        $sql = "INSERT INTO aluno2 (ID_Aluno, Turno_Disponivel, Status_Estagio, Modalidade, Matricula, Ano_Ingresso,  ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO aluno (ID_Aluno, Turno_Disponivel, Status_Estagio, Modalidade, Matricula, Ano_Ingresso,  ID_Curso) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $connection->execute($sql, $tipos, $params);
 
@@ -84,7 +84,7 @@ class Aluno extends Usuario {
 
         $tipos = "ssssiii";
         $params = [$turnoDisponivel, $statusEstagio, $modalidade, $matricula, $anoIngresso, $idCurso, $_SESSION["idUsuario"]];
-        $sql = "UPDATE aluno2 SET Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?,  Matricula = ?, Ano_Ingresso = ?, ID_Curso = ? WHERE ID_Aluno = ?";
+        $sql = "UPDATE aluno SET Turno_Disponivel = ?, Status_Estagio = ?, Modalidade = ?,  Matricula = ?, Ano_Ingresso = ?, ID_Curso = ? WHERE ID_Aluno = ?";
 
         $connection->execute($sql, $tipos, $params);
 
@@ -100,7 +100,7 @@ class Aluno extends Usuario {
 
         $tipos = "i";
         $params = [$idAluno];
-        $sql = "SELECT a.*, c.Nome AS Nome_Curso FROM aluno2 a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
+        $sql = "SELECT a.*, c.Nome AS Nome_Curso FROM aluno a JOIN curso c ON c.ID_Curso = a.ID_Curso WHERE a.ID_Aluno = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
@@ -137,7 +137,7 @@ class Aluno extends Usuario {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT a.*, u.*, f.* FROM aluno2 a 
+        $sql = "SELECT a.*, u.*, f.* FROM aluno a 
         JOIN usuario2 u ON u.ID_Usuario = a.ID_Aluno 
         JOIN foto f ON f.ID_Foto = u.ID_Foto
         JOIN curso c ON c.ID_Curso = a.ID_Curso

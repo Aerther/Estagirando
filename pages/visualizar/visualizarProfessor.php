@@ -60,7 +60,7 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Professor" ? "iconProf.png" : "iconAlu
 
                         $status = $professor->getStatusDisponibilidade() == "sim" ? "Disponível" : "Não Disponivel";
 
-                        $cor = str_contains($status, "Disponível") ? "green" : "red";
+                        $cor = strpos($status, "Disponível") != false ? "green" : "red";
  
                         echo "<p>Nome: {$professor->getNome()} {$professor->getSobrenome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
                         echo "<p>Email: {$professor->getEmail()}</p>";

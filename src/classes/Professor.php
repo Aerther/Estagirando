@@ -35,7 +35,7 @@ class Professor extends Usuario {
 
         $tipos = "is";
         $params = [$idUsuario, $statusDisponibilidade];
-        $sql = "INSERT INTO professor2 (ID_Professor, Status_Disponibilidade) VALUES (?, ?)";
+        $sql = "INSERT INTO professor (ID_Professor, Status_Disponibilidade) VALUES (?, ?)";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -59,7 +59,7 @@ class Professor extends Usuario {
 
         $tipos = "si";
         $params = [$statusDisponibilidade, $_SESSION["idUsuario"]];
-        $sql = "UPDATE professor2 SET Status_Disponibilidade = ? WHERE ID_Professor = ?";
+        $sql = "UPDATE professor SET Status_Disponibilidade = ? WHERE ID_Professor = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -72,7 +72,7 @@ class Professor extends Usuario {
 
         $tipos = "i";
         $params = [$idProfessor];
-        $sql = "SELECT * FROM professor2 p WHERE p.ID_Professor = ?";
+        $sql = "SELECT * FROM professor p WHERE p.ID_Professor = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
@@ -103,7 +103,7 @@ class Professor extends Usuario {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT p.*, u.*, f.* FROM professor2 p 
+        $sql = "SELECT p.*, u.*, f.* FROM professor p 
         JOIN usuario2 u ON u.ID_Usuario = p.ID_Professor 
         JOIN foto f ON f.ID_Foto = u.ID_Foto
         WHERE u.Status_Cadastro = 'ativo'";

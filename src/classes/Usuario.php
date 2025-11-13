@@ -45,7 +45,7 @@ class Usuario {
 
         $tipos = "sssssssi";
         $params = [$nome, $sobrenome, $this->email, $this->senha, $dataNascimento, $cpf, $tipoUsuario, $idFoto];
-        $sql = "INSERT INTO usuario2 (Nome, Sobrenome, Email, Senha, Data_Nascimento, CPF, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuario (Nome, Sobrenome, Email, Senha, Data_Nascimento, CPF, Tipo_Usuario, ID_Foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $idUsuario = $conexao->execute($sql, $tipos, $params);
 
@@ -84,7 +84,7 @@ class Usuario {
 
         $tipos = "sssssi";
         $params = [$email, $nome, $sobrenome, $dataNascimento, $cpf, $_SESSION["idUsuario"]];
-        $sql = "UPDATE usuario2 SET Email = ?, Nome = ?, Sobrenome = ?, Data_Nascimento = ?, CPF = ? WHERE ID_Usuario = ?";
+        $sql = "UPDATE usuario SET Email = ?, Nome = ?, Sobrenome = ?, Data_Nascimento = ?, CPF = ? WHERE ID_Usuario = ?";
 
         $conexao->execute($sql, $tipos, $params);
 
@@ -117,7 +117,7 @@ class Usuario {
 
         $tipos = "si";
         $params = [$senha, $_SESSION["idUsuario"]];
-        $sql = "UPDATE usuario2 SET Senha = ? WHERE ID_Usuario = ?";
+        $sql = "UPDATE usuario SET Senha = ? WHERE ID_Usuario = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -130,7 +130,7 @@ class Usuario {
 
         $tipos = "i";
         $params = [$_SESSION["idUsuario"]];
-        $sql = "UPDATE usuario2 SET Status_Cadastro = 'inativo' WHERE ID_Usuario = ?";
+        $sql = "UPDATE usuario SET Status_Cadastro = 'inativo' WHERE ID_Usuario = ?";
 
         $conexao->execute($sql, $tipos, $params);
     }
@@ -143,7 +143,7 @@ class Usuario {
 
         $tipos = "i";
         $params = [$idUsuario];
-        $sql = "SELECT *, DATE_FORMAT(u.Data_Nascimento, '%d/%m/%Y') AS Data_Nascimento FROM usuario2 u 
+        $sql = "SELECT *, DATE_FORMAT(u.Data_Nascimento, '%d/%m/%Y') AS Data_Nascimento FROM usuario u 
         WHERE u.ID_Usuario = ? AND u.Status_Cadastro = 'ativo'";
 
         $resultados = $conexao->search($sql, $tipos, $params);
@@ -174,7 +174,7 @@ class Usuario {
 
         $tipos = "s";
         $params = [$tipoUsuario];
-        $sql = "SELECT * FROM usuario2 u 
+        $sql = "SELECT * FROM usuario u 
         WHERE u.Tipo_Usuario LIKE ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
@@ -268,7 +268,7 @@ class Usuario {
 
         $tipos = "s";
         $params = [$this->email];
-        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM usuario2 u WHERE BINARY u.Email = ?";
+        $sql = "SELECT *, CONCAT(u.Nome, ' ', u.Sobrenome) AS Nome FROM usuario u WHERE BINARY u.Email = ?";
 
         $resultado = $conexao->search($sql, $tipos, $params);
 
@@ -310,7 +310,7 @@ class Usuario {
 
         $tipos = "si";
         $params = [$this->email, $idUsuario];
-        $sql = "SELECT 1 FROM usuario2 u WHERE BINARY u.Email = ? AND u.ID_Usuario != ?";
+        $sql = "SELECT 1 FROM usuario u WHERE BINARY u.Email = ? AND u.ID_Usuario != ?";
 
         $resultado = $connection->search($sql, $tipos, $params);
 
@@ -327,7 +327,7 @@ class Usuario {
 
         $tipos = "ss";
         $params = [$senhaCriptografada, $this->email];
-        $sql = "UPDATE usuario2 SET senha = ? WHERE BINARY email = ?";
+        $sql = "UPDATE usuario SET senha = ? WHERE BINARY email = ?";
 
         $connection->execute($sql, $tipos, $params);
 

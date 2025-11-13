@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/11/2025 às 20:07
+-- Tempo de geração: 13/11/2025 às 04:40
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `aluno2`
+-- Estrutura para tabela `aluno`
 --
 
-CREATE TABLE `aluno2` (
+CREATE TABLE `aluno` (
   `ID_Aluno` int(11) NOT NULL,
   `Turno_Disponivel` varchar(15) DEFAULT NULL,
   `Status_Estagio` varchar(30) DEFAULT NULL,
@@ -38,11 +38,12 @@ CREATE TABLE `aluno2` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `aluno2`
+-- Despejando dados para a tabela `aluno`
 --
 
-INSERT INTO `aluno2` (`ID_Aluno`, `Turno_Disponivel`, `Status_Estagio`, `ID_Curso`, `Modalidade`, `Ano_Ingresso`, `Matricula`) VALUES
-(22, 'manha', 'procurando estágio', 1, 'presencial', 2023, NULL);
+INSERT INTO `aluno` (`ID_Aluno`, `Turno_Disponivel`, `Status_Estagio`, `ID_Curso`, `Modalidade`, `Ano_Ingresso`, `Matricula`) VALUES
+(22, 'manha', 'procurando estágio', 1, 'presencial', 2023, '12391924912031'),
+(28, 'manha', 'procurando estágio', 1, 'remoto', 2023, '2023307610');
 
 -- --------------------------------------------------------
 
@@ -5671,7 +5672,7 @@ CREATE TABLE `foto` (
 --
 
 INSERT INTO `foto` (`ID_Foto`, `Link_Foto`, `Nome_Foto`) VALUES
-(1, 'link', 'professor'),
+(1, 'icones/iconProf.png', 'professor'),
 (2, 'icones/iconAluno.png', 'aluno');
 
 -- --------------------------------------------------------
@@ -5701,20 +5702,23 @@ INSERT INTO `preferencia` (`ID_Preferencia`, `Descricao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `professor2`
+-- Estrutura para tabela `professor`
 --
 
-CREATE TABLE `professor2` (
+CREATE TABLE `professor` (
   `ID_Professor` int(11) NOT NULL,
   `Status_Disponibilidade` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `professor2`
+-- Despejando dados para a tabela `professor`
 --
 
-INSERT INTO `professor2` (`ID_Professor`, `Status_Disponibilidade`) VALUES
-(23, 'nao');
+INSERT INTO `professor` (`ID_Professor`, `Status_Disponibilidade`) VALUES
+(24, 'sim'),
+(25, 'nao'),
+(26, 'sim'),
+(27, 'sim');
 
 -- --------------------------------------------------------
 
@@ -5754,10 +5758,10 @@ CREATE TABLE `solicitacao_orientacao` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `usuario2`
+-- Estrutura para tabela `usuario`
 --
 
-CREATE TABLE `usuario2` (
+CREATE TABLE `usuario` (
   `ID_Usuario` int(11) NOT NULL,
   `Nome` varchar(50) DEFAULT NULL,
   `Sobrenome` varchar(50) DEFAULT NULL,
@@ -5771,12 +5775,16 @@ CREATE TABLE `usuario2` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `usuario2`
+-- Despejando dados para a tabela `usuario`
 --
 
-INSERT INTO `usuario2` (`ID_Usuario`, `Nome`, `Sobrenome`, `Email`, `Senha`, `Tipo_Usuario`, `Status_Cadastro`, `ID_Foto`, `CPF`, `Data_Nascimento`) VALUES
-(22, 'teste', 'teste', 'teste@gmail.com', '$2y$10$OwZ4LYXkFEUTucShco/ZpewhcPKp131L6CQ5EGuDR2ouQimBDr5wW', 'aluno', 'ativo', 2, NULL, NULL),
-(23, 'teste', 'teste', 'testep@gmail.com', '$2y$10$m1ocPBeQxmDBiUvPTRAYHetUIq/Fe.EvOp5FK/jDV0jU5wglikWdy', 'professor', 'ativo', 1, NULL, NULL);
+INSERT INTO `usuario` (`ID_Usuario`, `Nome`, `Sobrenome`, `Email`, `Senha`, `Tipo_Usuario`, `Status_Cadastro`, `ID_Foto`, `CPF`, `Data_Nascimento`) VALUES
+(22, 'teste', 'teste', 'teste@gmail.com', '$2y$10$OwZ4LYXkFEUTucShco/ZpewhcPKp131L6CQ5EGuDR2ouQimBDr5wW', 'aluno', 'ativo', 2, '101.231.231-23', '1500-05-12'),
+(24, 'teste', 'teste', 'testep@gmail.com', '$2y$10$BXFUlje9HKYelx9S3.FW/eWA6CdqFfT59oG0sF6KA./kScV3C35ty', 'professor', 'ativo', 1, '1', '0000-00-00'),
+(25, 'Arthur ', 'Lassem', 'arthur@gmail.com', '$2y$10$MajJVmmvHPzKpT.USNAj1.GfPSMHWqBp0hX9nWr2SFD43DLfdoNru', 'professor', 'ativo', 1, '1', '0000-00-00'),
+(26, 'Arthur', 'Lassem', 'arthur1@gmail.com', '$2y$10$bhOU/taRjPw6ZHvA8okfM.M3tr.yGviyh0bopZgT22a1k/nbOKioK', 'professor', 'ativo', 1, '000.000.000-00', '2025-11-05'),
+(27, 'Arthur', 'Lassem', 'arthur13@gmail.com', '$2y$10$Z7RZZEVvYbTuZpwuMoRgZOyug0tcEosHS98EcKcQqmCK2AvJjllLm', 'professor', 'ativo', 1, '213.213.123-12', '2007-11-02'),
+(28, 'Arthur', 'Lassem', 'arthur10@gmail.com', '$2y$10$kHqPPt0O233XBH.ctAiYIuVTtJptGdLUBxXySbwTz0GM0KWWdzJKW', 'aluno', 'ativo', 2, '045.347.770-43', '2024-11-04');
 
 -- --------------------------------------------------------
 
@@ -5794,7 +5802,8 @@ CREATE TABLE `usuario_cidade` (
 --
 
 INSERT INTO `usuario_cidade` (`ID_Usuario`, `ID_Cidade`) VALUES
-(22, 1);
+(22, 10476),
+(28, 1);
 
 -- --------------------------------------------------------
 
@@ -5820,19 +5829,24 @@ INSERT INTO `usuario_preferencia` (`ID_Usuario`, `ID_Preferencia`, `Prefere`) VA
 (22, 7, 'sim'),
 (22, 8, 'nao'),
 (22, 9, 'nao'),
-(23, 3, 'sim'),
-(23, 5, 'nao'),
-(23, 6, 'nao'),
-(23, 7, 'sim');
+(25, 3, 'nao'),
+(25, 4, 'sim'),
+(25, 5, 'nao'),
+(25, 7, 'sim'),
+(27, 6, 'sim'),
+(28, 4, 'sim'),
+(28, 5, 'nao'),
+(28, 6, 'nao'),
+(28, 9, 'nao');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `aluno2`
+-- Índices de tabela `aluno`
 --
-ALTER TABLE `aluno2`
+ALTER TABLE `aluno`
   ADD PRIMARY KEY (`ID_Aluno`),
   ADD KEY `ID_Curso` (`ID_Curso`);
 
@@ -5861,9 +5875,9 @@ ALTER TABLE `preferencia`
   ADD PRIMARY KEY (`ID_Preferencia`);
 
 --
--- Índices de tabela `professor2`
+-- Índices de tabela `professor`
 --
-ALTER TABLE `professor2`
+ALTER TABLE `professor`
   ADD PRIMARY KEY (`ID_Professor`);
 
 --
@@ -5881,9 +5895,9 @@ ALTER TABLE `solicitacao_orientacao`
   ADD KEY `ID_Aluno` (`ID_Aluno`);
 
 --
--- Índices de tabela `usuario2`
+-- Índices de tabela `usuario`
 --
-ALTER TABLE `usuario2`
+ALTER TABLE `usuario`
   ADD PRIMARY KEY (`ID_Usuario`),
   ADD KEY `ID_Foto` (`ID_Foto`);
 
@@ -5936,60 +5950,60 @@ ALTER TABLE `solicitacao_orientacao`
   MODIFY `ID_Solicitacao_Orientacao` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `usuario2`
+-- AUTO_INCREMENT de tabela `usuario`
 --
-ALTER TABLE `usuario2`
-  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+ALTER TABLE `usuario`
+  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Restrições para tabelas despejadas
 --
 
 --
--- Restrições para tabelas `aluno2`
+-- Restrições para tabelas `aluno`
 --
-ALTER TABLE `aluno2`
+ALTER TABLE `aluno`
   ADD CONSTRAINT `ID_Curso` FOREIGN KEY (`ID_Curso`) REFERENCES `curso` (`ID_Curso`) ON DELETE SET NULL,
-  ADD CONSTRAINT `aluno2_ibfk_1` FOREIGN KEY (`ID_Aluno`) REFERENCES `usuario2` (`ID_Usuario`) ON DELETE CASCADE,
-  ADD CONSTRAINT `aluno2_ibfk_2` FOREIGN KEY (`ID_Curso`) REFERENCES `curso` (`ID_Curso`) ON DELETE SET NULL;
+  ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`ID_Aluno`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `aluno_ibfk_2` FOREIGN KEY (`ID_Curso`) REFERENCES `curso` (`ID_Curso`) ON DELETE SET NULL;
 
 --
--- Restrições para tabelas `professor2`
+-- Restrições para tabelas `professor`
 --
-ALTER TABLE `professor2`
-  ADD CONSTRAINT `professor2_ibfk_1` FOREIGN KEY (`ID_Professor`) REFERENCES `usuario2` (`ID_Usuario`) ON DELETE CASCADE;
+ALTER TABLE `professor`
+  ADD CONSTRAINT `professor_ibfk_1` FOREIGN KEY (`ID_Professor`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `professor_solicitacao_orientacao`
 --
 ALTER TABLE `professor_solicitacao_orientacao`
-  ADD CONSTRAINT `professor_solicitacao_orientacao_ibfk_1` FOREIGN KEY (`ID_Professor`) REFERENCES `professor2` (`ID_Professor`) ON DELETE CASCADE,
+  ADD CONSTRAINT `professor_solicitacao_orientacao_ibfk_1` FOREIGN KEY (`ID_Professor`) REFERENCES `professor` (`ID_Professor`) ON DELETE CASCADE,
   ADD CONSTRAINT `professor_solicitacao_orientacao_ibfk_2` FOREIGN KEY (`ID_Solicitacao_Orientacao`) REFERENCES `solicitacao_orientacao` (`ID_Solicitacao_Orientacao`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `solicitacao_orientacao`
 --
 ALTER TABLE `solicitacao_orientacao`
-  ADD CONSTRAINT `solicitacao_orientacao_ibfk_1` FOREIGN KEY (`ID_Aluno`) REFERENCES `aluno2` (`ID_Aluno`) ON DELETE CASCADE;
+  ADD CONSTRAINT `solicitacao_orientacao_ibfk_1` FOREIGN KEY (`ID_Aluno`) REFERENCES `aluno` (`ID_Aluno`) ON DELETE CASCADE;
 
 --
--- Restrições para tabelas `usuario2`
+-- Restrições para tabelas `usuario`
 --
-ALTER TABLE `usuario2`
-  ADD CONSTRAINT `usuario2_ibfk_1` FOREIGN KEY (`ID_Foto`) REFERENCES `foto` (`ID_Foto`);
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`ID_Foto`) REFERENCES `foto` (`ID_Foto`);
 
 --
 -- Restrições para tabelas `usuario_cidade`
 --
 ALTER TABLE `usuario_cidade`
-  ADD CONSTRAINT `usuario_cidade_ibfk_1` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario2` (`ID_Usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `usuario_cidade_ibfk_1` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE CASCADE,
   ADD CONSTRAINT `usuario_cidade_ibfk_2` FOREIGN KEY (`ID_Cidade`) REFERENCES `cidade` (`ID_Cidade`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `usuario_preferencia`
 --
 ALTER TABLE `usuario_preferencia`
-  ADD CONSTRAINT `usuario_preferencia_ibfk_1` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario2` (`ID_Usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `usuario_preferencia_ibfk_1` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE CASCADE,
   ADD CONSTRAINT `usuario_preferencia_ibfk_2` FOREIGN KEY (`ID_Preferencia`) REFERENCES `preferencia` (`ID_Preferencia`) ON DELETE CASCADE;
 COMMIT;
 

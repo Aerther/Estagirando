@@ -47,12 +47,6 @@ if(isset($_POST["botao-enviar"])) {
     <script src="./src/js/main.js" defer></script>
 
     <title>Estagirando</title>
-
-    <style>
-        .error p {
-            color: <?php echo str_contains($msgError, "sucesso") ? "green" : "red"; ?>;
-        }
-    </style>
 </head>
 <body>
     <h1>Bem-vindo ao Estagirando!</h1>
@@ -60,7 +54,7 @@ if(isset($_POST["botao-enviar"])) {
     <div class="container">
         <section class="coluna-1">
             <div class="texto-coluna-1">
-                <h3>Com o Estagirando nós te <br> ajudamos a facilitar a sua <br>  jornada de estágio.</h3>
+                <h3>Com o Estagirando nós te <br> ajudamos a facilitar a sua <br> jornada de estágio.</h3>
                 <h3>Junte-se a nós!</h3>
             </div>
 
@@ -96,7 +90,7 @@ if(isset($_POST["botao-enviar"])) {
                 </section>    
                 
                 <section class="error">
-                    <p> <?php echo $msgError ?> </p>
+                    <p style="color: <?php echo str_contains($msgError, 'sucesso') ? 'green' : 'red'; ?>;"> <?php echo $msgError ?> </p>
                 </section>
             </form>
         </section>

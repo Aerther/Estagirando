@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\BD\\MySQL' => $baseDir . '/src/BD/MySQL.php',
     'App\\Classes\\Aluno' => $baseDir . '/src/Classes/Aluno.php',
+    'App\\Classes\\Cidade' => $baseDir . '/src/Classes/Cidade.php',
     'App\\Classes\\Curso' => $baseDir . '/src/Classes/Curso.php',
     'App\\Classes\\Foto' => $baseDir . '/src/Classes/Foto.php',
     'App\\Classes\\Preferencia' => $baseDir . '/src/Classes/Preferencia.php',

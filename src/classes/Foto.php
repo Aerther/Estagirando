@@ -23,7 +23,7 @@ class Foto {
 
         $tipos = "ss";
         $params = [$this->nome, $this->linkFoto];
-        $sql = "INSERT INTO Foto (Nome_Foto, Link_Foto) VALUES (?, ?)";
+        $sql = "INSERT INTO foto (Nome_Foto, Link_Foto) VALUES (?, ?)";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -34,7 +34,7 @@ class Foto {
 
         $tipos = "ssi";
         $params = [$nome, $linkFoto, $this->idFoto];
-        $sql = "UPDATE Foto SET Nome_Foto = ?, Link_Foto = ? WHERE ID_Foto = ?";
+        $sql = "UPDATE foto SET Nome_Foto = ?, Link_Foto = ? WHERE ID_Foto = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -45,7 +45,7 @@ class Foto {
 
         $tipos = "i";
         $params = [$this->idFoto];
-        $sql = "DELETE FROM Foto WHERE ID_Foto = ?";
+        $sql = "DELETE FROM foto WHERE ID_Foto = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
@@ -56,7 +56,7 @@ class Foto {
 
         $tipos = "i";
         $params = [$idFoto];
-        $sql = "SELECT * FROM Foto f WHERE f.ID_Foto = ?";
+        $sql = "SELECT * FROM foto f WHERE f.ID_Foto = ?";
 
         $resultados = $connection->search($sql, $tipos, $params);
 
@@ -76,7 +76,7 @@ class Foto {
 
         $tipos = "";
         $params = [];
-        $sql = "SELECT * FROM Foto";
+        $sql = "SELECT * FROM foto";
 
         $resultados = $connection->search($sql, $tipos, $params);
 

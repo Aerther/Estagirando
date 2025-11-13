@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__."/../../vendor/autoload.php";
 
 use App\Classes\Aluno;
@@ -62,7 +66,7 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
 
                         $status = ucwords($aluno->getStatusEstagio());
 
-                        $cor = str_contains($status, "Procurando") ? "green" : "red";
+                        $cor = strpos($status, "Procurando") != false ? "green" : "red";
  
                         echo "<p>Nome: {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
                         echo "<p>Email: {$aluno->getEmail()}</p>";
