@@ -24,6 +24,8 @@ if(isset($_POST['salvar'])) {
     $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
     $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
 
+    $cidadesEstagiar = isset($_POST["cidadesEstagiar"]) ? $_POST["cidadesEstagiar"] : [1];
+
     $usuario = new Aluno($_POST["email"], "");
 
     if(!$usuario->usuarioExiste()) {
@@ -40,7 +42,7 @@ if(isset($_POST['salvar'])) {
                 $preferencias,
                 $naoPreferencias,
                 $_POST["ano"],
-                $_POST["cidadesEstagiar"],
+                $cidadesEstagiar,
                 $_POST["turno"],
                 $_POST["situacao"],
                 $_POST["modalidade"],
