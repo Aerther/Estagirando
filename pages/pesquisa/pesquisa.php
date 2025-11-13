@@ -33,9 +33,9 @@
             <label for="curso">Pesquisar por curso:</label>
             <select id="curso" name="curso">
                 <option value="1">Informática</option>
-                <option value="2" <?php echo $opcoes[2]; ?>>Administração</option>
-                <option value="3" <?php echo $opcoes[3]; ?>>Química</option>
-                <option value="4" <?php echo $opcoes[4]; ?>>Meio Ambiente</option>
+                <option value="2">Administração</option>
+                <option value="3">Química</option>
+                <option value="4">Meio Ambiente</option>
         </div>
         
     </div>
