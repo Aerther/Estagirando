@@ -1,3 +1,5 @@
+// Pegando as cidades
+
 let inputCidade = document.getElementById("cidadeEstagiar");
 let sugestoes = document.querySelector(".sugestoes");
 let cidadesDiv = document.querySelector(".checkboxes");
@@ -79,3 +81,44 @@ function adicionarCidade(e) {
 
     cidadesDiv.appendChild(label);
 }
+
+// Pegando as preferencias
+
+let inputCurso = document.getElementById("curso");
+let preferencias = document.getElementById("preferencias");
+let naoPreferencias = document.getElementById("naoPreferencias");
+
+inputCurso.addEventListener("change", async function(e) {
+    let idCurso = e.target.value;
+
+    try {
+        let resposta = await fetch(`./../../buscarPreferencias.php?idCurso=${idCurso}`);
+
+        let data = await resposta.json();
+
+        adicionarPreferencias(preferencias, data, "preferencias[]");
+        adicionarPreferencias(naoPreferencias, data, "naoPreferencias[]");
+
+    } catch(e) {
+        console.log(e.message);
+    }
+});
+
+function adicionarPreferencias(divPreferencia, data, lista) {
+    divPreferencia.innerHTML = "";
+
+    data.forEach(preferencia => {
+        let input = document.createElement("input");
+
+        input.type = "checkbox";
+        input.name = lista;
+        input.value = preferencia.ID_Preferencia;
+
+        let label = document.createElement("label");
+        label.textContent = " " + preferencia.Descricao;
+
+        label.prepend(input);
+
+        divPreferencia.appendChild(label);
+    });
+};

@@ -198,14 +198,8 @@ $cidadesEstagiar = [];
 
                         <label for="curso">Selecione o curso:</label>
                         <select id="curso" name="curso">
-                            <option value="1" <?php echo $opcoes[1]; ?>>Informática</option>
-                            <option value="2" <?php echo $opcoes[2]; ?>>Administração</option>
-                            <option value="3" <?php echo $opcoes[3]; ?>>Química</option>
-                            <option value="4" <?php echo $opcoes[4]; ?>>Meio Ambiente</option>
-                            
+                            <option value="" disabled selected>Curso</option>
                             <?php
-                            /*
-
 
                             $cursoSelecionado = isset($_POST["curso"]) ? $_POST["curso"] : -1;
 
@@ -213,9 +207,9 @@ $cidadesEstagiar = [];
                                 $selected = $curso->getIdCurso() == $cursoSelecionado ? 'selected' : '';
 
                                 echo "<option value={$curso->getIdCurso()} {$selected}>{$curso->getNome()}</option>";
-                            }*/
-                            ?>
+                            }
 
+                            ?>
                         </select>
                     </section>
 
@@ -270,29 +264,13 @@ $cidadesEstagiar = [];
                     <section>
                         <p>Preferências</p>
 
-                        <div>
-                            <?php
-
-                            foreach ($preferencias as $preferencia) {
-                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                            }
-
-                            ?>
-                        </div>
+                        <div id="preferencias"></div>
                     </section>
 
                     <section>
                         <p>Não preferências</p>
 
-                        <div>
-                            <?php
-
-                            foreach ($preferencias as $preferencia) {
-                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
-                            }
-
-                            ?>
-                        </div>
+                        <div id="naoPreferencias"></div>
                     </section>
                 </section>
 

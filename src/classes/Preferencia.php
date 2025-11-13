@@ -88,6 +88,27 @@ class Preferencia {
         return $preferencias;
     }
 
+    public static function findAllPreferenciasByCurso(int $idCurso) : array {
+        $connection = new MySQL();
+
+        $preferencias = [];
+
+        $tipos = "i";
+        $params = [$idCurso];
+        $sql = "SELECT * FROM preferencia p WHERE p.ID_Curso = ? ORDER BY p.Descricao";
+
+        $resultados = $connection->search($sql, $tipos, $params);
+
+        foreach($resultados as $resultado) {
+            $preferencia = new Preferencia($resultado["Descricao"]);
+            $preferencia->setIdPreferencia($resultado["ID_Preferencia"]);
+
+            $preferencias[] = $preferencia;
+        }
+
+        return $preferencias;
+    }
+
     // Getters e Setters
 
     // ID Preferencia
