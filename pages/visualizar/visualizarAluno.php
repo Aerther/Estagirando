@@ -71,7 +71,7 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                             $cor = "red";
                         }
  
-                        echo "<p>Nome: {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
+                        echo "<p>{$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
                         echo "<p>Email: {$aluno->getEmail()}</p>";
                         echo "<p>Curso: {$curso->getNome()}</p>";
                         echo "<p>Ingressou em {$aluno->getAnoIngresso()}</p>"; 
