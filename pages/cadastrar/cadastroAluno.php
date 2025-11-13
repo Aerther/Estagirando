@@ -46,7 +46,7 @@ if (isset($_POST["cadastrar"])) {
                 $cidadesEstagiar,
                 $_POST["turno"],
                 $_POST["situacao"],
-                $_POST["modalidade"],
+                $modalidades,
                 $_POST["matricula"],
                 $_POST["curso"]
             );
@@ -65,6 +65,7 @@ if (isset($_POST["cadastrar"])) {
 $preferencias = Preferencia::findAllPreferencias();
 $cursos = Curso::findAllCursos();
 $cidadesEstagiar = [];
+$modalidades = [];
 
 ?>
 
@@ -149,24 +150,7 @@ $cidadesEstagiar = [];
                             echo htmlspecialchars($_POST['ano']); ?>" required>
                     </section>
 
-                    <section>
-                        <label for="modalidade">Modalidade:</label>
-
-                        <?php
-
-                        $opcoes = ["presencial" => "", "remoto" => "", "hibrido" => ""];
-
-                        if (isset($_POST["modalidade"]))
-                            $opcoes[$_POST["modalidade"]] = "selected";
-
-                        ?>
-
-                        <select id="modalidade" name="modalidade">
-                            <option value="presencial" <?php echo $opcoes["presencial"]; ?>>Presencial</option>
-                            <option value="remoto" <?php echo $opcoes["remoto"]; ?>>Remoto</option>
-                            <option value="hibrido" <?php echo $opcoes["hibrido"]; ?>>Híbrido</option>
-                        </select>
-                    </section>
+                    
 
                     <section class="more-space">
                         <label for="situacao">Situação Atual:</label>
@@ -273,6 +257,19 @@ $cidadesEstagiar = [];
                         <div id="naoPreferencias"></div>
                     </section>
                 </section>
+                <section >
+                        <label for="modalidade">Modalidade:</label>
+                        <input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" >Selecionar todos
+                        
+                        <input type="checkbox" name="presencial" id="presencial" value="presencial"><label for="presencial">Presencial</label>
+                        <input type="checkbox" name="online" id="online" value="online"><label for="online">Online</label>
+                        <input type="checkbox" name="hibrido" id="hibrido" value="hibrido"><label for="hibrido">Hibrido</label>
+                        
+                    </section>
+                
+                
+
+                
 
                 <section id="btn" class="links">
                     <?php echo "<p class='erro'>{$mensagemErro}</p>"; ?>

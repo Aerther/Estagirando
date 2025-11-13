@@ -1,8 +1,12 @@
 // Pegando as cidades
 
+
+
+
 let inputCidade = document.getElementById("cidadeEstagiar");
 let sugestoes = document.querySelector(".sugestoes");
 let cidadesDiv = document.querySelector(".checkboxes");
+
 
 let qualquerCidade = document.getElementById("qualquerCidade");
 
@@ -121,4 +125,22 @@ function adicionarPreferencias(divPreferencia, data, lista) {
 
         divPreferencia.appendChild(label);
     });
+
 };
+
+
+const checkPresencial = document.getElementById('presencial');
+const checkHibrido = document.getElementById('hibrido');
+const checkOnline = document.getElementById('online');
+
+const checkTodosModalidade = document.getElementById('todosModalidade');
+
+
+
+function selecionar(){
+    
+    checkPresencial.checked=true;
+    checkTodosModalidade.checked=true;
+    checkHibrido.checked=true;
+    checkOnline.checked=true;
+}
