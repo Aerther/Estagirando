@@ -2,9 +2,8 @@
 require_once __DIR__."/vendor/autoload.php";
 
 use App\Classes\Usuario;
-$u = new Usuario('joice@123','1234');
-$u->salvarUsuario('', '', '', 1, [], []);
-
+session_start();
+echo $_SESSION['nome'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
