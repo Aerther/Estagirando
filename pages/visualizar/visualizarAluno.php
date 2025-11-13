@@ -65,8 +65,11 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                         <?php 
 
                         $status = ucwords($aluno->getStatusEstagio());
-
-                        $cor = strpos($status, "Procurando") != false ? "green" : "red";
+                        if($status=='Procurando Estágio'){
+                            $cor = "green";
+                        } else{
+                            $cor = "red";
+                        }
  
                         echo "<p>Nome: {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
                         echo "<p>Email: {$aluno->getEmail()}</p>";

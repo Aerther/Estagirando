@@ -58,9 +58,17 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Professor" ? "iconProf.png" : "iconAlu
                     <section class="dados-usuario professor">
                         <?php  
 
-                        $status = $professor->getStatusDisponibilidade() == "sim" ? "Disponível" : "Não Disponivel";
+                        $status = $professor->getStatusDisponibilidade();
 
-                        $cor = strpos($status, "Disponível") != false ? "green" : "red";
+                        if($status=='sim'){
+                            $status = "Disponível";
+                            $cor = "green";
+                        } else {
+                            $status = "Não Disponivel";
+                            $cor = "red";
+                        }
+
+                        
  
                         echo "<p>Nome: {$professor->getNome()} {$professor->getSobrenome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
                         echo "<p>Email: {$professor->getEmail()}</p>";
