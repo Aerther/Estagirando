@@ -20,6 +20,7 @@ form {
     display: grid;
     grid-template-rows: 36% 46% 18%;
     grid-template-columns: 100%;
+
 }
 
 .dados, .preferencias, .links {
@@ -35,8 +36,8 @@ form {
 }
 
 .imagem figure {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
 
     display: flex;
     justify-content: center;

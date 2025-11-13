@@ -59,6 +59,9 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                         <figure>
                             <?php echo "<img src='./../../{$foto->getLinkFoto()}' alt='Foto do Aluno' />"; ?>
                         </figure>
+                        <div id=editPerfil>
+                            <a href="./../editar/editarCadastroAluno.php">Editar Cadastro</a> 
+                        </div>
                     </section>
 
                     <section class="dados-usuario">
@@ -71,10 +74,10 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                             $cor = "red";
                         }
  
-                        echo "<p>{$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
-                        echo "<p>Email: {$aluno->getEmail()}</p>";
-                        echo "<p>Curso: {$curso->getNome()}</p>";
-                        echo "<p>Ingressou em {$aluno->getAnoIngresso()}</p>"; 
+                        echo "<p><strong style='margin-right: 8px;'> Nome:</strong> {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> ";
+                        echo "<p><strong style='margin-right: 8px;'>Email: </strong> {$aluno->getEmail()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Curso: </strong> {$curso->getNome()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Ingressou em </strong>{$aluno->getAnoIngresso()}</p>"; 
                         
                         ?>
                     </section>
@@ -82,7 +85,7 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                     <section class="dados-usuario">
                         <?php
 
-                        echo "<p>Data de Nascimento: {$aluno->getDataNascimento()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Data de Nascimento: </strong> {$aluno->getDataNascimento()}</p>";
 
                         ?>
 
@@ -90,8 +93,8 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
 
                         <?php 
 
-                        echo "<p>Modalidade: {$aluno->getModalidade()}</p>";
-                        echo "<p>Turno: {$aluno->getTurnoDisponivel()}</p>"; 
+                        echo "<p><strong style='margin-right: 8px;'>Modalidade: </strong> {$aluno->getModalidade()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Turno: </strong>{$aluno->getTurnoDisponivel()}</p>"; 
                             
                         ?>
                     </section>
