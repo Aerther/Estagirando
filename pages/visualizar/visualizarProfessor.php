@@ -53,6 +53,9 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Professor" ? "iconProf.png" : "iconAlu
                         <figure>
                             <?php echo "<img src='./../../{$foto->getLinkFoto()}' alt='Foto do Professor' />"; ?>
                         </figure>
+                        <div id=editPerfil>
+                            <a href="./../editar/editarCadastroProfessor.php">Editar Cadastro</a> 
+                        </div>
                     </section>
 
                     <section class="dados-usuario professor">
@@ -70,15 +73,15 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Professor" ? "iconProf.png" : "iconAlu
 
                         
  
-                        echo "<p>Nome: {$professor->getNome()} {$professor->getSobrenome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
-                        echo "<p>Email: {$professor->getEmail()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Nome: </strong>{$professor->getNome()} {$professor->getSobrenome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
+                        echo "<p><strong style='margin-right: 8px;'>Email: </strong>{$professor->getEmail()}</p>";
                         
                         ?>
                     </section>
 
                 </section>
 
-                <section class="linha-2">
+                <section class="linha-2-prof">
 
 
                     <section class="preferencias">
