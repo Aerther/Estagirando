@@ -57,6 +57,10 @@ main {
     grid-template-columns: 100%;
 }
 
+.professor {
+    grid-template-rows: repeat(auto-fill, minmax(auto, 80px)) !important;
+}
+
 .dados-usuario > p {
     display: flex;
     flex-direction: row;

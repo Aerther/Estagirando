@@ -51,18 +51,18 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Professor" ? "iconProf.png" : "iconAlu
                 <section class="linha-1">
                     <section class="imagem">
                         <figure>
-                            <?php echo "<img src='./../../{$foto->getLinkFoto()}' alt='Foto do Aluno' />"; ?>
+                            <?php echo "<img src='./../../{$foto->getLinkFoto()}' alt='Foto do Professor' />"; ?>
                         </figure>
                     </section>
 
-                    <section class="dados-usuario">
+                    <section class="dados-usuario professor">
                         <?php  
-                        
-                        $status = ucwords($professor->getStatusDisponibilidade());
 
-                        $cor = str_contains($status, "Procurando") ? "green" : "red";
+                        $status = $professor->getStatusDisponibilidade() == "sim" ? "Disponível" : "Não Disponivel";
+
+                        $cor = str_contains($status, "Disponível") ? "green" : "red";
  
-                        echo "<p>Nome: {$professor->getNome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
+                        echo "<p>Nome: {$professor->getNome()} {$professor->getSobrenome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
                         echo "<p>Email: {$professor->getEmail()}</p>";
                         
                         ?>
