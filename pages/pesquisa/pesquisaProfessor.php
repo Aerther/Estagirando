@@ -11,7 +11,6 @@ use App\Classes\Preferencia;
 
 $mensagemErro = "";
 
-
 $preferencias = Preferencia::findAllPreferencias();
 
 ?>
@@ -31,11 +30,16 @@ $preferencias = Preferencia::findAllPreferencias();
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Pesquisa Avançada de Professores</h1>
-        </header>
+        <?php
 
+        $URL_BASE = "./../..";
+
+        require_once __DIR__ . "/../../menu.php";
+
+        ?>
+        
         <main>
+            <h1>Pesquisa Avançada de Professores</h1>
             <form action="./pesquisaProfessor.php" method="post">
                 <section class="dados">
                     <section>
@@ -55,13 +59,9 @@ $preferencias = Preferencia::findAllPreferencias();
 
                         <div class="disponibilidade">
                             <?php 
-
-                            $opcoes = ["sim" => "", "nao" => ""];
-
-                            if(isset($_POST["disponivel"])) $opcoes[$_POST["disponivel"]] = "checked";
                             
-                            echo "<label><input type='radio' name='disponivel' value='sim' {$opcoes['sim']} >Disponível para orientar</label>";
-                            echo "<label><input type='radio' name='disponivel' value='nao' {$opcoes['nao']} >Não disponível para orientar</label>";
+                            echo "<label><input type='radio' name='disponivel' value='sim'>Disponível para orientar</label>";
+                            echo "<label><input type='radio' name='disponivel' value='nao'>Não disponível para orientar</label>";
                             
                             ?>
                         </div>
