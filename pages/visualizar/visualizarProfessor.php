@@ -19,6 +19,7 @@ $preferencias = $professor->getPreferencias();
 $naoPreferencias = $professor->getNaoPreferencias();
 
 // Settagem dos links
+$linkPesquisa = $_SESSION["tipoUsuario"] == "aluno" ? "pesquisaProfessor.php" : "pesquisaProfessor.php";
 $linkEditarCadastro = $_SESSION["tipoUsuario"] == "Professor" ? "editarCadastroProfessor.php" : "editarCadastroAluno.php";
 $linkVisualizarCadastro = $_SESSION["tipoUsuario"] == "Professor" ? "visualizarProfessor.php" : "visualizarAluno.php";
 $linkIcone = $_SESSION["tipoUsuario"] == "Professor" ? "iconProf.png" : "iconAluno.png";

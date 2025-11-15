@@ -25,6 +25,7 @@ $naoPreferencias = $aluno->getNaoPreferencias();
 $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
 // Settagem dos links
+$linkPesquisa = $_SESSION["tipoUsuario"] == "aluno" ? "pesquisaProfessor.php" : "pesquisaProfessor.php";
 $linkEditarCadastro = $_SESSION["tipoUsuario"] == "Aluno" ? "editarCadastroAluno.php" : "editarCadastroProfessor.php";
 $linkVisualizarCadastro = $_SESSION["tipoUsuario"] == "Aluno" ? "visualizarAluno.php" : "visualizarProfessor.php";
 $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.png";

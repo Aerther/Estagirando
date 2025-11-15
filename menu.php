@@ -1,5 +1,8 @@
 <?php
 
+// Link Pesquisa 
+$lp = $_SESSION["tipoUsuario"] == "aluno" ? "pesquisaProfessor.php" : "pesquisaAluno.php";
+
 // Link Editar Cadastro
 $lec = $_SESSION["tipoUsuario"] == "aluno" ? "editarCadastroAluno.php" : "editarCadastroProfessor.php";
 
