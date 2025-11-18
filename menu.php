@@ -1,5 +1,7 @@
 <?php
 
+if(session_status() != 2) session_start();
+
 // Link Pesquisa 
 $lp = $_SESSION["tipoUsuario"] == "aluno" ? "pesquisaProfessor.php" : "pesquisaAluno.php";
 
@@ -24,7 +26,7 @@ $lvc = ($_SESSION["tipoUsuario"] == "aluno" ? "visualizarAluno.php" : "visualiza
     <section class="icones">
         <?php 
         
-        echo "<a href='{$URL_BASE}/pages/pesquisa/pesquisa.php' title='Pesquisa'>";
+        echo "<a href='{$URL_BASE}/pages/pesquisa/{$lp}' title='Pesquisa'>";
         echo "<img src='{$URL_BASE}/icones/pesquisa.png' alt='Pesquisa' class='icone-menu'>";
         echo "</a>";
 

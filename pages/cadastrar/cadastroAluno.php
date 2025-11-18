@@ -46,7 +46,7 @@ if (isset($_POST["cadastrar"])) {
                 $cidadesEstagiar,
                 $_POST["turno"],
                 $_POST["situacao"],
-                $modalidades,
+                "Qualquer",
                 $_POST["matricula"],
                 $_POST["curso"]
             );
@@ -257,19 +257,15 @@ $modalidades = [];
                         <div id="naoPreferencias"></div>
                     </section>
                 </section>
-                <section >
-                        <label for="modalidade">Modalidade:</label>
-                        <input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" >Selecionar todos
-                        
-                        <input type="checkbox" name="presencial" id="presencial" value="presencial"><label for="presencial">Presencial</label>
-                        <input type="checkbox" name="online" id="online" value="online"><label for="online">Online</label>
-                        <input type="checkbox" name="hibrido" id="hibrido" value="hibrido"><label for="hibrido">Hibrido</label>
-                        
-                    </section>
-                
-                
 
-                
+                <section>
+                    <label for="modalidade">Modalidade:</label>
+                    <input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" >Selecionar todos
+                        
+                    <input type="checkbox" name="presencial" id="presencial" value="presencial"><label for="presencial">Presencial</label>
+                    <input type="checkbox" name="online" id="online" value="online"><label for="online">Online</label>
+                    <input type="checkbox" name="hibrido" id="hibrido" value="hibrido"><label for="hibrido">Hibrido</label>
+                </section>
 
                 <section id="btn" class="links">
                     <?php echo "<p class='erro'>{$mensagemErro}</p>"; ?>

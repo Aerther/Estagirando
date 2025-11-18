@@ -1,7 +1,4 @@
 /* Main */
-*{
-    font-size: 20px;
-}
 main {
     display: flex;
     justify-content: center;
@@ -29,10 +26,12 @@ main {
     display: grid;
     grid-template-columns: 20% 40% 40%;
 }
+
 .imagem{
     place-items: center;
     margin-bottom: 10px;
 }
+
 .imagem figure {
     width: 90%;
     height: 90%;
@@ -40,6 +39,7 @@ main {
     justify-content: center;
     align-items: center;
 }
+
 #editPerfil a{
     text-decoration: none;
     background-color: rgb(238, 238, 238);

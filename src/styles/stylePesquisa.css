@@ -1,34 +1,18 @@
-.container {
-    width: 100vw;
-    height: 100vh;
-
-    display: grid;
-    grid-template-rows: 12% 1fr;
-    grid-template-columns: 100%;
-}
-
-header, main {
-    height: 100%;
-    width: 100%;
-
+main {
     display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-h1 {
-    font-size: 1.5rem;
+    justify-content: center;
 }
 
 form {
     width: 95%;
-    height: 1000px;
+    height: auto;
 
     background-color: rgb(230, 230, 230);
     border-radius: 15px;
 
     padding: 15px;
-    margin-bottom: 20px;
+    margin: 20px 0;
 
     display: grid;
     grid-template-columns: 50% 50%;

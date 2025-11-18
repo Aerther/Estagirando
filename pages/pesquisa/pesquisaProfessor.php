@@ -9,7 +9,19 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use App\Classes\Professor;
 use App\Classes\Preferencia;
 
+session_start();
+
 $mensagemErro = "";
+
+if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
+
+if($_SESSION["tipoUsuario"] == "professor" && $_GET["id"] != $_SESSION["idUsuario"]) header("Location: ./../../privado.php");
+
+if(isset($_SESSION["erro"])) {
+    $mensagemErro = "Preencha ao menos um campo para pesquisar";
+
+    unset($_SESSION["erro"]); 
+}
 
 $preferencias = Preferencia::findAllPreferencias();
 
@@ -24,7 +36,7 @@ $preferencias = Preferencia::findAllPreferencias();
     <title>Estagirando</title>
 
     <link rel="stylesheet" href="./../../src/styles/reset.css">
-    <link rel="stylesheet" href="./../../src/styles/styleCadastro.css">
+    <link rel="stylesheet" href="./../../src/styles/stylePesquisa.css">
 
     <script src="./../../src/js/editarCad.js" defer></script>
 </head>
@@ -39,19 +51,18 @@ $preferencias = Preferencia::findAllPreferencias();
         ?>
         
         <main>
-            <h1>Pesquisa Avançada de Professores</h1>
-            <form action="./pesquisaProfessor.php" method="post">
+            <form action="./listaProfessores.php" method="post">
                 <section class="dados">
+                    <h2>Pesquisa Avançada de Professores</h2>
+
                     <section>
-                        <label for="nome">Nome Completo:</label>
-                        <input type="text" name="nome" value="<?php if (isset($_POST['nome']))
-                            echo htmlspecialchars($_POST['nome']); ?>">
+                        <label for="nome">Nome:</label>
+                        <input type="text" name="nome">
                     </section>
 
                     <section>
                         <label for="email">Email:</label>
-                        <input type="email" name="email" value="<?php if (isset($_POST['email']))
-                            echo htmlspecialchars($_POST['email']); ?>">
+                        <input type="email" name="email">
                     </section>
 
                     <section class="radio">

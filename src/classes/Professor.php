@@ -117,6 +117,60 @@ class Professor extends Usuario {
             
             $professor->setIdUsuario($resultado["ID_Usuario"]);
             $professor->setNome($resultado["Nome"]);
+            $professor->setSobrenome($resultado["Sobrenome"]);
+            $professor->setTipoUsuario($resultado["Tipo_Usuario"]);
+            $professor->setStatusCadastro($resultado["Status_Cadastro"]);
+            $professor->setPreferencias();
+
+            $professor->setStatusDisponibilidade($resultado["Status_Disponibilidade"]);
+
+            $professores[] = $professor;
+        }
+
+        return $professores;
+    }
+
+    public static function pesquisar($nome, $email, $preferencias, $naoPreferencias) : array {
+        $connection = new MySQL();
+
+        $professores = [];
+
+        $parts = explode(" ", $nome, 2);
+        $nome = $parts[0];
+        $sobrenome = isset($parts[1]) ? $parts[1] : $parts[0];
+
+        $placeholders1 = implode(',', array_fill(0, count($preferencias), '?'));
+        $placeholders2 = implode(',', array_fill(0, count($naoPreferencias), '?'));
+
+        $tipos = "sss" . str_repeat('i', count($preferencias) * 2 + count($naoPreferencias) * 2);;
+
+        $params = ["%{$nome}%", "%{$sobrenome}%", "%{$email}%", ...$preferencias, ...$preferencias, ...$naoPreferencias, ...$naoPreferencias];
+        $sql = "
+        SELECT p.*, u.*, SUM(
+            (CASE WHEN u.Nome LIKE ? THEN 10 ELSE 0 END) +
+            (CASE WHEN u.Sobrenome LIKE ? THEN 10 ELSE 0 END) +
+            (CASE WHEN u.Email LIKE ? THEN 10 ELSE 0 END) +
+            (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'sim' THEN 1 ELSE 0 END) +
+            (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'nao' THEN -1 ELSE 0 END) +
+            (CASE WHEN up.ID_Preferencia IN ({$placeholders2}) AND up.Prefere = 'nao' THEN 1 ELSE 0 END) +
+            (CASE WHEN up.ID_Preferencia IN ({$placeholders2}) AND up.Prefere = 'sim' THEN -1 ELSE 0 END)
+        ) - COUNT(up.ID_Preferencia) * 30 AS pontos
+        FROM professor p
+        LEFT JOIN usuario_preferencia up
+        ON p.ID_Professor = up.ID_Usuario
+        LEFT JOIN usuario u ON u.ID_Usuario = p.ID_Professor
+        GROUP BY p.ID_Professor
+        ORDER BY pontos DESC
+        ";
+
+        $resultados = $connection->search($sql, $tipos, $params);
+
+        foreach($resultados as $resultado) {
+            $professor = new Professor($resultado["Email"], $resultado["Senha"]);
+            
+            $professor->setIdUsuario($resultado["ID_Usuario"]);
+            $professor->setNome($resultado["Nome"]);
+            $professor->setSobrenome($resultado["Sobrenome"]);
             $professor->setTipoUsuario($resultado["Tipo_Usuario"]);
             $professor->setStatusCadastro($resultado["Status_Cadastro"]);
             $professor->setPreferencias();
