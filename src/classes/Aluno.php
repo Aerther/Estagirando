@@ -129,6 +129,85 @@ class Aluno extends Usuario {
         return $aluno;
     }
 
+    public static function pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidades, $preferencias, $naoPreferencias) : array {
+        $connection = new MySQL();
+
+        $alunos = [];
+
+        $parts = explode(" ", $nome, 2);
+        $nome = $parts[0];
+        $sobrenome = isset($parts[1]) ? $parts[1] : $parts[0];
+
+        $placeholders1 = implode(',', array_fill(0, count($preferencias), '?'));
+        $placeholders2 = implode(',', array_fill(0, count($naoPreferencias), '?'));
+        $placeholders3 = implode(',', array_fill(0, count($cursos), '?'));
+        $placeholders4 = implode(',', array_fill(0, count($cidades), '?'));
+
+        $tipos = "sssss" . str_repeat('i', count($preferencias) * 2 + count($naoPreferencias) * 2 + count($cursos) + count($cidades));;
+
+        $params = [
+            "%{$nome}%", 
+            "%{$sobrenome}%", 
+            "%{$email}%",
+            $turno,
+            "%{$modalidades}%",
+            ...$cursos,
+            ...$cidades,
+            ...$preferencias, 
+            ...$preferencias, 
+            ...$naoPreferencias, 
+            ...$naoPreferencias
+        ];
+
+        $sql = "
+        SELECT a.*, u.*, SUM(
+            (CASE WHEN u.Nome LIKE ? THEN 10 ELSE 0 END) +
+            (CASE WHEN u.Sobrenome LIKE ? THEN 10 ELSE 0 END) +
+            (CASE WHEN u.Email LIKE ? THEN 10 ELSE 0 END) +
+            (CASE WHEN a.Turno_Disponivel = ? THEN 5 ELSE 0 END) +
+            (CASE WHEN a.Modalidade LIKE ? THEN 5 ELSE 0 END) +
+            (CASE WHEN a.ID_Curso IN ({$placeholders3}) THEN 5 ELSE 0 END) +
+            (CASE WHEN uc.ID_Cidade iN ({$placeholders4}) THEN 5 ELSE 0 END) +
+            (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'sim' THEN 1 ELSE 0 END) +
+            (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'nao' THEN -1 ELSE 0 END) +
+            (CASE WHEN up.ID_Preferencia IN ({$placeholders2}) AND up.Prefere = 'nao' THEN 1 ELSE 0 END) +
+            (CASE WHEN up.ID_Preferencia IN ({$placeholders2}) AND up.Prefere = 'sim' THEN -1 ELSE 0 END)
+        ) - COUNT(up.ID_Preferencia) * 30 AS pontos
+        FROM aluno a
+        LEFT JOIN usuario_preferencia up ON a.ID_Aluno = up.ID_Usuario
+        LEFT JOIN usuario u ON u.ID_Usuario = a.ID_Aluno
+        LEFT JOIN usuario_cidade uc ON uc.ID_Usuario = a.ID_Aluno
+        GROUP BY a.ID_Aluno
+        ORDER BY pontos DESC
+        ";
+
+        $resultados = $connection->search($sql, $tipos, $params);
+
+        foreach($resultados as $resultado) {
+            $aluno = new Aluno($resultado["Email"], $resultado["Senha"]);
+            
+            $aluno->setIdUsuario($resultado["ID_Usuario"]);
+            $aluno->setNome($resultado["Nome"]);
+            $aluno->setSobrenome($resultado["Sobrenome"]);
+            $aluno->setTipoUsuario($resultado["Tipo_Usuario"]);
+            $aluno->setIdFoto($resultado["ID_Foto"]);
+            $aluno->setStatusCadastro($resultado["Status_Cadastro"]);
+            $aluno->setPreferencias();
+
+            $aluno->setTurnoDisponivel($resultado["Turno_Disponivel"]);
+            $aluno->setStatusEstagio($resultado["Status_Estagio"]);
+            $aluno->setModalidade($resultado["Modalidade"]);
+            $aluno->setAnoIngresso($resultado["Ano_Ingresso"]);
+            $aluno->setMatricula($resultado["Matricula"]);
+            $aluno->setIdCurso($resultado["ID_Curso"]);
+            $aluno->setCidadesEstagiar();
+
+            $alunos[] = $aluno;
+        }
+
+        return $alunos;
+    }
+
     // Find All Alunos
     public static function findAllAlunos() : array {
         $connection = new MySQL();

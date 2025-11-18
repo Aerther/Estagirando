@@ -12,7 +12,14 @@ if(!isset($_POST["pesquisar"])) header("Location: ./../../privado.php");
 
 $tipoUsuario = $_SESSION['tipoUsuario'] == "aluno" ? "Professor" : "Aluno";
 
-if(empty($_POST)) {
+$quant = 0;
+foreach($_POST as $key => $value) {
+    if(!empty($value)) continue;
+
+    $quant++;
+}
+
+if(count($_POST) - 1 <= $quant) {
     $_SESSION["erro"] = true;
 
     header("Location: ./pesquisa{$tipoUsuario}.php");
@@ -20,8 +27,8 @@ if(empty($_POST)) {
 
 $nome = isset($_POST["nome"]) ? $_POST["nome"] : "";
 $email = isset($_POST["email"]) ? $_POST["email"] : "";
-$preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [0];
-$naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [0];
+$preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [-1];
+$naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [-1];
 
 $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferencias);
 
@@ -38,7 +45,7 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
     <?php
 
     foreach($professores as $professor) {
-        echo $professor->getNome().$professor->getSobrenome()." ";
+        echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}'>" . $professor->getNome().$professor->getSobrenome()."</a>";
     }
 
     ?>
