@@ -29,6 +29,12 @@ if(isset($_POST['salvar'])) {
         if(!empty(array_intersect($preferencias, $naoPreferencias))) {
             $mensagemErro = "Você não pode selecionar o mesmo atributo tanto para Preferências e Não Preferências";
 
+        }else if(empty($_POST['preferencias'])) {
+            $mensagemErro = "Você deve selecionar uma preferência";
+
+        } else if(empty($_POST['naoPreferencias'])) {
+            $mensagemErro = "Você deve selecionar uma não preferência";
+
         } else {
             $usuario->atualizarProfessor(
                 $_POST["nome"],
