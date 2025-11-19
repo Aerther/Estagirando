@@ -144,7 +144,7 @@ $preferencias = Preferencia::findAllPreferencias();
                         <p>Preferências</p>
 
                         <div>
-                            <?php 
+                            <?php
                         
                             foreach($preferencias as $preferencia) {
                                 $selected = array_key_exists($preferencia->getIdPreferencia(), $professor->getPreferencias()) ? "checked" : "";

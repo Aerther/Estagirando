@@ -146,15 +146,16 @@ class Professor extends Usuario {
 
         $params = ["%{$nome}%", "%{$sobrenome}%", "%{$email}%", ...$preferencias, ...$preferencias, ...$naoPreferencias, ...$naoPreferencias];
         $sql = "
-        SELECT p.*, u.*, SUM(
+        SELECT p.*, u.*, (
             (CASE WHEN u.Nome LIKE ? THEN 10 ELSE 0 END) +
             (CASE WHEN u.Sobrenome LIKE ? THEN 10 ELSE 0 END) +
-            (CASE WHEN u.Email LIKE ? THEN 10 ELSE 0 END) +
+            (CASE WHEN u.Email LIKE ? THEN 10 ELSE 0 END)
+        ) + SUM(
             (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'sim' THEN 1 ELSE 0 END) +
             (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'nao' THEN -1 ELSE 0 END) +
             (CASE WHEN up.ID_Preferencia IN ({$placeholders2}) AND up.Prefere = 'nao' THEN 1 ELSE 0 END) +
             (CASE WHEN up.ID_Preferencia IN ({$placeholders2}) AND up.Prefere = 'sim' THEN -1 ELSE 0 END)
-        ) - COUNT(up.ID_Preferencia) * 30 AS pontos
+        ) AS pontos
         FROM professor p
         LEFT JOIN usuario_preferencia up
         ON p.ID_Professor = up.ID_Usuario

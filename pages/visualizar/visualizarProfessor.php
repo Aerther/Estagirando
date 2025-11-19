@@ -18,12 +18,6 @@ $foto = $professor->getFoto();
 $preferencias = $professor->getPreferencias();
 $naoPreferencias = $professor->getNaoPreferencias();
 
-// Settagem dos links
-$linkPesquisa = $_SESSION["tipoUsuario"] == "aluno" ? "pesquisaProfessor.php" : "pesquisaProfessor.php";
-$linkEditarCadastro = $_SESSION["tipoUsuario"] == "Professor" ? "editarCadastroProfessor.php" : "editarCadastroAluno.php";
-$linkVisualizarCadastro = $_SESSION["tipoUsuario"] == "Professor" ? "visualizarProfessor.php" : "visualizarAluno.php";
-$linkIcone = $_SESSION["tipoUsuario"] == "Professor" ? "iconProf.png" : "iconAluno.png";
-
 ?>
 
 <!DOCTYPE html>
@@ -54,8 +48,9 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Professor" ? "iconProf.png" : "iconAlu
                         <figure>
                             <?php echo "<img src='./../../{$foto->getLinkFoto()}' alt='Foto do Professor' />"; ?>
                         </figure>
+
                         <div id=editPerfil>
-                            <a href="./../editar/editarCadastroProfessor.php">Editar Cadastro</a> 
+                            <?php if($_SESSION["idUsuario"] == $_GET["id"]) echo "<a href='./../editar/editarCadastroProfessor.php'>Editar Cadastro</a>"; ?>
                         </div>
                     </section>
 
@@ -72,8 +67,6 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Professor" ? "iconProf.png" : "iconAlu
                             $cor = "red";
                         }
 
-                        
- 
                         echo "<p><strong style='margin-right: 8px;'>Nome: </strong>{$professor->getNome()} {$professor->getSobrenome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
                         echo "<p><strong style='margin-right: 8px;'>Email: </strong>{$professor->getEmail()}</p>";
                         

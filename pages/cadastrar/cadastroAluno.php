@@ -150,8 +150,6 @@ $modalidades = [];
                             echo htmlspecialchars($_POST['ano']); ?>" required>
                     </section>
 
-                    
-
                     <section class="more-space">
                         <label for="situacao">Situação Atual:</label>
 
@@ -202,7 +200,7 @@ $modalidades = [];
 
                         <?php
 
-                        $opcoes = ["manha" => "", "tarde" => ""];
+                        $opcoes = ["manhã" => "", "tarde" => ""];
 
                         if (isset($_POST["turno"]))
                             $opcoes[$_POST["turno"]] = "selected";
@@ -210,7 +208,7 @@ $modalidades = [];
                         ?>
 
                         <select id="turno" name="turno">
-                            <option value="manha" <?php echo $opcoes["manha"]; ?>>Manhã</option>
+                            <option value="manhã" <?php echo $opcoes["manhã"]; ?>>Manhã</option>
                             <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
                         </select>
                     </section>
@@ -241,20 +239,23 @@ $modalidades = [];
                             }
 
                             ?>
-
                         </div>
                     </section>
 
                     <section>
                         <p>Preferências</p>
 
-                        <div id="preferencias"></div>
+                        <div id="preferencias">
+                            <p>Escolha um curso primeiro</p>
+                        </div>
                     </section>
 
                     <section>
                         <p>Não preferências</p>
 
-                        <div id="naoPreferencias"></div>
+                        <div id="naoPreferencias">
+                            <p>Escolha um curso primeiro</p>
+                        </div>
                     </section>
                 </section>
 

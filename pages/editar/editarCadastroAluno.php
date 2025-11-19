@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Classes\Aluno;
@@ -58,7 +62,7 @@ if(isset($_POST['salvar'])) {
 }
 
 $aluno = Aluno::findAluno($_SESSION["idUsuario"]);
-$preferencias = Preferencia::findAllPreferencias();
+$preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getIdCurso());
 $cursos = Curso::findAllCursos();
 $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
@@ -137,14 +141,14 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                             <?php 
                             
-                            $opcoes = ["manha" => "", "tarde" => ""];
+                            $opcoes = ["manhã" => "", "tarde" => ""];
 
                             $opcoes[$aluno->getTurnoDisponivel()] = "selected";
 
                             ?>
 
                             <select id="turno" name="turno">
-                                <option value="manha" <?php echo $opcoes["manha"]; ?>>Manhã</option>
+                                <option value="manhã" <?php echo $opcoes["manhã"]; ?>>Manhã</option>
                                 <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
                             </select>
                         </section>
@@ -244,8 +248,8 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                     <section>
                         <p>Preferências</p>
 
-                        <div>
-                            <?php 
+                        <div id="preferencias">
+                            <?php
                         
                             foreach($preferencias as $preferencia) {
                                 $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getPreferencias()) ? "checked" : "";
@@ -259,7 +263,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                     <section>
                         <p>Não preferências</p>
                         
-                        <div>
+                        <div id="naoPreferencias">
                             <?php 
                         
                             foreach($preferencias as $preferencia) {

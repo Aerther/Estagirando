@@ -8,12 +8,6 @@ require_once __DIR__."/vendor/autoload.php";
 
 session_start();
 
-// Settagem dos links
-$linkPesquisa = $_SESSION["tipoUsuario"] == "aluno" ? "pesquisaProfessor.php" : "pesquisaProfessor.php";
-$linkEditarCadastro = $_SESSION["tipoUsuario"] == "aluno" ? "editarCadastroAluno.php" : "editarCadastroProfessor.php";
-$linkIcone = $_SESSION["tipoUsuario"] == "aluno" ? "iconAluno.png" : "iconProf.png";
-$linkVisualizarCadastro = ($_SESSION["tipoUsuario"] == "aluno" ? "visualizarAluno.php" : "visualizarProfessor.php") . "?id={$_SESSION['idUsuario']}";
-
 ?>
 
 <!DOCTYPE html>

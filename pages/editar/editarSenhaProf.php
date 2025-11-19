@@ -36,8 +36,6 @@ if(isset($_POST['salvar'])) {
     
 }
 
-
-
 ?>
 
 <!DOCTYPE html>

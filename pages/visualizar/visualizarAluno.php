@@ -24,12 +24,6 @@ $preferencias = $aluno->getPreferencias();
 $naoPreferencias = $aluno->getNaoPreferencias();
 $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
-// Settagem dos links
-$linkPesquisa = $_SESSION["tipoUsuario"] == "aluno" ? "pesquisaProfessor.php" : "pesquisaProfessor.php";
-$linkEditarCadastro = $_SESSION["tipoUsuario"] == "Aluno" ? "editarCadastroAluno.php" : "editarCadastroProfessor.php";
-$linkVisualizarCadastro = $_SESSION["tipoUsuario"] == "Aluno" ? "visualizarAluno.php" : "visualizarProfessor.php";
-$linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.png";
-
 ?>
 
 <!DOCTYPE html>
@@ -60,8 +54,9 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                         <figure>
                             <?php echo "<img src='./../../{$foto->getLinkFoto()}' alt='Foto do Aluno' />"; ?>
                         </figure>
+
                         <div id=editPerfil>
-                            <a href="./../editar/editarCadastroAluno.php">Editar Cadastro</a> 
+                            <?php if($_SESSION["idUsuario"] == $_GET["id"]) echo "<a href='./../editar/editarCadastroAluno.php'>Editar Cadastro</a>"; ?>
                         </div>
                     </section>
 
@@ -69,13 +64,14 @@ $linkIcone = $_SESSION["tipoUsuario"] == "Aluno" ? "iconAluno.png" : "iconProf.p
                         <?php 
 
                         $status = ucwords($aluno->getStatusEstagio());
-                        if($status=='Procurando Estágio'){
+
+                        if($status == 'Procurando Estágio'){
                             $cor = "green";
                         } else{
                             $cor = "red";
                         }
  
-                        echo "<p><strong style='margin-right: 8px;'> Nome:</strong> {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> ";
+                        echo "<p><strong style='margin-right: 8px;'>Nome:</strong> {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> ";
                         echo "<p><strong style='margin-right: 8px;'>Email: </strong> {$aluno->getEmail()}</p>";
                         echo "<p><strong style='margin-right: 8px;'>Curso: </strong> {$curso->getNome()}</p>";
                         echo "<p><strong style='margin-right: 8px;'>Ingressou em </strong>{$aluno->getAnoIngresso()}</p>"; 

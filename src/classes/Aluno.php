@@ -160,13 +160,14 @@ class Aluno extends Usuario {
         ];
 
         $sql = "
-        SELECT a.*, u.*, SUM(
+        SELECT a.*, u.*, (
             (CASE WHEN u.Nome LIKE ? THEN 10 ELSE 0 END) +
             (CASE WHEN u.Sobrenome LIKE ? THEN 10 ELSE 0 END) +
-            (CASE WHEN u.Email LIKE ? THEN 10 ELSE 0 END) +
-            (CASE WHEN a.Turno_Disponivel = ? THEN 5 ELSE 0 END) +
+            (CASE WHEN u.Email LIKE ? THEN 10 ELSE 0 END) + 
             (CASE WHEN a.Modalidade LIKE ? THEN 5 ELSE 0 END) +
             (CASE WHEN a.ID_Curso IN ({$placeholders3}) THEN 5 ELSE 0 END) +
+            (CASE WHEN a.Turno_Disponivel LIKE ? THEN 5 ELSE 0 END)
+        ) + SUM(
             (CASE WHEN uc.ID_Cidade iN ({$placeholders4}) THEN 5 ELSE 0 END) +
             (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'sim' THEN 1 ELSE 0 END) +
             (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'nao' THEN -1 ELSE 0 END) +
