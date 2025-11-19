@@ -53,7 +53,7 @@ $naoPreferencias = $professor->getNaoPreferencias();
                             <?php if($_SESSION["idUsuario"] == $_GET["id"]) echo "<a href='./../editar/editarCadastroProfessor.php'>Editar Cadastro</a>"; ?>
                         </div>
                     </section>
-
+                    
                     <section class="dados-usuario professor">
                         <?php  
 
@@ -69,14 +69,17 @@ $naoPreferencias = $professor->getNaoPreferencias();
 
                         echo "<p><strong style='margin-right: 8px;'>Nome: </strong>{$professor->getNome()} {$professor->getSobrenome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
                         echo "<p><strong style='margin-right: 8px;'>Email: </strong>{$professor->getEmail()}</p>";
-                        
+                        echo "<p><strong style='margin-right: 8px;'>Data de Nascimento: </strong> {$professor->getDataNascimento()}</p>";
+
                         ?>
                     </section>
 
                 </section>
 
                 <section class="linha-2-prof">
+                    
 
+                            
 
                     <section class="preferencias">
                         <p class="titulo-dados">Preferências</p>

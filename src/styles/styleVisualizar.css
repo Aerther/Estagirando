@@ -71,7 +71,7 @@ main {
 }
 
 .professor {
-    grid-template-rows: repeat(auto-fill, minmax(auto, 80px)) !important;
+    grid-template-rows: repeat(auto-fill, minmax(auto, 70px)) !important;
 }
 
 .dados-usuario > p {
