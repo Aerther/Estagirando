@@ -28,7 +28,13 @@ if(isset($_POST["cadastrar"])) {
             $mensagemErro = "Senha deve possuir no mínimo 8 caracteres";
 
         } else if(!empty(array_intersect($preferencias, $naoPreferencias))) {
-            $mensagemErro = "Você não pode selecionar o mesmo atributo tanto para Preferências e Não Preferências";
+            $mensagemErro = "Você não pode selecionar o mesmo atributo para Preferências e Não Preferências";
+
+        } else if(empty($_POST['preferencias'])) {
+            $mensagemErro = "Você deve selecionar uma preferência";
+
+        } else if(empty($_POST['naoPreferencias'])) {
+            $mensagemErro = "Você deve selecionar uma não preferência";
 
         } else {
             $usuario->salvarProfessor(
