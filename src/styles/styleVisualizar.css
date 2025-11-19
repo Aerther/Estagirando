@@ -71,7 +71,7 @@ main {
 }
 
 .professor {
-    grid-template-rows: repeat(auto-fill, minmax(auto, 70px)) !important;
+    grid-template-rows: repeat(auto-fill, minmax(auto, 80px)) !important;
 }
 
 .dados-usuario > p {
@@ -88,7 +88,6 @@ main {
     color: green;
     border: 2px solid green;
     border-radius: 15px;
-
     display: flex;
     justify-content: center;
     align-items: center;
