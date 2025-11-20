@@ -42,12 +42,38 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
     <title>Document</title>
 </head>
 <body>
-    <?php
+    <div class="container">
+        <?php
 
-    foreach($professores as $professor) {
-        echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}'>" . $professor->getNome().$professor->getSobrenome()."</a>";
-    }
+        $URL_BASE = "./../..";
 
-    ?>
+        require_once __DIR__ . "/../../menu.php";
+
+        ?>
+
+        <main>
+            <div class="usuarios">
+                <?php
+
+                foreach($professores as $professor) {
+
+                    echo "<div class='usuario'>";
+
+                    echo "<div>";
+
+                    echo "<figure><img src='' alt='Foto Professor' /></figure>";
+
+                    echo "</div>";
+
+                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}'>" . $professor->getNome().$professor->getSobrenome()."</a>";
+                    
+                    echo "</div>";
+                }
+
+                ?>
+            </div>
+        </main>
+    </div>
+    
 </body>
 </html>
