@@ -73,6 +73,9 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
  
                         echo "<p><strong style='margin-right: 8px;'>Nome:</strong> {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> ";
                         echo "<p><strong style='margin-right: 8px;'>Email: </strong> {$aluno->getEmail()}</p>";
+                        if($curso->getNome() == 'TI'){
+                            $curso->setNome("Informática");
+                        }
                         echo "<p><strong style='margin-right: 8px;'>Curso: </strong> {$curso->getNome()}</p>";
                         echo "<p><strong style='margin-right: 8px;'>Ingressou em </strong>{$aluno->getAnoIngresso()}</p>"; 
                         
@@ -86,12 +89,15 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                         ?>
 
-                        <p class="titulo-dados">Disponibilidade do Estágio</p>
+                        <p class="titulo-dados">Disponibilidade para Estágio</p>
 
                         <?php 
+                         if($aluno->getTurnoDisponivel() == 'manha'){
+                            $aluno->setTurnoDisponivel("manhã");
+                        }
 
                         echo "<p><strong style='margin-right: 8px;'>Modalidade: </strong> {$aluno->getModalidade()}</p>";
-                        echo "<p><strong style='margin-right: 8px;'>Turno: </strong>{$aluno->getTurnoDisponivel()}</p>"; 
+                        echo "<p><strong style='margin-right: 8px;'>Turno disponível: </strong>{$aluno->getTurnoDisponivel()}</p>"; 
                             
                         ?>
                     </section>
