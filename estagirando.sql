@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13/11/2025 às 04:40
+-- Tempo de geração: 22/11/2025 às 18:36
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -42,8 +42,8 @@ CREATE TABLE `aluno` (
 --
 
 INSERT INTO `aluno` (`ID_Aluno`, `Turno_Disponivel`, `Status_Estagio`, `ID_Curso`, `Modalidade`, `Ano_Ingresso`, `Matricula`) VALUES
-(22, 'manha', 'procurando estágio', 1, 'presencial', 2023, '12391924912031'),
-(28, 'manha', 'procurando estágio', 1, 'remoto', 2023, '2023307610');
+(32, 'tarde', 'procurando estágio', 8, 'presencial', 2023, '00000000000'),
+(34, 'tarde', 'procurando estágio', 8, 'presencial', 2023, '0000000000');
 
 -- --------------------------------------------------------
 
@@ -5653,7 +5653,10 @@ CREATE TABLE `curso` (
 --
 
 INSERT INTO `curso` (`ID_Curso`, `Nome`) VALUES
-(1, 'TI');
+(1, 'Informática'),
+(6, 'Química'),
+(7, 'Meio Ambiente'),
+(8, 'Administração');
 
 -- --------------------------------------------------------
 
@@ -5683,21 +5686,22 @@ INSERT INTO `foto` (`ID_Foto`, `Link_Foto`, `Nome_Foto`) VALUES
 
 CREATE TABLE `preferencia` (
   `ID_Preferencia` int(11) NOT NULL,
-  `Descricao` varchar(100) DEFAULT NULL
+  `Descricao` varchar(100) DEFAULT NULL,
+  `ID_Curso` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `preferencia`
 --
 
-INSERT INTO `preferencia` (`ID_Preferencia`, `Descricao`) VALUES
-(3, 'Redes'),
-(4, 'Desenvolvimento'),
-(5, 'Hardware'),
-(6, 'Marketing'),
-(7, 'Suporte'),
-(8, 'Contabilidade'),
-(9, 'Química Orgânica');
+INSERT INTO `preferencia` (`ID_Preferencia`, `Descricao`, `ID_Curso`) VALUES
+(3, 'Redes', 1),
+(4, 'Desenvolvimento', 1),
+(5, 'Hardware', 1),
+(6, 'Marketing', 8),
+(7, 'Suporte', 1),
+(8, 'Contabilidade', 8),
+(9, 'Química Orgânica', 6);
 
 -- --------------------------------------------------------
 
@@ -5715,10 +5719,11 @@ CREATE TABLE `professor` (
 --
 
 INSERT INTO `professor` (`ID_Professor`, `Status_Disponibilidade`) VALUES
-(24, 'sim'),
-(25, 'nao'),
-(26, 'sim'),
-(27, 'sim');
+(31, 'sim'),
+(33, 'nao'),
+(35, 'nao'),
+(36, 'sim'),
+(37, 'sim');
 
 -- --------------------------------------------------------
 
@@ -5779,12 +5784,13 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`ID_Usuario`, `Nome`, `Sobrenome`, `Email`, `Senha`, `Tipo_Usuario`, `Status_Cadastro`, `ID_Foto`, `CPF`, `Data_Nascimento`) VALUES
-(22, 'teste', 'teste', 'teste@gmail.com', '$2y$10$OwZ4LYXkFEUTucShco/ZpewhcPKp131L6CQ5EGuDR2ouQimBDr5wW', 'aluno', 'ativo', 2, '101.231.231-23', '1500-05-12'),
-(24, 'teste', 'teste', 'testep@gmail.com', '$2y$10$BXFUlje9HKYelx9S3.FW/eWA6CdqFfT59oG0sF6KA./kScV3C35ty', 'professor', 'ativo', 1, '1', '0000-00-00'),
-(25, 'Arthur ', 'Lassem', 'arthur@gmail.com', '$2y$10$MajJVmmvHPzKpT.USNAj1.GfPSMHWqBp0hX9nWr2SFD43DLfdoNru', 'professor', 'ativo', 1, '1', '0000-00-00'),
-(26, 'Arthur', 'Lassem', 'arthur1@gmail.com', '$2y$10$bhOU/taRjPw6ZHvA8okfM.M3tr.yGviyh0bopZgT22a1k/nbOKioK', 'professor', 'ativo', 1, '000.000.000-00', '2025-11-05'),
-(27, 'Arthur', 'Lassem', 'arthur13@gmail.com', '$2y$10$Z7RZZEVvYbTuZpwuMoRgZOyug0tcEosHS98EcKcQqmCK2AvJjllLm', 'professor', 'ativo', 1, '213.213.123-12', '2007-11-02'),
-(28, 'Arthur', 'Lassem', 'arthur10@gmail.com', '$2y$10$kHqPPt0O233XBH.ctAiYIuVTtJptGdLUBxXySbwTz0GM0KWWdzJKW', 'aluno', 'ativo', 2, '045.347.770-43', '2024-11-04');
+(31, 'Arthur', 'Gonçalves Lassem', 'arthur@gmail.com', '$2y$10$PBIMf2PiKQDchPFFIUlujezVGdrzBuA68guVgbfgPH0B6gd.COwuK', 'professor', 'ativo', 1, '000.000.000-00', '2007-11-02'),
+(32, 'Leonardo', 'Hoffmann', 'leo@gmail.com', '$2y$10$2I/AP4.wBcj9nUgOaWqOs.Po2SaL/i4YuslS82kB3TI9itRKqwBMS', 'aluno', 'ativo', 2, '000.000.000-00', '2008-01-01'),
+(33, 'Paulo', 'Gabriel Nunes', 'paulo@gmail.com', '$2y$10$VCndutcqx09LSgSsWdPW/esqJ6a0kIPYWl5QQ1e/bsr0yZg4oxkWm', 'professor', 'ativo', 1, '000.000.000-00', '2007-07-17'),
+(34, 'Mateus', 'Bino', 'bino@gmail.com', '$2y$10$bWWyeOsWVqwy.j20FXTryeiVnXxwurSCGQZ8uk9sqNjUNbdmyoIEO', 'aluno', 'ativo', 2, '000.000.000-00', '2009-09-09'),
+(35, 'Marcelo', 'Almeida', 'marcelo@gmail.com', '$2y$10$Qwin0xuPmj4uhS9d4XPQp.Wde9phhk.WIaGPwVbuMeBX0Tj9.Bqtm', 'professor', 'ativo', 1, '000.000.000-00', '1111-11-11'),
+(36, 'Nicolas', 'Kochmann', 'nicolas@gmail.com', '$2y$10$KEwxBxTHSBVh7Ink7.DvwuDnkgN8dqF.SvSEbZq/vvUp.mkzu3EVe', 'professor', 'ativo', 1, '000.000.000-00', '1111-01-01'),
+(37, 'Mathias', 'Scherer', 'mathias@gmail.com', '$2y$10$ELZOCJZ3gUEg5N2BZRBvmOEyh0rZjlUMNnS3D8jIwN2O.e416QImG', 'professor', 'ativo', 1, '000.000.000-00', '1111-11-11');
 
 -- --------------------------------------------------------
 
@@ -5802,8 +5808,8 @@ CREATE TABLE `usuario_cidade` (
 --
 
 INSERT INTO `usuario_cidade` (`ID_Usuario`, `ID_Cidade`) VALUES
-(22, 10476),
-(28, 1);
+(32, 1),
+(34, 10590);
 
 -- --------------------------------------------------------
 
@@ -5822,22 +5828,26 @@ CREATE TABLE `usuario_preferencia` (
 --
 
 INSERT INTO `usuario_preferencia` (`ID_Usuario`, `ID_Preferencia`, `Prefere`) VALUES
-(22, 3, 'nao'),
-(22, 4, 'nao'),
-(22, 5, 'nao'),
-(22, 6, 'nao'),
-(22, 7, 'sim'),
-(22, 8, 'nao'),
-(22, 9, 'nao'),
-(25, 3, 'nao'),
-(25, 4, 'sim'),
-(25, 5, 'nao'),
-(25, 7, 'sim'),
-(27, 6, 'sim'),
-(28, 4, 'sim'),
-(28, 5, 'nao'),
-(28, 6, 'nao'),
-(28, 9, 'nao');
+(31, 3, 'nao'),
+(31, 4, 'sim'),
+(31, 5, 'nao'),
+(31, 7, 'sim'),
+(33, 3, 'sim'),
+(33, 4, 'nao'),
+(33, 5, 'sim'),
+(34, 6, 'nao'),
+(34, 8, 'nao'),
+(35, 4, 'nao'),
+(35, 5, 'sim'),
+(35, 6, 'sim'),
+(35, 8, 'sim'),
+(36, 5, 'sim'),
+(36, 6, 'nao'),
+(37, 3, 'nao'),
+(37, 4, 'sim'),
+(37, 5, 'sim'),
+(37, 6, 'nao'),
+(37, 9, 'nao');
 
 --
 -- Índices para tabelas despejadas
@@ -5872,7 +5882,8 @@ ALTER TABLE `foto`
 -- Índices de tabela `preferencia`
 --
 ALTER TABLE `preferencia`
-  ADD PRIMARY KEY (`ID_Preferencia`);
+  ADD PRIMARY KEY (`ID_Preferencia`),
+  ADD KEY `fk_preferencia_curso` (`ID_Curso`);
 
 --
 -- Índices de tabela `professor`
@@ -5929,7 +5940,7 @@ ALTER TABLE `cidade`
 -- AUTO_INCREMENT de tabela `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `ID_Curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_Curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `foto`
@@ -5953,7 +5964,7 @@ ALTER TABLE `solicitacao_orientacao`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Restrições para tabelas despejadas
@@ -5966,6 +5977,12 @@ ALTER TABLE `aluno`
   ADD CONSTRAINT `ID_Curso` FOREIGN KEY (`ID_Curso`) REFERENCES `curso` (`ID_Curso`) ON DELETE SET NULL,
   ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`ID_Aluno`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE CASCADE,
   ADD CONSTRAINT `aluno_ibfk_2` FOREIGN KEY (`ID_Curso`) REFERENCES `curso` (`ID_Curso`) ON DELETE SET NULL;
+
+--
+-- Restrições para tabelas `preferencia`
+--
+ALTER TABLE `preferencia`
+  ADD CONSTRAINT `fk_preferencia_curso` FOREIGN KEY (`ID_Curso`) REFERENCES `curso` (`ID_Curso`);
 
 --
 -- Restrições para tabelas `professor`
