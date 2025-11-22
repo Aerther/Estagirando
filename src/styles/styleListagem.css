@@ -1,0 +1,61 @@
+.usuarios {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.usuarios > div:first-of-type {
+    margin-top: 30px;
+}
+
+.usuario {
+    width: 80%;
+    height: auto;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr;
+
+    border: 1px solid #b3b3b3;
+    border-radius: 15px;
+
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.imagem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem figure {
+    width: 100px;
+    height: 100px;
+}
+
+.imagem figure img {
+    width: 100%;
+    height: 100%;
+
+    filter: brightness(0);
+}
+
+.usuario a {
+    display: inline-block;
+
+    text-decoration: none;
+    font-size: 24px !important;
+
+    padding: 8px 0;
+
+}
+
+.usuario p {
+    padding: 10px 0;
+
+    font-size: 20px;
+}

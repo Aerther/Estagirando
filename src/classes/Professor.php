@@ -162,6 +162,7 @@ class Professor extends Usuario {
         LEFT JOIN usuario u ON u.ID_Usuario = p.ID_Professor
         GROUP BY p.ID_Professor
         ORDER BY pontos DESC
+        LIMIT 30
         ";
 
         $resultados = $connection->search($sql, $tipos, $params);
@@ -170,6 +171,7 @@ class Professor extends Usuario {
             $professor = new Professor($resultado["Email"], $resultado["Senha"]);
             
             $professor->setIdUsuario($resultado["ID_Usuario"]);
+            $professor->setIdFoto($resultado["ID_Foto"]);
             $professor->setNome($resultado["Nome"]);
             $professor->setSobrenome($resultado["Sobrenome"]);
             $professor->setTipoUsuario($resultado["Tipo_Usuario"]);

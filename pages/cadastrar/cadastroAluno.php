@@ -155,7 +155,7 @@ $modalidades = [];
 
                         <?php
 
-                        $opcoes = ["procurando" => "", "estagiando" => "", "ocupado" => ""];
+                        $opcoes = ["Procurando Estágio" => "", "Estagiando" => "", "Ocupado" => ""];
 
                         if (isset($_POST["situacao"]))
                             $opcoes[$_POST["situacao"]] = "selected";
@@ -163,9 +163,9 @@ $modalidades = [];
                         ?>
 
                         <select id="situacao" name="situacao">
-                            <option value="procurando" <?php echo $opcoes["procurando"]; ?>>Procurando Estágio</option>
-                            <option value="estagiando" <?php echo $opcoes["estagiando"]; ?>>Estagiando</option>
-                            <option value="ocupado" <?php echo $opcoes["ocupado"]; ?>>Ocupado</option>
+                            <option value="Procurando Estágio" <?php echo $opcoes["Procurando Estágio"]; ?>>Procurando Estágio</option>
+                            <option value="Estagiando" <?php echo $opcoes["Estagiando"]; ?>>Estagiando</option>
+                            <option value="Ocupado" <?php echo $opcoes["Ocupado"]; ?>>Ocupado</option>
                         </select>
                     </section>
 

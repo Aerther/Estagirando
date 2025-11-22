@@ -180,6 +180,7 @@ class Aluno extends Usuario {
         LEFT JOIN usuario_cidade uc ON uc.ID_Usuario = a.ID_Aluno
         GROUP BY a.ID_Aluno
         ORDER BY pontos DESC
+        LIMIT 30
         ";
 
         $resultados = $connection->search($sql, $tipos, $params);

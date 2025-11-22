@@ -35,11 +35,15 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <link rel="stylesheet" href="./../../src/styles/reset.css">
+    <link rel="stylesheet" href="./../../src/styles/styleListagem.css">
+
+    <title>Listagem Professores</title>
 </head>
 <body>
     <div class="container">
@@ -57,15 +61,59 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 
                 foreach($professores as $professor) {
 
+                    $foto = $professor->getFoto();
+
+                    // Preferências como String
+
+                    $limite = 2;
+
+                    $preferencias = "";
+                    $naoPreferencias = "";
+
+                    $i = 0;
+                    foreach($professor->getPreferencias() as $descricao) {
+                        if($i == $limite) break;
+
+                        $preferencias .= $descricao . ", ";
+
+                        $i++;
+                    }
+
+                    $i = 0;
+                    foreach($professor->getNaoPreferencias() as $descricao) {
+                        if($i == $limite) break;
+
+                        $naoPreferencias .= $descricao . ", ";
+
+                        $i++;
+                    }
+
+                    $preferencias = substr($preferencias, 0, -2);
+                    $naoPreferencias = substr($naoPreferencias, 0, -2);
+
                     echo "<div class='usuario'>";
 
-                    echo "<div>";
+                    echo "<div class='imagem'";
 
-                    echo "<figure><img src='' alt='Foto Professor' /></figure>";
+                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}'> <figure><img src='./../../{$foto->getLinkFoto()}' alt='Foto Professor' /></figure> </a>";
 
                     echo "</div>";
 
-                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}'>" . $professor->getNome().$professor->getSobrenome()."</a>";
+                    echo "<div class='dados'>";
+                    
+                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}'>" . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
+
+                    echo "<p>{$professor->getEmail()}</p>";
+
+                    echo "</div>";
+
+                    echo "<div class='preferencias'>";
+
+                    echo "<p>Preferências: {$preferencias}</p>";
+
+                    echo "<p>Não Preferências: {$naoPreferencias}</p>";
+
+                    echo "</div>";
                     
                     echo "</div>";
                 }
