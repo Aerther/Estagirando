@@ -28,6 +28,12 @@ if (isset($_POST["cadastrar"])) {
         $modalidade = 'presencial,hibrido';
     }else if(isset($_POST["hibrido"]) && isset($_POST["online"])){
         $modalidade = 'online,hibrido';
+    }else if(isset($_POST["presencial"])){
+        $modalidade = 'presencial';
+    }else if(isset($_POST["hibrido"])){
+        $modalidade = 'hibrido';
+    }else if(isset($_POST["online"])){
+        $modalidade = 'online';
     }
 
     if (!$usuario->usuarioExiste()) {
