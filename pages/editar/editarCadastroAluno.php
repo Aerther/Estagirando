@@ -32,6 +32,16 @@ if(isset($_POST['salvar'])) {
 
     $usuario = new Aluno($_POST["email"], "");
 
+    if(isset($_POST[todosModalidade])){
+        $modalidade = 'presencial,online,hibrido';
+    }else if(isset($_POST[presencial]) && isset($_POST[online])){
+        $modalidade = 'presencial,online';
+    }else if(isset($_POST[presencial]) && isset($_POST[hibrido])){
+        $modalidade = 'presencial,hibrido';
+    }else if(isset($_POST[hibrido]) && isset($_POST[online])){
+        $modalidade = 'online,hibrido';
+    }
+
     if(!$usuario->usuarioExiste()) {
         if(!empty(array_intersect($preferencias, $naoPreferencias))) {
             $mensagemErro = "Você não pode selecionar o mesmo atributo tanto para Preferências e Não Preferências";
@@ -49,7 +59,7 @@ if(isset($_POST['salvar'])) {
                 $cidadesEstagiar,
                 $_POST["turno"],
                 $_POST["situacao"],
-                $_POST["modalidade"],
+                $modalidade,
                 $_POST["matricula"],
                 $_POST["curso"]
             );
@@ -122,18 +132,22 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <label for="modalidade">Modalidade:</label>
 
                             <?php 
-                            
-                            $opcoes = ["presencial" => "", "remoto" => "", "hibrido" => ""];
+                            $modalidades = ["presencial" => "", "remoto" => "", "hibrido" => ""];
+                            $checked = explode(",", $aluno->getModalidade());
+                            $contador = 0;
+                            for($i=0; $i < (sizeof($checked, 0)-1); $i++){
+                                $modalidades[$checked[i]] = "checked";
+                            }
 
-                            $opcoes[$aluno->getModalidade()] = "selected";
 
                             ?>
+                            <label for="modalidade">Modalidade:</label>
+                            <input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" >Selecionar todos
+                                
+                            <input type="checkbox" name="presencial" id="presencial" value="presencial" <?php echo $modalidade["presencial"]; ?> onchange="verificar()"><label for="presencial">Presencial</label>
+                            <input type="checkbox" name="online" id="online" value="online" <?php echo $modalidade["remoto"]; ?> onchange="verificar()"><label for="online">Online</label>
+                            <input type="checkbox" name="hibrido" id="hibrido" value="hibrido" <?php echo $modalidade["hibrido"]; ?> onchange="verificar()"><label for="hibrido">Hibrido</label>
 
-                            <select id="modalidade" name="modalidade">
-                                <option value="presencial" <?php echo $opcoes["presencial"]; ?>>Presencial</option>
-                                <option value="remoto" <?php echo $opcoes["remoto"]; ?>>Remoto</option>
-                                <option value="hibrido" <?php echo $opcoes["hibrido"]; ?>>Híbrido</option>
-                            </select>
                         </section>
 
                         <section class="more-space">

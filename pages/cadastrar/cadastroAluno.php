@@ -19,7 +19,16 @@ if (isset($_POST["cadastrar"])) {
     $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
 
     $cidadesEstagiar = isset($_POST["cidadesEstagiar"]) ? $_POST["cidadesEstagiar"] : [1];
-
+    
+    if(isset($_POST["todosModalidade"])){
+        $modalidade = 'presencial,online,hibrido';
+    }else if(isset($_POST["presencial"]) && isset($_POST["online"])){
+        $modalidade = 'presencial,online';
+    }else if(isset($_POST["presencial"]) && isset($_POST["hibrido"])){
+        $modalidade = 'presencial,hibrido';
+    }else if(isset($_POST["hibrido"]) && isset($_POST["online"])){
+        $modalidade = 'online,hibrido';
+    }
 
     if (!$usuario->usuarioExiste()) {
         if ($_POST["senha"] != $_POST["confSenha"]) {
@@ -46,7 +55,7 @@ if (isset($_POST["cadastrar"])) {
                 $cidadesEstagiar,
                 $_POST["turno"],
                 $_POST["situacao"],
-                "Qualquer",
+                $modalidade,
                 $_POST["matricula"],
                 $_POST["curso"]
             );
@@ -65,7 +74,7 @@ if (isset($_POST["cadastrar"])) {
 $preferencias = Preferencia::findAllPreferencias();
 $cursos = Curso::findAllCursos();
 $cidadesEstagiar = [];
-$modalidades = [];
+
 
 ?>
 
@@ -260,12 +269,16 @@ $modalidades = [];
                 </section>
 
                 <section>
+                    <?php
+                    $modalidades = ["presencial" => "", "remoto" => "", "hibrido" => ""];
+
+                    ?>
                     <label for="modalidade">Modalidade:</label>
                     <input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" >Selecionar todos
                         
-                    <input type="checkbox" name="presencial" id="presencial" value="presencial"><label for="presencial">Presencial</label>
-                    <input type="checkbox" name="online" id="online" value="online"><label for="online">Online</label>
-                    <input type="checkbox" name="hibrido" id="hibrido" value="hibrido"><label for="hibrido">Hibrido</label>
+                    <input type="checkbox" name="presencial" id="presencial" value="presencial" onchange="verificar()"><label for="presencial">Presencial</label>
+                    <input type="checkbox" name="online" id="online" value="online" onchange="verificar()"><label for="online">Online</label>
+                    <input type="checkbox" name="hibrido" id="hibrido" value="hibrido" onchange="verificar()"><label for="hibrido">Hibrido</label>
                 </section>
 
                 <section id="btn" class="links">
