@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22/11/2025 às 18:36
+-- Tempo de geração: 22/11/2025 às 18:57
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -5701,7 +5701,20 @@ INSERT INTO `preferencia` (`ID_Preferencia`, `Descricao`, `ID_Curso`) VALUES
 (6, 'Marketing', 8),
 (7, 'Suporte', 1),
 (8, 'Contabilidade', 8),
-(9, 'Química Orgânica', 6);
+(9, 'Química Orgânica', 6),
+(10, 'Análise e ciência de dados', 1),
+(11, 'Química Inorgânica', 6),
+(12, 'Química Analítica', 6),
+(13, 'Química Industrial', 6),
+(14, 'Química Farmacêutica', 6),
+(15, 'Engenharia Ambiental', 7),
+(16, 'Ecologia', 7),
+(17, 'Gestão Ambiental', 7),
+(18, 'Ciências Ambientais', 7),
+(19, 'Direito Ambiental', 7),
+(20, 'Finanças', 8),
+(21, 'Recursos Humanos', 8),
+(22, 'Logística', 8);
 
 -- --------------------------------------------------------
 
@@ -5952,7 +5965,7 @@ ALTER TABLE `foto`
 -- AUTO_INCREMENT de tabela `preferencia`
 --
 ALTER TABLE `preferencia`
-  MODIFY `ID_Preferencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_Preferencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `solicitacao_orientacao`
