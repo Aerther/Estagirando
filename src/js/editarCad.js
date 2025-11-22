@@ -138,9 +138,21 @@ const checkTodosModalidade = document.getElementById('todosModalidade');
 
 
 function selecionar(){
-    
-    checkPresencial.checked=true;
-    checkTodosModalidade.checked=true;
-    checkHibrido.checked=true;
-    checkOnline.checked=true;
+    if(checkTodosModalidade.checked){
+        checkPresencial.checked=true;
+        checkHibrido.checked=true;
+        checkOnline.checked=true;
+    } else if(checkTodosModalidade.checked == false) {
+        checkPresencial.checked=false;
+        checkHibrido.checked=false;
+        checkOnline.checked=false;
+    } 
+}
+
+function verificar(){
+    if (checkPresencial.checked && checkHibrido.checked && checkOnline.checked){
+        checkTodosModalidade.checked = true;
+    }else if (checkPresencial.checked == false || checkHibrido.checked== false || checkOnline.checked == false) {
+        checkTodosModalidade.checked = false;
+    }
 }
