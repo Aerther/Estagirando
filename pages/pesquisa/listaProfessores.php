@@ -101,7 +101,7 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 
                     echo "<div class='dados'>";
                     
-                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}'>" . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
+                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}' id=nomeProf> " . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
 
                     echo "<p>{$professor->getEmail()}</p>";
 

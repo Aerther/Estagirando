@@ -59,3 +59,7 @@
 
     font-size: 20px;
 }
+
+#nomeProf:hover{
+    font-weight: bold;
+}
