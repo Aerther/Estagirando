@@ -93,36 +93,68 @@ $mensagemErro = "";
                         </select>
                     </section>
 
-                    <section>
-                        <label for="cidadesEstagiar">Cidade(s) que pode estagiar:</label>
-                        <input type="text" name="cidadesEstagiar" placeholder="Ex: Belo Horizonte, MG" value="<?= isset($_POST['cidadesEstagiar']) ? htmlspecialchars($_POST['cidadesEstagiar']) : '' ?>">
+                    <section class="cidades">
+                        <p>Cidades Para Estagiar</p>
+
+                        <input type="text" name="cidadeEstagiar" id="cidadeEstagiar" placeholder="Cidade, Estado (sigla)">
+
+                        <div class='sugestoes'></div>
+
+                        <div class="checkboxes">
+                            <label>Cidades Escolhidas</label>
+
+                            <?php
+
+                            $checked = (isset($cidadesEstagiar['1'])) ? "checked" : "";
+
+                            echo "<label><input type='checkbox' name='cidadesEstagiar[]' value=1 id='qualquerCidade' {$checked}> Qualquer Cidade</label>";
+
+                            foreach ($cidadesEstagiar as $index => $cidade) {
+                                if ($cidade['nome'] === 'Todos')
+                                    continue;
+
+                                echo "<label><input type='checkbox' name='cidadesEstagiar[]' value={$index} onchange='resetarQualquerCidade()' checked> {$cidade['nome']}, {$cidade['uf']}</label>";
+                            }
+
+                            ?>
+                        </div>
                     </section>
+
 
                     <section>
                         <label for="turno">Turno disponível:</label>
+
                         <?php
-                        $opcoesTurno = ["manha" => "", "tarde" => "", "noite" => ""];
-                        if (isset($_POST["turno"])) $opcoesTurno[$_POST["turno"]] = "selected";
+
+                        $opcoes = ["manhã" => "", "tarde" => ""];
+
+                        if (isset($_POST["turno"]))
+                            $opcoes[$_POST["turno"]] = "selected";
+
                         ?>
+
                         <select id="turno" name="turno">
-                            <option value="">Selecione</option>
-                            <option value="manha" <?= $opcoesTurno["manha"]; ?>>Manhã</option>
-                            <option value="tarde" <?= $opcoesTurno["tarde"]; ?>>Tarde</option>
-                            <option value="noite" <?= $opcoesTurno["noite"]; ?>>Noite</option>
+                            <option value="manhã" <?php echo $opcoes["manhã"]; ?>>Manhã</option>
+                            <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
                         </select>
                     </section>
 
                     <section>
-                        <label for="situacao">Status de estágio:</label>
+                        <label for="situacao">Situação Atual:</label>
+
                         <?php
-                        $opcoes = ["procurando" => "", "estagiando" => "", "ocupado" => ""];
-                        if (isset($_POST["situacao"])) $opcoes[$_POST["situacao"]] = "selected";
+
+                        $opcoes = ["Procurando Estágio" => "", "Estagiando" => "", "Ocupado" => ""];
+
+                        if (isset($_POST["situacao"]))
+                            $opcoes[$_POST["situacao"]] = "selected";
+
                         ?>
+
                         <select id="situacao" name="situacao">
-                            <option value="">Selecione</option>
-                            <option value="procurando" <?= $opcoes["procurando"]; ?>>Procurando Estágio</option>
-                            <option value="estagiando" <?= $opcoes["estagiando"]; ?>>Estagiando</option>
-                            <option value="ocupado" <?= $opcoes["ocupado"]; ?>>Ocupado</option>
+                            <option value="Procurando Estágio" <?php echo $opcoes["Procurando Estágio"]; ?>>Procurando Estágio</option>
+                            <option value="Estagiando" <?php echo $opcoes["Estagiando"]; ?>>Estagiando</option>
+                            <option value="Ocupado" <?php echo $opcoes["Ocupado"]; ?>>Ocupado</option>
                         </select>
                     </section>
                 </section>
