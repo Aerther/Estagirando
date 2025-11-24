@@ -6,13 +6,15 @@ use App\BD\MySQL;
 
 class SolicitacaoOrientacao {
 
-    private int $idSolicitacaoOrientacao;
+    private int $idSO;
 
     private string $areaAtuacao;
     private string $turno;
     private string $modalidade;
     private int $cargaHorariaSemanal;
     private int $idAluno;
+
+    private array $professores;
 
     // Atributos Empresa
     private string $nomeEmpresa;
@@ -22,6 +24,7 @@ class SolicitacaoOrientacao {
     // Atributos Datas
     private string $dataInicio;
     private string $dataTermino;
+    private string $dataEnviado;
 
     public function __construct(
         string $areaAtuacao,
@@ -34,12 +37,14 @@ class SolicitacaoOrientacao {
         string $cidadeEmpresa,
         string $dataInicio,
         string $dataTermino,
+        array $professores
     ) {
         $this->areaAtuacao = $areaAtuacao;
         $this->turno = $turno;
         $this->modalidade = $modalidade;
         $this->cargaHorariaSemanal = $cargaHorariaSemanal;
         $this->idAluno = $idAluno;
+        $this->professores = $professores;
                                                                                                    
         $this->nomeEmpresa = $nomeEmpresa;
         $this->emailEmpresa = $emailEmpresa;
@@ -52,7 +57,7 @@ class SolicitacaoOrientacao {
     // CRUD
 
     // Salvar
-    public function salvarSolicitacaoOrientacao() : void {
+    public function salvarSO() : void {
         $connection = new MySQL();
 
         if(session_status() != 2) session_start();
@@ -65,28 +70,59 @@ class SolicitacaoOrientacao {
         $sql = "INSERT INTO Solicitacao_Orientacao (Nome_Empresa, Email_Empresa, Cidade_Empresa, Modalidade, Carga_Horaria_Semanal, Turno, Area_Atuacao, 
         Data_Inicio, Data_Termino, ID_Aluno) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        $connection->execute($sql, $tipos, $params);
+        $idSo = $connection->execute($sql, $tipos, $params);
+
+        foreach($this->professores as $professor) {
+            $tipos = "ii";
+            $params = [$professor, $idSo];
+            $sql = "INSERT INTO professor_solicitacao_orientacao(ID_Professor, ID_Solicitacao_Orientacao) VALUES (?, ?)";
+
+            $connection->execute($sql, $tipos, $params);
+        }
     }
 
     // 'Excluir'
-    public static function desativarSolicitacaoOrientacao($idSolicitacaoOrientacao) {
+    public function desativarSO() : void {
         $connection = new MySQL();
 
         $tipos = "i";
-        $params = [$idSolicitacaoOrientacao];
+        $params = [$this->idSO];
         $sql = "UPDATE Solicitacao_Orientacao SET Status_Solicitacao_Orientacao = 'inativo' WHERE ID_Solicitacao_Orientacao = ?";
 
         $connection->execute($sql, $tipos, $params);
     }
 
+    // Acão 1 = Aceitar, Ação 0 = Negar
+    public function responderSO($acao) : void {
+        $connection = new MySQL();
+
+        if(session_status() != 2) session_start();
+
+        $resposta = $acao == 1 ? "Solicitação Aceita" : "Solicitação Negada";
+
+        if($acao == 1) {
+            $tipos = "ssi";
+            $params = ["respondido", "Solicitação respondida por outro professor", $this->idSO];
+            $sql = "UPDATE professor_solicitacao_orientacao SET status = ?, resposta = ? WHERE ID_Solicitacao_Orientacao = ?";
+
+            $connection->execute($sql, $tipos, $params);
+        }
+
+        $tipos = "ssii";
+        $params = ["respondido", $resposta, $_SESSION["idUsuario"], $this->idSO];
+        $sql = "UPDATE professor_solicitacao_orientacao SET status = ?, resposta = ? WHERE ID_Professor = ? AND ID_Solicitacao_Orientacao = ?";
+
+        $connection->execute($sql, $tipos, $params);
+    }
+
     // Find Solicitação de Orientação
-    public static function findSolicitacaoOrientacao($idSolicitacaoOrientacao) : SolicitacaoOrientacao {
+    public static function findSO($idSO) : SolicitacaoOrientacao {
         $connection = new MySQL();
 
         if(session_status() != 2) session_start();
         
         $tipos = "ii";
-        $params = [$idSolicitacaoOrientacao, $_SESSION["idUsuario"]];
+        $params = [$idSO, $_SESSION["idUsuario"]];
 
         // SQL para o aluno
         $sql = "SELECT * FROM solicitacao_orientacao so WHERE so.ID_Solicitacao_Orientacao = ? AND so.ID_Aluno = ? AND so.Status_Solicitacao_Orientacao = 'ativo'";
@@ -117,13 +153,13 @@ class SolicitacaoOrientacao {
             $resultado["Data_Envio"]
         );
 
-        $so->setIdSolicitacaoOrientacao($resultado["ID_Solicitacao_Orientacao"]);
+        $so->setIdSO($resultado["ID_Solicitacao_Orientacao"]);
 
         return $so;
     }
 
     // Find All Solicitação de Orientação
-    public static function findAllSolicitacaoOrientacao() : array {
+    public static function findAllSO() : array {
         $connection = new MySQL();
 
         $sos = [];
@@ -160,7 +196,7 @@ class SolicitacaoOrientacao {
                 $resultado["Data_Envio"]
             );
 
-            $so->setIdSolicitacaoOrientacao($resultado["ID_Solicitacao_Orientacao"]);
+            $so->setIdSO($resultado["ID_Solicitacao_Orientacao"]);
 
             $sos[] = $so;
         }
@@ -171,12 +207,12 @@ class SolicitacaoOrientacao {
     // Getters e Setters
 
     // ID da Solicitação de Orientação
-    public function getIdSolicitacaoOrientacao() : int {
-        return $this->idSolicitacaoOrientacao;
+    public function getIdSO() : int {
+        return $this->idSO;
     }
 
-    public function setIdSolicitacaoOrientacao(int $idSolicitacaoOrientacao) : void {
-        $this->idSolicitacaoOrientacao = $idSolicitacaoOrientacao;
+    public function setIdSO(int $idSO) : void {
+        $this->idSO = $idSO;
     }
 
     // ID do Aluno
