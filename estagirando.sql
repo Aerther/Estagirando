@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22/11/2025 às 18:57
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Tempo de geração: 25/11/2025 às 17:56
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `aluno` (
   `Turno_Disponivel` varchar(15) DEFAULT NULL,
   `Status_Estagio` varchar(30) DEFAULT NULL,
   `ID_Curso` int(11) DEFAULT NULL,
-  `Modalidade` varchar(15) DEFAULT NULL,
+  `Modalidade` varchar(30) DEFAULT NULL,
   `Ano_Ingresso` int(10) DEFAULT NULL,
   `Matricula` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -43,7 +43,8 @@ CREATE TABLE `aluno` (
 
 INSERT INTO `aluno` (`ID_Aluno`, `Turno_Disponivel`, `Status_Estagio`, `ID_Curso`, `Modalidade`, `Ano_Ingresso`, `Matricula`) VALUES
 (32, 'tarde', 'procurando estágio', 8, 'presencial', 2023, '00000000000'),
-(34, 'tarde', 'procurando estágio', 8, 'presencial', 2023, '0000000000');
+(34, 'tarde', 'procurando estágio', 8, 'presencial', 2023, '0000000000'),
+(38, 'manhã', 'Procurando Estágio', 1, 'presencial,online,hibrido', 2023, '2023308064');
 
 -- --------------------------------------------------------
 
@@ -5803,7 +5804,8 @@ INSERT INTO `usuario` (`ID_Usuario`, `Nome`, `Sobrenome`, `Email`, `Senha`, `Tip
 (34, 'Mateus', 'Bino', 'bino@gmail.com', '$2y$10$bWWyeOsWVqwy.j20FXTryeiVnXxwurSCGQZ8uk9sqNjUNbdmyoIEO', 'aluno', 'ativo', 2, '000.000.000-00', '2009-09-09'),
 (35, 'Marcelo', 'Almeida', 'marcelo@gmail.com', '$2y$10$Qwin0xuPmj4uhS9d4XPQp.Wde9phhk.WIaGPwVbuMeBX0Tj9.Bqtm', 'professor', 'ativo', 1, '000.000.000-00', '1111-11-11'),
 (36, 'Nicolas', 'Kochmann', 'nicolas@gmail.com', '$2y$10$KEwxBxTHSBVh7Ink7.DvwuDnkgN8dqF.SvSEbZq/vvUp.mkzu3EVe', 'professor', 'ativo', 1, '000.000.000-00', '1111-01-01'),
-(37, 'Mathias', 'Scherer', 'mathias@gmail.com', '$2y$10$ELZOCJZ3gUEg5N2BZRBvmOEyh0rZjlUMNnS3D8jIwN2O.e416QImG', 'professor', 'ativo', 1, '000.000.000-00', '1111-11-11');
+(37, 'Mathias', 'Scherer', 'mathias@gmail.com', '$2y$10$ELZOCJZ3gUEg5N2BZRBvmOEyh0rZjlUMNnS3D8jIwN2O.e416QImG', 'professor', 'ativo', 1, '000.000.000-00', '1111-11-11'),
+(38, 'KELLY', 'THOMAS', 'kellylthomas60@gmail.com', '$2y$10$XGGPTEmYtNrzbffQExneGuks2p6pqG8unRCEJeEWx7e7OEsakBn1e', 'aluno', 'ativo', 2, '041.324.710-47', '2008-02-29');
 
 -- --------------------------------------------------------
 
@@ -5822,7 +5824,8 @@ CREATE TABLE `usuario_cidade` (
 
 INSERT INTO `usuario_cidade` (`ID_Usuario`, `ID_Cidade`) VALUES
 (32, 1),
-(34, 10590);
+(34, 10590),
+(38, 10359);
 
 -- --------------------------------------------------------
 
@@ -5860,7 +5863,12 @@ INSERT INTO `usuario_preferencia` (`ID_Usuario`, `ID_Preferencia`, `Prefere`) VA
 (37, 4, 'sim'),
 (37, 5, 'sim'),
 (37, 6, 'nao'),
-(37, 9, 'nao');
+(37, 9, 'nao'),
+(38, 3, 'nao'),
+(38, 4, 'sim'),
+(38, 5, 'nao'),
+(38, 7, 'sim'),
+(38, 10, 'sim');
 
 --
 -- Índices para tabelas despejadas
@@ -5977,7 +5985,7 @@ ALTER TABLE `solicitacao_orientacao`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Restrições para tabelas despejadas
