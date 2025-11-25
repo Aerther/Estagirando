@@ -24,6 +24,23 @@ $preferencias = $aluno->getPreferencias();
 $naoPreferencias = $aluno->getNaoPreferencias();
 $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
+$modalidades = $aluno->getModalidade();
+$modalidade = "";
+if($modalidades == "presencial,online,hibrido"){
+    $modalidade = "Presencial, online ou híbrido";
+}else if ($modalidades == "presencial,online"){
+    $modalidade = "Presencial ou online";
+}else if ($modalidades == "presencial,hibrido"){
+    $modalidade = "Presencial ou híbrido";
+}else if ($modalidades == "online,hibrido"){
+    $modalidade = "Online ou Híbrido";
+}else if ($modalidades == "presencial"){
+    $modalidade = "Presencial";
+}else if ($modalidades == "online"){
+    $modalidade = "Online";
+}else if ($modalidades == "hibrido"){
+    $modalidade = "Híbrido";
+}
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +107,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                         <?php 
 
-                        echo "<p><strong style='margin-right: 8px;'>Modalidade: </strong> {$aluno->getModalidade()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Modalidade(s): </strong> {$modalidade}</p>";
                         echo "<p><strong style='margin-right: 8px;'>Turno disponível: </strong>{$aluno->getTurnoDisponivel()}</p>"; 
                             
                         ?>
