@@ -4,6 +4,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 form {
@@ -32,8 +33,9 @@ form {
 
 .dados {
     display: grid;
-    grid-template-columns: 20% 40% 40%;
+    grid-template-columns: 16% 44% 40%;
 }
+
 
 .imagem figure {
     width: 90%;
@@ -51,13 +53,19 @@ form {
     filter: brightness(0);
 }
 
+.imagem{
+    place-items: center;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 .dados-input {
     height: 100%;
-
-    padding-left: 10px;
-
+    padding-left: 6px;
     padding-top: 10px;
-
     display: grid;
     grid-auto-rows: 50px;
     grid-template-columns: 100%;
@@ -71,12 +79,11 @@ form {
 
 .more-space {
     gap: 30px;
-
     grid-template-columns: auto 1fr !important;
 }
 
 .dados-input section label {
-    font-size: 22px;
+    font-size: 19px;
 }
 
 .dados-input section input:not([type~="radio"]), select, option, .cidades > input {
@@ -93,7 +100,6 @@ form {
 
 .radio {
     height: 100px;
-
     display: grid;
     grid-template-rows: 0.8fr 1fr !important;
     grid-template-columns: 100% !important;
@@ -127,6 +133,7 @@ form {
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: repeat(3, 1fr);
+    margin-top: 40px;
 }
 
 .preferencias section {
@@ -158,7 +165,7 @@ form {
 }
 
 .preferencias section div label, .item-sugestao {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .sugestoes {
@@ -245,9 +252,13 @@ form {
     background-color: black;
 }
 
-#divEditSenha {
-    display: flex;
-    flex-direction: row;
+#editSenha {
+   text-decoration: none;
+    background-color: rgb(238, 238, 238);
+    padding: 6px;
+    border: 1px solid rgb(55, 56, 55);
+    border-radius: 10px;
+    font-size: 16px;
 
 }
 
@@ -256,3 +267,4 @@ form {
     margin-left: 10px;
     font-size: 18px;
 }
+

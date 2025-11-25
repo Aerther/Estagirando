@@ -91,6 +91,11 @@ $preferencias = Preferencia::findAllPreferencias();
                             <img src="./../../icones/iconProf.png" alt="Icone Professor">
                         </figure>
 
+                        <section id=divEditSenha>
+                            <a href="editarSenhaProf.php" id='editSenha'>Editar senha </a>
+                            <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
+                        </section>
+
                     </section>
 
                     <section class="dados-input">
@@ -138,10 +143,7 @@ $preferencias = Preferencia::findAllPreferencias();
                             <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $professor->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                         </section>
 
-                        <section id=divEditSenha>
-                            <a href="editarSenhaProf.php" id='editSenha'>Editar senha </a>
-                            <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
-                        </section>
+                        
                         </section>
                     </section>
 

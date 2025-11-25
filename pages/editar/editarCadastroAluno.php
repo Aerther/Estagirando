@@ -110,6 +110,10 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <img src="./../../icones/iconAluno.png" alt="Icone Aluno">
                         </figure>
 
+                        <section id="divEditSenha">
+                            <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
+                            <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
+                        </section>
                     </section>
 
                     <section class="dados-input">
@@ -123,49 +127,26 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <input type="text" name="sobrenome"  value="<?php echo $aluno->getSobrenome(); ?>" required>
                         </section>
 
+                        <section>
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" value="<?php echo $aluno->getEmail(); ?>" required>
+                        </section>
+
+                        
+
+                        <section>
+                            <label for="cpf">CPF:</label>
+                            <input type="texto" name="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" id="cpf" placeholder="___.___.___-__" value="<?php echo $aluno->getCPF(); ?>" required>
+                        </section>
+
                         <section class="more-space">
                             <label for="dataNascimento">Data Nascimento:</label>
                             <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $aluno->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                         </section>
 
-                        <section>
-                            <label for="modalidade">Modalidade:</label>
+                        
 
-                            <?php 
-                            $modalidades = ["presencial" => "", "remoto" => "", "hibrido" => ""];
-                            $checked = explode(",", $aluno->getModalidade());
-                            $contador = 0;
-                            for($i=0; $i < (sizeof($checked, 0)-1); $i++){
-                                $modalidades[$checked[i]] = "checked";
-                            }
-
-
-                            ?>
-                            <label for="modalidade">Modalidade:</label>
-                            <input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" >Selecionar todos
-                                
-                            <input type="checkbox" name="presencial" id="presencial" value="presencial" <?php echo $modalidade["presencial"]; ?> onchange="verificar()"><label for="presencial">Presencial</label>
-                            <input type="checkbox" name="online" id="online" value="online" <?php echo $modalidade["remoto"]; ?> onchange="verificar()"><label for="online">Online</label>
-                            <input type="checkbox" name="hibrido" id="hibrido" value="hibrido" <?php echo $modalidade["hibrido"]; ?> onchange="verificar()"><label for="hibrido">Hibrido</label>
-
-                        </section>
-
-                        <section class="more-space">
-                            <label for="turno">Turno disponível:</label>
-
-                            <?php 
-                            
-                            $opcoes = ["manhã" => "", "tarde" => ""];
-
-                            $opcoes[$aluno->getTurnoDisponivel()] = "selected";
-
-                            ?>
-
-                            <select id="turno" name="turno">
-                                <option value="manhã" <?php echo $opcoes["manhã"]; ?>>Manhã</option>
-                                <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
-                            </select>
-                        </section>
+                        
                         
                         <section class="more-space">
                             <label for="situacao">Situação Atual:</label>
@@ -184,23 +165,13 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                                 <option value="ocupado" <?php echo $opcoes["ocupado"]; ?>>Ocupado</option>
                             </select>
                         </section>
+                        
                     </section>
 
+                    
+
                     <section class="dados-input">
-                        <section>
-                            <label for="email">Email:</label>
-                            <input type="email" name="email" value="<?php echo $aluno->getEmail(); ?>" required>
-                        </section>
-
-                        <section id="divEditSenha">
-                            <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
-                            <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
-                        </section>
-
-                        <section>
-                            <label for="cpf">CPF:</label>
-                            <input type="texto" name="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" id="cpf" placeholder="___.___.___-__" value="<?php echo $aluno->getCPF(); ?>" required>
-                        </section>
+                        
 
                         <section>
                             <label for="matricula">Matricula:</label>
@@ -228,6 +199,45 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <label for="ano">Ingressou em:</label>
                             <input type="number" name="ano" max='2025' value="<?php echo $aluno->getAnoIngresso(); ?>" required>
                         </section>
+
+                        <section class="more-space">
+                            <label for="turno">Turno disponível:</label>
+
+                            <?php 
+                            
+                            $opcoes = ["manhã" => "", "tarde" => ""];
+
+                            $opcoes[$aluno->getTurnoDisponivel()] = "selected";
+
+                            ?>
+
+                            <select id="turno" name="turno">
+                                <option value="manhã" <?php echo $opcoes["manhã"]; ?>>Manhã</option>
+                                <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
+                            </select>
+                        </section>
+
+                        <section >
+                                <?php 
+                                $modalidades = ["presencial" => "", "remoto" => "", "hibrido" => ""];
+                                $checked = explode(",", $aluno->getModalidade());
+                            
+                                for($i=0; $i < (sizeof($checked, 0)-1); $i++){
+                                    $modalidades[$checked[$i]] = "checked";
+                                }
+
+
+                                ?>
+                                <label for="modalidade">Modalidade:</label>
+                                <div id="modalidade">
+                                <input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos
+                                    
+                                <input type="checkbox" name="presencial" id="presencial" value="presencial" <?php echo $modalidades["presencial"]; ?> onchange="verificar()"><label for="presencial"> Presencial</label>
+                                <input type="checkbox" name="online" id="online" value="online" <?php echo $modalidades["remoto"]; ?> onchange="verificar()"><label for="online"> Online</label>
+                                <input type="checkbox" name="hibrido" id="hibrido" value="hibrido" <?php echo $modalidades["hibrido"]; ?> onchange="verificar()"><label for="hibrido"> Híbrido</label>
+                                </div>
+                        </section>
+
                     </section>
                 </section>
 
