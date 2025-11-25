@@ -19,7 +19,7 @@ form {
     grid-template-rows: 40% 46% 14%;
 }
 
-.preferencias, .links {
+.preferencias, .links, .dados {
     grid-column: span 2;
 }
 
@@ -42,17 +42,31 @@ form {
 
 .dados {
     height: 100%;
+    width: 100%;
 
     padding-left: 20px;
 
     padding-top: 10px;
 
     display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50px 1fr;
+}
+
+.dados > h2 {
+    grid-column: span 2;
+}
+
+.dados > div {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
     grid-auto-rows: 50px;
     grid-template-columns: 100%;
 }
 
-.dados section {
+.dados div section {
     display: grid;
     align-items: center;
 
