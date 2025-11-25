@@ -51,19 +51,25 @@ $preferencias = Preferencia::findAllPreferencias();
         ?>
         
         <main>
-            <form action="./listaProfessores.php" method="post">
+            <form action="./../utils/dadosProfessores.php" method="post">
                 <section class="dados">
                     <h2>Pesquisa Avançada de Professores</h2>
 
-                    <section>
-                        <label for="nome">Nome:</label>
-                        <input type="text" name="nome">
-                    </section>
+                    <div class="coluna1">
+                        <section>
+                            <label for="nome">Nome:</label>
+                            <input type="text" name="nome">
+                        </section>
 
-                    <section>
-                        <label for="email">Email:</label>
-                        <input type="email" name="email">
-                    </section>
+                        <section>
+                            <label for="email">Email:</label>
+                            <input type="email" name="email">
+                        </section>
+                    </div>
+
+                    <div class="coluna2">
+
+                    </div>
 
                     <section class="radio">
                         <label for="disponivel">Situação atual:</label>
