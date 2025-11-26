@@ -60,6 +60,18 @@
     font-size: 20px;
 }
 
-#nomeProf:hover{
+.nome:hover{
     font-weight: bold;
+}
+
+.disponibilidade{
+    margin-left: 20px;
+    padding: 4px 12px;
+    font-size: 17px;
+    color: green;
+    border: 2px solid green;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
