@@ -94,6 +94,11 @@ $preferencias = Preferencia::findAllPreferencias();
                             echo htmlspecialchars($_POST['sobrenome']); ?>" required>
                     </section>
 
+                    <section class="more-space">
+                        <label for="dataNascimento">Data Nascimento:</label>
+                        <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
+                    </section>
+
                     <section>
                         <label for="email">Email:</label>
                         <input type="email" name="email" value="<?php if (isset($_POST['email']))
@@ -106,6 +111,14 @@ $preferencias = Preferencia::findAllPreferencias();
                             echo htmlspecialchars($_POST['confEmail']); ?>" required>
                     </section>
 
+                    
+                </section>
+
+                <section class="dados">
+                    <section class="more-space">
+                        <label for="cpf">CPF:</label>
+                        <input type="texto" name="cpf" id="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" placeholder="___.___.___-__" value="<?php if (isset($_POST['cpf'])) echo $_POST['cpf'] ?>" required>
+                    </section>
                     <section>
                         <label for="senha">Senha:</label>
                         <input type="password" name="senha" value="<?php if (isset($_POST['senha']))
@@ -117,21 +130,10 @@ $preferencias = Preferencia::findAllPreferencias();
                         <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha']))
                             echo htmlspecialchars($_POST['confSenha']); ?>" required>
                     </section>
-                </section>
-
-                <section class="dados">
-                    <section class="more-space">
-                        <label for="cpf">CPF:</label>
-                        <input type="texto" name="cpf" id="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" placeholder="___.___.___-__" value="<?php if (isset($_POST['cpf'])) echo $_POST['cpf'] ?>" required>
-                    </section>
-
-                    <section class="more-space">
-                        <label for="dataNascimento">Data Nascimento:</label>
-                        <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
-                    </section>
+                    
 
                     <section class="radio">
-                        <label for="disponivel">Disponível para orientar?</label>
+                        <label for="disponivel" id=lblD>Disponível para orientar?</label>
 
                         <div class="disponibilidade">
                             <?php 
@@ -156,7 +158,7 @@ $preferencias = Preferencia::findAllPreferencias();
                             <?php
 
                             foreach ($preferencias as $preferencia) {
-                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                                echo "<label id=pref><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
@@ -170,7 +172,7 @@ $preferencias = Preferencia::findAllPreferencias();
                             <?php
 
                             foreach ($preferencias as $preferencia) {
-                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                                echo "<label id=pref><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>

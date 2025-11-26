@@ -239,3 +239,21 @@ form {
     color: #d5d5d5;
     background-color: black;
 }
+
+
+label{
+    width: 190px;
+}
+
+#lblD{
+    width: 400px;
+}
+
+#pref{
+    width: 400px;
+}
+
+#modalidade{
+    display: grid;
+    justify-content: start;
+}

@@ -118,9 +118,9 @@ $cidadesEstagiar = [];
                             echo htmlspecialchars($_POST['sobrenome']); ?>" required>
                     </section>
 
-                    <section>
-                        <label for="matricula">Matricula:</label>
-                        <input type="string" name="matricula"  value="<?php if(isset($_POST['matricula'])) echo $_POST['matricula']; ?>" required>
+                    <section class="more-space">
+                        <label for="cpf">CPF:</label>
+                        <input type="texto" name="cpf" id="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" placeholder="___.___.___-__" value="<?php if (isset($_POST['cpf'])) echo $_POST['cpf'] ?>" required>
                     </section>
 
                     <section>
@@ -136,34 +136,15 @@ $cidadesEstagiar = [];
                     </section>
 
                     <section>
-                        <label for="senha">Senha:</label>
-                        <input type="password" name="senha" value="<?php if (isset($_POST['senha']))
-                            echo htmlspecialchars($_POST['senha']); ?>" required>
-                    </section>
-
-                    <section class="more-space">
-                        <label for="confSenha">Confirme a Senha:</label>
-                        <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha']))
-                            echo htmlspecialchars($_POST['confSenha']); ?>" required>
-                    </section>
-                </section>
-
-                <section class="dados">
-                    <section class="more-space">
-                        <label for="cpf">CPF:</label>
-                        <input type="texto" name="cpf" id="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" placeholder="___.___.___-__" value="<?php if (isset($_POST['cpf'])) echo $_POST['cpf'] ?>" required>
+                        <label for="matricula">Matricula:</label>
+                        <input type="string" name="matricula"  value="<?php if(isset($_POST['matricula'])) echo $_POST['matricula']; ?>" required>
                     </section>
 
                     <section class="more-space">
                         <label for="dataNascimento">Data Nascimento:</label>
                         <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                     </section>
-
-                    <section class="more-space">
-                        <label for="ano">Ano de Ingresso:</label>
-                        <input type="number" name="ano" max='2025' value="<?php if (isset($_POST['ano']))
-                            echo htmlspecialchars($_POST['ano']); ?>" required>
-                    </section>
+                    
 
                     <section class="more-space">
                         <label for="situacao">Situação Atual:</label>
@@ -183,6 +164,19 @@ $cidadesEstagiar = [];
                             <option value="Ocupado" <?php echo $opcoes["Ocupado"]; ?>>Ocupado</option>
                         </select>
                     </section>
+
+                    
+                </section>
+
+                <section class="dados">
+                    
+                    <section class="more-space">
+                        <label for="ano">Ano de Ingresso:</label>
+                        <input type="number" name="ano" max='2025' value="<?php if (isset($_POST['ano']))
+                            echo htmlspecialchars($_POST['ano']); ?>" required>
+                    </section>
+
+                    
 
                     <section class="more-space">
                         <?php
@@ -227,6 +221,31 @@ $cidadesEstagiar = [];
                             <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
                         </select>
                     </section>
+
+                    <section>
+                        <label for="senha">Senha:</label>
+                        <input type="password" name="senha" value="<?php if (isset($_POST['senha']))
+                            echo htmlspecialchars($_POST['senha']); ?>" required>
+                    </section>
+
+                    <section class="more-space">
+                        <label for="confSenha">Confirme a Senha:</label>
+                        <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha']))
+                            echo htmlspecialchars($_POST['confSenha']); ?>" required>
+                    </section>
+
+                    <div id="modalidade">
+                    <?php
+                    $modalidades = ["presencial" => "", "remoto" => "", "hibrido" => ""];
+
+                    ?>
+                    <label for="modalidade">Modalidade:</label>
+                    <label for="todosModalidade"><input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos</label>
+                        
+                    <label for="presencial"><input type="checkbox" name="presencial" id="presencial" value="presencial" onchange="verificar()"> Presencial</label>
+                    <label for="online"><input type="checkbox" name="online" id="online" value="online" onchange="verificar()"> Online</label>
+                    <label for="hibrido"><input type="checkbox" name="hibrido" id="hibrido" value="hibrido" onchange="verificar()"> Híbrido</label>
+                    </div>
                 </section>
 
                 <section class="preferencias">
@@ -274,18 +293,7 @@ $cidadesEstagiar = [];
                     </section>
                 </section>
 
-                <section>
-                    <?php
-                    $modalidades = ["presencial" => "", "remoto" => "", "hibrido" => ""];
-
-                    ?>
-                    <label for="modalidade">Modalidade:</label>
-                    <input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" >Selecionar todos
-                        
-                    <input type="checkbox" name="presencial" id="presencial" value="presencial" onchange="verificar()"><label for="presencial">Presencial</label>
-                    <input type="checkbox" name="online" id="online" value="online" onchange="verificar()"><label for="online">Online</label>
-                    <input type="checkbox" name="hibrido" id="hibrido" value="hibrido" onchange="verificar()"><label for="hibrido">Hibrido</label>
-                </section>
+                
 
                 <section id="btn" class="links">
                     <?php echo "<p class='erro'>{$mensagemErro}</p>"; ?>

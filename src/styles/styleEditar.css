@@ -268,3 +268,7 @@ form {
     font-size: 18px;
 }
 
+#modalidade{
+    display: grid;
+    justify-content: start;
+}
