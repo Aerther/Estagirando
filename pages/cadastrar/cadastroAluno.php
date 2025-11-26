@@ -236,7 +236,7 @@ $cidadesEstagiar = [];
 
                     <div id="modalidade">
                     <?php
-                    $modalidades = ["presencial" => "", "remoto" => "", "hibrido" => ""];
+                    $modalidades = ["presencial" => "", "online" => "", "hibrido" => ""];
 
                     ?>
                     <label for="modalidade">Modalidade:</label>
