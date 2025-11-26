@@ -252,3 +252,8 @@ label{
 #pref{
     width: 400px;
 }
+
+#modalidade{
+    display: grid;
+    justify-content: start;
+}

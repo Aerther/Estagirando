@@ -217,7 +217,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             </select>
                         </section>
 
-                        <section >
+                        <div id="modalidade" >
                                 <?php 
                                 $modalidades = ["presencial" => "", "remoto" => "", "hibrido" => ""];
                                 $checked = explode(",", $aluno->getModalidade());
@@ -230,13 +230,13 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                                 ?>
                                 <label for="modalidade">Modalidade:</label>
                                 <div id="modalidade">
-                                <input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos
+                                <label for="todosModalidade"><input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos</label>
                                     
-                                <input type="checkbox" name="presencial" id="presencial" value="presencial" <?php echo $modalidades["presencial"]; ?> onchange="verificar()"><label for="presencial"> Presencial</label>
-                                <input type="checkbox" name="online" id="online" value="online" <?php echo $modalidades["remoto"]; ?> onchange="verificar()"><label for="online"> Online</label>
-                                <input type="checkbox" name="hibrido" id="hibrido" value="hibrido" <?php echo $modalidades["hibrido"]; ?> onchange="verificar()"><label for="hibrido"> Híbrido</label>
+                                <label for="presencial"><input type="checkbox" name="presencial" id="presencial" value="presencial" <?php echo $modalidades["presencial"]; ?> onchange="verificar()"> Presencial</label>
+                                <label for="online"><input type="checkbox" name="online" id="online" value="online" <?php echo $modalidades["remoto"]; ?> onchange="verificar()"> Online</label>
+                                <label for="hibrido"><input type="checkbox" name="hibrido" id="hibrido" value="hibrido" <?php echo $modalidades["hibrido"]; ?> onchange="verificar()"> Híbrido</label>
                                 </div>
-                        </section>
+                            </div>
 
                     </section>
                 </section>
