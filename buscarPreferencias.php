@@ -16,6 +16,8 @@ if (!isset($_GET["idCurso"])) {
 
 try {
     $ps = Preferencia::findAllPreferenciasByCurso($_GET["idCurso"]);
+
+    if($_GET["idCurso"] == -1) $ps = Preferencia::findAllPreferencias();
     
     header("Content-Type: application/json; charset=utf-8");
     

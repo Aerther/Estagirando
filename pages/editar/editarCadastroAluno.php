@@ -132,8 +132,6 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <input type="email" name="email" value="<?php echo $aluno->getEmail(); ?>" required>
                         </section>
 
-                        
-
                         <section>
                             <label for="cpf">CPF:</label>
                             <input type="texto" name="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" id="cpf" placeholder="___.___.___-__" value="<?php echo $aluno->getCPF(); ?>" required>
@@ -144,10 +142,6 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $aluno->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                         </section>
 
-                        
-
-                        
-                        
                         <section class="more-space">
                             <label for="situacao">Situação Atual:</label>
                             

@@ -42,7 +42,7 @@ $mensagemErro = "";
         <main>
             <form action="./../utils/dadosAlunos.php" method="post">
                 <section class="dados">
-                    <h2>Pesquisa Avançada de Alunos</h2>
+                    <h2>Pesquisa de Alunos</h2>
 
                     <div class="coluna1">
                         <section>
@@ -59,7 +59,7 @@ $mensagemErro = "";
                             <label for="curso">Curso:</label>
 
                             <select id="curso" name="curso">
-                                <option value="">Qualquer curso</option>
+                                <option value="-1">Qualquer curso</option>
                                 
                                 <?php
 
@@ -82,18 +82,8 @@ $mensagemErro = "";
                             <label for="turno">Turno disponível:</label>
 
                             <select id="turno" name="turno">
-                                <option value="manhã"> Manhã</option>
-                                <option value="tarde"> Tarde</option>
-                            </select>
-                        </section>
-
-                        <section>
-                            <label for="situacao">Situação Atual:</label>
-
-                            <select id="situacao" name="situacao">
-                                <option value="Procurando Estágio"> Procurando Estágio</option>
-                                <option value="Estagiando"> Estagiando</option>
-                                <option value="Ocupado"> Ocupado</option>
+                                <option value="Manhã"> Manhã</option>
+                                <option value="Tarde"> Tarde</option>
                             </select>
                         </section>
                     </div>

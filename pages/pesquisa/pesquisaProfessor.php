@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use App\Classes\Professor;
+use App\Classes\Aluno;
 use App\Classes\Preferencia;
 
 session_start();
@@ -23,7 +23,8 @@ if(isset($_SESSION["erro"])) {
     unset($_SESSION["erro"]); 
 }
 
-$preferencias = Preferencia::findAllPreferencias();
+$aluno = Aluno::findAluno($_SESSION["idUsuario"]);
+$preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getIdCurso());
 
 ?>
 
@@ -53,7 +54,7 @@ $preferencias = Preferencia::findAllPreferencias();
         <main>
             <form action="./../utils/dadosProfessores.php" method="post">
                 <section class="dados">
-                    <h2>Pesquisa Avançada de Professores</h2>
+                    <h2>Pesquisa de Professores</h2>
 
                     <div class="coluna1">
                         <section>
@@ -70,19 +71,6 @@ $preferencias = Preferencia::findAllPreferencias();
                     <div class="coluna2">
 
                     </div>
-
-                    <section class="radio">
-                        <label for="disponivel">Situação atual:</label>
-
-                        <div class="disponibilidade">
-                            <?php 
-                            
-                            echo "<label><input type='radio' name='disponivel' value='sim'>Disponível para orientar</label>";
-                            echo "<label><input type='radio' name='disponivel' value='nao'>Não disponível para orientar</label>";
-                            
-                            ?>
-                        </div>
-                    </section>
                 </section>
 
                 <section class="preferencias">
@@ -91,9 +79,10 @@ $preferencias = Preferencia::findAllPreferencias();
 
                         <div>
                             <?php
-
-                            foreach ($preferencias as $preferencia) {
-                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                        
+                            foreach($preferencias as $preferencia) {
+                                $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getPreferencias()) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
@@ -105,9 +94,10 @@ $preferencias = Preferencia::findAllPreferencias();
 
                         <div>
                             <?php
-
-                            foreach ($preferencias as $preferencia) {
-                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                        
+                            foreach($preferencias as $preferencia) {
+                                $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getNaoPreferencias()) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
