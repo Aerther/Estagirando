@@ -31,14 +31,14 @@ if(isset($_POST['salvar'])) {
     $cidadesEstagiar = isset($_POST["cidadesEstagiar"]) ? $_POST["cidadesEstagiar"] : [1];
 
     $usuario = new Aluno($_POST["email"], "");
-
-    if(isset($_POST[todosModalidade])){
+    $modalidade = '';
+    if(isset($_POST["todosModalidade"])){
         $modalidade = 'presencial,online,hibrido';
-    }else if(isset($_POST[presencial]) && isset($_POST[online])){
+    }else if(isset($_POST["presencial"]) && isset($_POST["online"])){
         $modalidade = 'presencial,online';
-    }else if(isset($_POST[presencial]) && isset($_POST[hibrido])){
+    }else if(isset($_POST["presencial"]) && isset($_POST["hibrido"])){
         $modalidade = 'presencial,hibrido';
-    }else if(isset($_POST[hibrido]) && isset($_POST[online])){
+    }else if(isset($_POST["hibrido"]) && isset($_POST["online"])){
         $modalidade = 'online,hibrido';
     }
 
@@ -213,21 +213,26 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                         <div id="modalidade" >
                                 <?php 
-                                $modalidades = ["presencial" => "", "remoto" => "", "hibrido" => ""];
+                                $modalidades = ["presencial" => "", "online" => "", "hibrido" => ""];
                                 $checked = explode(",", $aluno->getModalidade());
-                            
-                                for($i=0; $i < (sizeof($checked, 0)-1); $i++){
+                                $selecionar = '';
+                                if(sizeof($checked, 0) == 3){
+                                    $selecionar = 'checked';
+                                }
+                                for($i=0; $i < sizeof($checked, 0); $i++){
                                     $modalidades[$checked[$i]] = "checked";
+                                    
                                 }
 
 
                                 ?>
                                 <label for="modalidade">Modalidade:</label>
                                 <div id="modalidade">
-                                <label for="todosModalidade"><input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos</label>
+                                <label for="todosModalidade"><input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" 
+                                <?php echo $selecionar; ?> onchange="selecionar()" > Selecionar todos</label>
                                     
                                 <label for="presencial"><input type="checkbox" name="presencial" id="presencial" value="presencial" <?php echo $modalidades["presencial"]; ?> onchange="verificar()"> Presencial</label>
-                                <label for="online"><input type="checkbox" name="online" id="online" value="online" <?php echo $modalidades["remoto"]; ?> onchange="verificar()"> Online</label>
+                                <label for="online"><input type="checkbox" name="online" id="online" value="online" <?php echo $modalidades["online"]; ?> onchange="verificar()"> Online</label>
                                 <label for="hibrido"><input type="checkbox" name="hibrido" id="hibrido" value="hibrido" <?php echo $modalidades["hibrido"]; ?> onchange="verificar()"> Híbrido</label>
                                 </div>
                             </div>
