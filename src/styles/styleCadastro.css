@@ -123,6 +123,7 @@ form {
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: repeat(3, 1fr);
+    margin-top: 20px;
 }
 
 .preferencias section {
@@ -255,4 +256,7 @@ form {
 #modalidade{
     display: grid;
     justify-content: start;
+    margin-top: 10px;
 }
+
+

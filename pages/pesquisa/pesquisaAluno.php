@@ -12,8 +12,13 @@ $preferencias = Preferencia::findAllPreferencias();
 $cursos = Curso::findAllCursos();
 $cidadesEstagiar = [];
 
+session_start();
+
 $mensagemErro = "";
 
+if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
+
+if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"]) header("Location: ./../../privado.php");
 ?>
 
 <!DOCTYPE html>
