@@ -102,7 +102,7 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 
                     echo "</div>";
 
-                    echo "<div >";
+                    echo "<div class='dados'>";
                     
                     echo "<p><span class='disponibilidade' style='color: {$cor}; border: 2px solid {$cor}'>{$disponibilidade}</span></p>";
 

@@ -33,7 +33,7 @@ form {
 
 .dados {
     display: grid;
-    grid-template-columns: 16% 44% 40%;
+    grid-template-columns: 20% 40% 40%;
 }
 
 
@@ -274,3 +274,4 @@ form {
     display: grid;
     justify-content: start;
 }
+

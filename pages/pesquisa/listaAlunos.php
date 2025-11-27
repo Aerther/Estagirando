@@ -15,6 +15,12 @@ $resultado = $_SESSION["ultima_pesquisa"];
 $nome = $resultado["nome"];
 $email = $resultado["email"];
 $turno = $resultado["turno"];
+$turnoDisp = "";
+if($turno=="manhã"){
+    $turnoDisp="Disponível pela manhã";
+}else{
+    $turnoDisp="Disponível à tarde";
+}
 $modalidades = $resultado["modalidades"];
 $cidades = $resultado["cidades"];
 $cursos = $resultado["cursos"];
@@ -54,6 +60,13 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
 
                     $foto = $aluno->getFoto();
                     $curso = $aluno->getCurso();
+                    $disponibilidade = $aluno->getStatusEstagio();
+
+                        if($disponibilidade == 'procurando estágio'){
+                            $cor = "green";
+                        } else{
+                            $cor = "red";
+                        }
 
                     /*// Preferências como String
 
@@ -99,6 +112,12 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
 
                     echo "<p>{$curso->getNome()}</p>";
 
+                    echo "</div>";
+                    echo "<div class='dados'>";
+                    
+                    echo "<p><span class='disponibilidade' style='color: {$cor}; border: 2px solid {$cor}'>{$disponibilidade}</span></p>";
+
+                    echo "<p>{$turnoDisp}</p>";
                     echo "</div>";
 
                    /* echo "<div class='preferencias'>";
