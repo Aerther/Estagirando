@@ -101,13 +101,13 @@ $cidadesEstagiar = [];
         <main>
             <form action="./cadastroAluno.php" method="post">
                 <section class="dados">
-                    <section>
+                    <section class="more-space">
                         <label for="nome">Nome:</label>
                         <input type="text" name="nome" value="<?php if (isset($_POST['nome']))
                             echo htmlspecialchars($_POST['nome']); ?>" required>
                     </section>
 
-                    <section>
+                    <section class="more-space">
                         <label for="sobrenome">Sobrenome:</label>
                         <input type="text" name="sobrenome" value="<?php if (isset($_POST['sobrenome']))
                             echo htmlspecialchars($_POST['sobrenome']); ?>" required>
@@ -118,7 +118,7 @@ $cidadesEstagiar = [];
                         <input type="texto" name="cpf" id="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" placeholder="___.___.___-__" value="<?php if (isset($_POST['cpf'])) echo $_POST['cpf'] ?>" required>
                     </section>
 
-                    <section>
+                    <section class="more-space">
                         <label for="email">Email:</label>
                         <input type="email" name="email" value="<?php if (isset($_POST['email']))
                             echo htmlspecialchars($_POST['email']); ?>" required>
@@ -130,7 +130,7 @@ $cidadesEstagiar = [];
                             echo htmlspecialchars($_POST['confEmail']); ?>" required>
                     </section>
 
-                    <section>
+                    <section class="more-space">
                         <label for="matricula">Matrícula:</label>
                         <input type="string" name="matricula"  value="<?php if(isset($_POST['matricula'])) echo $_POST['matricula']; ?>" required>
                     </section>
@@ -198,7 +198,7 @@ $cidadesEstagiar = [];
 
                         <?php
 
-                        $opcoes = ["manhã" => "", "tarde" => ""];
+                        $opcoes = ["manhã" => "", "tarde" => "", "noite" => ""];
 
                         if (isset($_POST["turno"]))
                             $opcoes[$_POST["turno"]] = "selected";
@@ -208,10 +208,11 @@ $cidadesEstagiar = [];
                         <select id="turno" name="turno">
                             <option value="manhã" <?php echo $opcoes["manhã"]; ?>>Manhã</option>
                             <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
+                            <option value="noite" <?php echo $opcoes["noite"]; ?>>Noite</option>
                         </select>
                     </section>
 
-                    <section>
+                    <section class="more-space">
                         <label for="senha">Senha:</label>
                         <input type="password" name="senha" value="<?php if (isset($_POST['senha']))
                             echo htmlspecialchars($_POST['senha']); ?>" required>

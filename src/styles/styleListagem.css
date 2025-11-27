@@ -17,7 +17,7 @@
     height: auto;
 
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr;
 
     border: 1px solid #b3b3b3;
     border-radius: 15px;
@@ -60,11 +60,11 @@
     font-size: 20px;
 }
 
-.nome:hover{
+.nome:hover {
     font-weight: bold;
 }
 
-.disponibilidade{
+.disponibilidade {
     padding: 4px 12px;
     font-size: 17px;
     color: green;
@@ -73,4 +73,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.coluna-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }

@@ -82,13 +82,13 @@ $preferencias = Preferencia::findAllPreferencias();
         <main>
             <form action="./cadastroProfessor.php" method="post">
                 <section class="dados">
-                    <section>
+                    <section class="more-space">
                         <label for="nome">Nome:</label>
                         <input type="text" name="nome" value="<?php if (isset($_POST['nome']))
                             echo htmlspecialchars($_POST['nome']); ?>" required>
                     </section>
 
-                    <section>
+                    <section class="more-space">
                         <label for="sobrenome">Sobrenome:</label>
                         <input type="text" name="sobrenome" value="<?php if (isset($_POST['sobrenome']))
                             echo htmlspecialchars($_POST['sobrenome']); ?>" required>
@@ -99,7 +99,7 @@ $preferencias = Preferencia::findAllPreferencias();
                         <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                     </section>
 
-                    <section>
+                    <section class="more-space">
                         <label for="email">Email:</label>
                         <input type="email" name="email" value="<?php if (isset($_POST['email']))
                             echo htmlspecialchars($_POST['email']); ?>" required>
@@ -110,8 +110,6 @@ $preferencias = Preferencia::findAllPreferencias();
                         <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail']))
                             echo htmlspecialchars($_POST['confEmail']); ?>" required>
                     </section>
-
-                    
                 </section>
 
                 <section class="dados">
@@ -119,7 +117,7 @@ $preferencias = Preferencia::findAllPreferencias();
                         <label for="cpf">CPF:</label>
                         <input type="texto" name="cpf" id="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" placeholder="___.___.___-__" value="<?php if (isset($_POST['cpf'])) echo $_POST['cpf'] ?>" required>
                     </section>
-                    <section>
+                    <section class="more-space">
                         <label for="senha">Senha:</label>
                         <input type="password" name="senha" value="<?php if (isset($_POST['senha']))
                             echo htmlspecialchars($_POST['senha']); ?>" required>
@@ -132,8 +130,8 @@ $preferencias = Preferencia::findAllPreferencias();
                     </section>
                     
 
-                    <section class="radio">
-                        <label for="disponivel" id=lblD>Disponível para orientar?</label>
+                    <section class="radio" class="more-space">
+                        <label for="disponivel" id='lblD'>Disponível para orientar?</label>
 
                         <div class="disponibilidade">
                             <?php 

@@ -29,6 +29,13 @@ $naoPreferencias = $professor->getNaoPreferencias();
     <link rel="stylesheet" href="./../../src/styles/reset.css">
     <link rel="stylesheet" href="./../../src/styles/styleVisualizar.css">
 
+    <style>
+        .linha-1 {
+            display: grid;
+            grid-template-columns: 20% 70% 10%;
+        }
+    </style>
+
     <title>Visualizar Professor</title>
 </head>
 <body>

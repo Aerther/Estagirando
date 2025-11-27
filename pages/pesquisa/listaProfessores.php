@@ -49,11 +49,13 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
                 foreach($professores as $professor) {
 
                     $foto = $professor->getFoto();
+
                     $disponibilidade = "";
-                    if($professor->getstatusDisponibilidade()=="sim"){
+
+                    if($professor->getstatusDisponibilidade()=="sim") {
                         $disponibilidade = "Disponível para orientar";
                         $cor = "green";
-                    }elseif($professor->getstatusDisponibilidade()=="nao"){
+                    } else if($professor->getstatusDisponibilidade()=="nao") {
                         $disponibilidade = "Indisponível para orientar";
                         $cor = "red";
                     }
@@ -96,13 +98,13 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 
                     echo "<div class='dados'>";
                     
-                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}' class=nome> " . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
+                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}' class=nome>" . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
 
                     echo "<p>{$professor->getEmail()}</p>";
 
                     echo "</div>";
 
-                    echo "<div class='dados'>";
+                    echo "<div class='dados coluna-3'>";
                     
                     echo "<p><span class='disponibilidade' style='color: {$cor}; border: 2px solid {$cor}'>{$disponibilidade}</span></p>";
 

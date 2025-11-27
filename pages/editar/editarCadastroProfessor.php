@@ -177,7 +177,12 @@ $preferencias = Preferencia::findAllPreferencias();
                 </section>
 
                 <section class="links">
-                    <?php echo "<p class='erro'>{$mensagemErro}</p>"; ?>
+                    <?php 
+
+                    $cor = strpos($mensagemErro, "sucesso") ? "green" : "red";
+                    echo "<p class='erro' style='color: {$cor}'>{$mensagemErro}</p>"; 
+                    
+                    ?>
 
                     <div>
                         <input class='link' type="submit" name="salvar" value="Salvar">

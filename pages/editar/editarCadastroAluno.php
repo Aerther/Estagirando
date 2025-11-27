@@ -192,7 +192,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                             <?php 
                             
-                            $opcoes = ["manhã" => "", "tarde" => ""];
+                            $opcoes = ["manhã" => "", "tarde" => "", "noite" => ""];
 
                             $opcoes[$aluno->getTurnoDisponivel()] = "selected";
 
@@ -201,6 +201,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <select id="turno" name="turno">
                                 <option value="manhã" <?php echo $opcoes["manhã"]; ?>>Manhã</option>
                                 <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
+                                <option value="noite" <?php echo $opcoes["noite"]; ?>>Noite</option>
                             </select>
                         </section>
 

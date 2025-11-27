@@ -87,8 +87,9 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
                             <label for="turno">Turno disponível:</label>
 
                             <select id="turno" name="turno">
-                                <option value="Manhã"> Manhã</option>
-                                <option value="Tarde"> Tarde</option>
+                                <option value="manhã"> Manhã</option>
+                                <option value="tarde"> Tarde</option>
+                                <option value="noite"> Noite</option>
                             </select>
                         </section>
                     </div>
