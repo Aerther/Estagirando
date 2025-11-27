@@ -24,23 +24,30 @@ $preferencias = $aluno->getPreferencias();
 $naoPreferencias = $aluno->getNaoPreferencias();
 $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
-$modalidades = $aluno->getModalidade();
-$modalidade = "";
-if($modalidades == "presencial,online,hibrido"){
-    $modalidade = "Presencial, online ou híbrido";
-}else if ($modalidades == "presencial,online"){
-    $modalidade = "Presencial ou online";
-}else if ($modalidades == "presencial,hibrido"){
-    $modalidade = "Presencial ou híbrido";
-}else if ($modalidades == "online,hibrido"){
-    $modalidade = "Online ou Híbrido";
-}else if ($modalidades == "presencial"){
-    $modalidade = "Presencial";
-}else if ($modalidades == "online"){
-    $modalidade = "Online";
-}else if ($modalidades == "hibrido"){
-    $modalidade = "Híbrido";
+$modalidades = explode(", ", $aluno->getModalidade());
+
+$modalidadeTexto = "";
+
+foreach($modalidades as $index => $modalidade) {
+    if(count($modalidades) == 2) break;
+
+    if($index == count($modalidades) - 2) {
+        $modalidadeTexto = substr($modalidadeTexto, 0, -2);
+
+        $modalidadeTexto .= " ou " . $modalidade;
+
+        break;
+    }
+
+    $modalidadeTexto .= $modalidade . ", ";
 }
+
+if(empty($modalidadeTexto)) {
+    $modalidadeTexto = $modalidades[0];
+}
+
+$modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
+
 ?>
 
 <!DOCTYPE html>
@@ -107,8 +114,10 @@ if($modalidades == "presencial,online,hibrido"){
 
                         <?php 
 
-                        echo "<p><strong style='margin-right: 8px;'>Modalidade(s): </strong> {$modalidade}</p>";
-                        echo "<p><strong style='margin-right: 8px;'>Turno disponível: </strong>{$aluno->getTurnoDisponivel()}</p>"; 
+                        $turno = ucfirst($aluno->getTurnoDisponivel());
+
+                        echo "<p><strong style='margin-right: 8px;'>Modalidade(s): </strong> {$modalidadeTexto}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Turno disponível: </strong>{$turno}</p>"; 
                             
                         ?>
                     </section>

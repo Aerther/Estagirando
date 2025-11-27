@@ -31,16 +31,14 @@ if(isset($_POST['salvar'])) {
     $cidadesEstagiar = isset($_POST["cidadesEstagiar"]) ? $_POST["cidadesEstagiar"] : [1];
 
     $usuario = new Aluno($_POST["email"], "");
-    $modalidade = '';
-    if(isset($_POST["todosModalidade"])){
-        $modalidade = 'presencial,online,hibrido';
-    }else if(isset($_POST["presencial"]) && isset($_POST["online"])){
-        $modalidade = 'presencial,online';
-    }else if(isset($_POST["presencial"]) && isset($_POST["hibrido"])){
-        $modalidade = 'presencial,hibrido';
-    }else if(isset($_POST["hibrido"]) && isset($_POST["online"])){
-        $modalidade = 'online,hibrido';
-    }
+    
+    // Modalidades (mais simplificado)
+
+    $presencial = isset($_POST["presencial"]) ? $_POST["presencial"] . ", " : ""; 
+    $online = isset($_POST["online"]) ? $_POST["online"] . ", " : ""; 
+    $hibrido = isset($_POST["hibrido"]) ? $_POST["hibrido"] . ", " : ""; 
+    
+    $modalidade = $presencial . $online . $hibrido;
 
     if(!$usuario->usuarioExiste()) {
         if(!empty(array_intersect($preferencias, $naoPreferencias))) {
@@ -162,11 +160,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         
                     </section>
 
-                    
-
                     <section class="dados-input">
-                        
-
                         <section>
                             <label for="matricula">Matricula:</label>
                             <input type="string" name="matricula"  value="<?php echo $aluno->getMatricula(); ?>" required>
@@ -211,32 +205,34 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             </select>
                         </section>
 
-                        <div id="modalidade" >
-                                <?php 
-                                $modalidades = ["presencial" => "", "online" => "", "hibrido" => ""];
-                                $checked = explode(",", $aluno->getModalidade());
-                                $selecionar = '';
-                                if(sizeof($checked, 0) == 3){
-                                    $selecionar = 'checked';
-                                }
-                                for($i=0; $i < sizeof($checked, 0); $i++){
-                                    $modalidades[$checked[$i]] = "checked";
-                                    
-                                }
+                        <div id="modalidade">
+                            <?php 
 
+                            $modalidades = ["presencial" => "", "online" => "", "hibrido" => ""];
 
-                                ?>
-                                <label for="modalidade">Modalidade:</label>
-                                <div id="modalidade">
-                                <label for="todosModalidade"><input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" 
-                                <?php echo $selecionar; ?> onchange="selecionar()" > Selecionar todos</label>
-                                    
-                                <label for="presencial"><input type="checkbox" name="presencial" id="presencial" value="presencial" <?php echo $modalidades["presencial"]; ?> onchange="verificar()"> Presencial</label>
-                                <label for="online"><input type="checkbox" name="online" id="online" value="online" <?php echo $modalidades["online"]; ?> onchange="verificar()"> Online</label>
-                                <label for="hibrido"><input type="checkbox" name="hibrido" id="hibrido" value="hibrido" <?php echo $modalidades["hibrido"]; ?> onchange="verificar()"> Híbrido</label>
-                                </div>
+                            $checked = explode(", ", $aluno->getModalidade());
+
+                            $selecionar = '';
+
+                            if(count($checked) == 4) {
+                                $selecionar = 'checked';
+                            }
+
+                            for($i = 0; $i < sizeof($checked, 0); $i++) {
+                                $modalidades[trim($checked[$i])] = "checked";                 
+                            }
+
+                            ?>
+                            
+                            <label for="modalidade" class="modalidade">Modalidade:</label>
+                            
+                            <div id="modalidade">
+                                <label for="todosModalidade" class="modalidade"><input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" <?php echo $selecionar; ?> onchange="selecionar()"> Selecionar todos</label>
+                                <label for="presencial" class="modalidade"><input type="checkbox" name="presencial" id="presencial" value="presencial" <?php echo $modalidades["presencial"]; ?> onchange="verificar()"> Presencial</label>
+                                <label for="online" class="modalidade"><input type="checkbox" name="online" id="online" value="online" <?php echo $modalidades["online"]; ?> onchange="verificar()"> Online</label>
+                                <label for="hibrido" class="modalidade"><input type="checkbox" name="hibrido" id="hibrido" value="hibrido" <?php echo $modalidades["hibrido"]; ?> onchange="verificar()"> Híbrido</label>
                             </div>
-
+                        </div>
                     </section>
                 </section>
 

@@ -82,7 +82,7 @@ form {
     grid-template-columns: auto 1fr !important;
 }
 
-.dados-input section label {
+.dados-input section label, .modalidade {
     font-size: 19px;
 }
 

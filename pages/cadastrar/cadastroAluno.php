@@ -20,21 +20,13 @@ if (isset($_POST["cadastrar"])) {
 
     $cidadesEstagiar = isset($_POST["cidadesEstagiar"]) ? $_POST["cidadesEstagiar"] : [1];
     
-    if(isset($_POST["todosModalidade"])){
-        $modalidade = 'presencial,online,hibrido';
-    }else if(isset($_POST["presencial"]) && isset($_POST["online"])){
-        $modalidade = 'presencial,online';
-    }else if(isset($_POST["presencial"]) && isset($_POST["hibrido"])){
-        $modalidade = 'presencial,hibrido';
-    }else if(isset($_POST["hibrido"]) && isset($_POST["online"])){
-        $modalidade = 'online,hibrido';
-    }else if(isset($_POST["presencial"])){
-        $modalidade = 'presencial';
-    }else if(isset($_POST["hibrido"])){
-        $modalidade = 'hibrido';
-    }else if(isset($_POST["online"])){
-        $modalidade = 'online';
-    }
+    // Modalidades (mais simplificado)
+
+    $presencial = isset($_POST["presencial"]) ? $_POST["presencial"] . ", " : ""; 
+    $online = isset($_POST["online"]) ? $_POST["online"] . ", " : ""; 
+    $hibrido = isset($_POST["hibrido"]) ? $_POST["hibrido"] : ""; 
+    
+    $modalidade = $presencial . $online . $hibrido;
 
     if (!$usuario->usuarioExiste()) {
         if ($_POST["senha"] != $_POST["confSenha"]) {
@@ -235,16 +227,12 @@ $cidadesEstagiar = [];
                     </section>
 
                     <div id="modalidade">
-                    <?php
-                    $modalidades = ["presencial" => "", "online" => "", "hibrido" => ""];
+                        <label for="modalidade" class="modalidade">Modalidade:</label>
 
-                    ?>
-                    <label for="modalidade">Modalidade:</label>
-                    <label for="todosModalidade"><input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos</label>
-                        
-                    <label for="presencial"><input type="checkbox" name="presencial" id="presencial" value="presencial" onchange="verificar()"> Presencial</label>
-                    <label for="online"><input type="checkbox" name="online" id="online" value="online" onchange="verificar()"> Online</label>
-                    <label for="hibrido"><input type="checkbox" name="hibrido" id="hibrido" value="hibrido" onchange="verificar()"> Híbrido</label>
+                        <label for="todosModalidade" class="modalidade"><input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos</label>
+                        <label for="presencial" class="modalidade"><input type="checkbox" name="presencial" id="presencial" value="presencial" onchange="verificar()"> Presencial</label>
+                        <label for="online" class="modalidade"><input type="checkbox" name="online" id="online" value="online" onchange="verificar()"> Online</label>
+                        <label for="hibrido" class="modalidade"><input type="checkbox" name="hibrido" id="hibrido" value="hibrido" onchange="verificar()"> Híbrido</label>
                     </div>
                 </section>
 
@@ -292,8 +280,6 @@ $cidadesEstagiar = [];
                         </div>
                     </section>
                 </section>
-
-                
 
                 <section id="btn" class="links">
                     <?php echo "<p class='erro'>{$mensagemErro}</p>"; ?>

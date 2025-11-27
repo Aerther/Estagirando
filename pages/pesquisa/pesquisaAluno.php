@@ -22,7 +22,7 @@ $mensagemErro = "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pesquisa Avançada de Alunos</title>
+    <title>Pesquisa de Alunos</title>
 
     <link rel="stylesheet" href="./../../src/styles/reset.css">
     <link rel="stylesheet" href="./../../src/styles/stylePesquisa.css">
@@ -59,12 +59,12 @@ $mensagemErro = "";
                             <label for="curso">Curso:</label>
 
                             <select id="curso" name="curso">
-                                <option value="-1">Qualquer curso</option>
+                                <option value='-1'>Qualquer curso</option>
                                 
                                 <?php
 
                                 foreach ($cursos as $curso) {
-                                    echo "<option value='{$curso->getIdCurso()}' {$selected}>{$curso->getNome()}</option>";
+                                    echo "<option value='{$curso->getIdCurso()}'>{$curso->getNome()}</option>";
                                 }
 
                                 ?>
@@ -90,6 +90,24 @@ $mensagemErro = "";
                 </section>
 
                 <section class="preferencias">
+                    <section class="cidades">
+                        <p>Cidades Para Estagiar</p>
+
+                        <input type="text" name="cidadeEstagiar" id="cidadeEstagiar" placeholder="Cidade, Estado (sigla)">
+
+                        <div class='sugestoes'></div>
+
+                        <div class="checkboxes">
+                            <label>Cidades Escolhidas</label>
+
+                            <?php
+                            
+                            echo "<label><input type='checkbox' name='cidadesEstagiar[]' value=1 id='qualquerCidade'> Qualquer Cidade</label>";
+
+                            ?>
+                        </div>
+                    </section>
+
                     <section>
                         <label for="preferencias">Áreas de preferência:</label>
 
@@ -113,24 +131,6 @@ $mensagemErro = "";
                             foreach ($preferencias as $preferencia) {
                                 echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
                             }
-
-                            ?>
-                        </div>
-                    </section>
-
-                    <section class="cidades">
-                        <p>Cidades Para Estagiar</p>
-
-                        <input type="text" name="cidadeEstagiar" id="cidadeEstagiar" placeholder="Cidade, Estado (sigla)">
-
-                        <div class='sugestoes'></div>
-
-                        <div class="checkboxes">
-                            <label>Cidades Escolhidas</label>
-
-                            <?php
-                            
-                            echo "<label><input type='checkbox' name='cidadesEstagiar[]' value=1 id='qualquerCidade'> Qualquer Cidade</label>";
 
                             ?>
                         </div>

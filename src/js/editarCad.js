@@ -128,16 +128,14 @@ function adicionarPreferencias(divPreferencia, data, lista) {
 
 };
 
+// Modalidades
 
 const checkPresencial = document.getElementById('presencial');
 const checkHibrido = document.getElementById('hibrido');
 const checkOnline = document.getElementById('online');
-
 const checkTodosModalidade = document.getElementById('todosModalidade');
 
-
-
-function selecionar(){
+function selecionar() {
     if(checkTodosModalidade.checked){
         checkPresencial.checked=true;
         checkHibrido.checked=true;
@@ -152,7 +150,7 @@ function selecionar(){
 function verificar(){
     if (checkPresencial.checked && checkHibrido.checked && checkOnline.checked){
         checkTodosModalidade.checked = true;
-    }else if (checkPresencial.checked == false || checkHibrido.checked== false || checkOnline.checked == false) {
+    } else if (checkPresencial.checked == false || checkHibrido.checked== false || checkOnline.checked == false) {
         checkTodosModalidade.checked = false;
     }
 }
