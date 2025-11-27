@@ -82,7 +82,7 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
                         
                             foreach($preferencias as $preferencia) {
                                 $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getPreferencias()) ? "checked" : "";
-                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' onchange='sincronizarCheckbox(this)' name='preferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
@@ -97,7 +97,7 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
                         
                             foreach($preferencias as $preferencia) {
                                 $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getNaoPreferencias()) ? "checked" : "";
-                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' onchange='sincronizarCheckbox(this)' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>

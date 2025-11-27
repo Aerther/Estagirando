@@ -203,12 +203,14 @@ form {
 /* Links */
 
 .links {
-    gap: 10px;
+    row-gap: 10px;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     align-items: center;
+
+    padding-bottom: 15px;
 }
 
 .erro {
@@ -218,7 +220,7 @@ form {
 }
 
 .links div {
-    gap: 40px;
+    column-gap: 40px;
 
     display: flex;
     justify-content: center;

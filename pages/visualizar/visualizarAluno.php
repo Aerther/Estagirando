@@ -29,12 +29,12 @@ $modalidades = explode(", ", $aluno->getModalidade());
 $modalidadeTexto = "";
 
 foreach($modalidades as $index => $modalidade) {
-    if(count($modalidades) == 2) break;
+    if(empty($modalidades[1])) break;
 
     if($index == count($modalidades) - 2) {
         $modalidadeTexto = substr($modalidadeTexto, 0, -2);
 
-        $modalidadeTexto .= " ou " . $modalidade;
+        $modalidadeTexto .= " ou " . trim($modalidade);
 
         break;
     }

@@ -6,18 +6,18 @@ use App\Classes\Professor;
 use App\Classes\Preferencia;
 
 session_start();
-$msgSenha = "";
-if(isset($_SESSION['senhaEditada']) && $_SESSION['senhaEditada']){
-
-    $msgSenha = "Senha editada com sucesso!";
-    $_SESSION['senhaEditada']=false;
-}
 
 if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
 if($_SESSION["tipoUsuario"] != "professor") header("Location: ./../../privado.php");
 
 $mensagemErro = "";
+
+if(isset($_SESSION['senhaEditada']) && $_SESSION['senhaEditada']) {
+    $mensagemErro = "Senha editada com sucesso!";
+    
+    $_SESSION['senhaEditada'] = false;
+}
 
 if(isset($_POST['salvar'])) {
     $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
@@ -86,16 +86,13 @@ $preferencias = Preferencia::findAllPreferencias();
             <form action="./editarCadastroProfessor.php" method="post">
                 <section class="dados">
                     <section class="imagem">
-
                         <figure>
                             <img src="./../../icones/iconProf.png" alt="Icone Professor">
                         </figure>
 
                         <section id=divEditSenha>
                             <a href="editarSenhaProf.php" id='editSenha'>Editar senha </a>
-                            <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
                         </section>
-
                     </section>
 
                     <section class="dados-input">
@@ -156,7 +153,7 @@ $preferencias = Preferencia::findAllPreferencias();
                         
                             foreach($preferencias as $preferencia) {
                                 $selected = array_key_exists($preferencia->getIdPreferencia(), $professor->getPreferencias()) ? "checked" : "";
-                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' name='preferencias[]' onchange='sincronizarCheckbox(this)' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
@@ -171,7 +168,7 @@ $preferencias = Preferencia::findAllPreferencias();
                         
                             foreach($preferencias as $preferencia) {
                                 $selected = array_key_exists($preferencia->getIdPreferencia(), $professor->getNaoPreferencias()) ? "checked" : "";
-                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' name='naoPreferencias[]' onchange='sincronizarCheckbox(this)' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>

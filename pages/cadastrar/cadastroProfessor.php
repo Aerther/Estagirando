@@ -158,7 +158,7 @@ $preferencias = Preferencia::findAllPreferencias();
                             <?php
 
                             foreach ($preferencias as $preferencia) {
-                                echo "<label id=pref><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                                echo "<label id=pref><input type='checkbox' onchange='sincronizarCheckbox(this)' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
@@ -172,7 +172,7 @@ $preferencias = Preferencia::findAllPreferencias();
                             <?php
 
                             foreach ($preferencias as $preferencia) {
-                                echo "<label id=pref><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                                echo "<label id=pref><input type='checkbox' onchange='sincronizarCheckbox(this)' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>

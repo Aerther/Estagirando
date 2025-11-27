@@ -1,59 +1,59 @@
 // Pegando as cidades
 
-
-
-
-let inputCidade = document.getElementById("cidadeEstagiar");
+let inputCidade = document.getElementById("cidadeEstagiar") ?? null;
 let sugestoes = document.querySelector(".sugestoes");
 let cidadesDiv = document.querySelector(".checkboxes");
 
+let qualquerCidade = document.getElementById("qualquerCidade") ?? null;
 
-let qualquerCidade = document.getElementById("qualquerCidade");
+if(qualquerCidade) {
+    qualquerCidade.addEventListener("change", function(e) {
+        if(e.target.checked) {
+            for (let p of cidadesDiv.children) {
+                let input = p.querySelector("input");
+                
+                if(input != null) input.checked = false;
+            }
 
-qualquerCidade.addEventListener("change", function(e) {
-    if(e.target.checked) {
-        for (let p of cidadesDiv.children) {
-            let input = p.querySelector("input");
-            
-            if(input != null) input.checked = false;
+            e.target.checked = true;
         }
 
-        e.target.checked = true;
-    }
+    });
+}
 
-});
+if(inputCidade) {
+    inputCidade.addEventListener("input", async function(e) {
+        let [cidade, uf = ""] = e.target.value.split(",").map(s => s.trim());
 
-inputCidade.addEventListener("input", async function(e) {
-    let [cidade, uf = ""] = e.target.value.split(",").map(s => s.trim());
+        if(cidade.length <= 2) {
+            sugestoes.innerHTML = "";
 
-    if(cidade.length <= 2) {
-        sugestoes.innerHTML = "";
+            return;
+        };
 
-        return;
-    };
+        try {
+            let resposta = await fetch(`./../../buscarCidade.php?nome=${encodeURIComponent(cidade)}&uf=${uf}`);
 
-    try {
-        let resposta = await fetch(`./../../buscarCidade.php?nome=${encodeURIComponent(cidade)}&uf=${uf}`);
+            let data = await resposta.json();
 
-        let data = await resposta.json();
+            sugestoes.innerHTML = "";
 
-        sugestoes.innerHTML = "";
+            data.forEach(cidade => {
+                let p = document.createElement("p");
 
-        data.forEach(cidade => {
-            let p = document.createElement("p");
+                p.textContent = `${cidade.Nome}, ${cidade.UF}`;
+                p.dataset.id = cidade.ID_Cidade;
+                p.classList.add("item-sugestao");
+                p.addEventListener("click",  () => adicionarCidade(p));
 
-            p.textContent = `${cidade.Nome}, ${cidade.UF}`;
-            p.dataset.id = cidade.ID_Cidade;
-            p.classList.add("item-sugestao");
-            p.addEventListener("click",  () => adicionarCidade(p));
+                sugestoes.appendChild(p);
+            });
 
-            sugestoes.appendChild(p);
-        });
-
-    } catch(e) {
-        console.log(e.message);
-    }
-});
+        } catch(e) {
+            console.log(e.message);
+        }
+    });
+}
 
 function resetarQualquerCidade() {
     qualquerCidade.checked = false;
@@ -88,25 +88,27 @@ function adicionarCidade(e) {
 
 // Pegando as preferencias
 
-let inputCurso = document.getElementById("curso");
+let inputCurso = document.getElementById("curso") ?? null;
 let preferencias = document.getElementById("preferencias");
 let naoPreferencias = document.getElementById("naoPreferencias");
 
-inputCurso.addEventListener("change", async function(e) {
-    let idCurso = e.target.value;
+if(inputCurso) {
+    inputCurso.addEventListener("change", async function(e) {
+        let idCurso = e.target.value;
 
-    try {
-        let resposta = await fetch(`./../../buscarPreferencias.php?idCurso=${idCurso}`);
+        try {
+            let resposta = await fetch(`./../../buscarPreferencias.php?idCurso=${idCurso}`);
 
-        let data = await resposta.json();
+            let data = await resposta.json();
 
-        adicionarPreferencias(preferencias, data, "preferencias[]");
-        adicionarPreferencias(naoPreferencias, data, "naoPreferencias[]");
+            adicionarPreferencias(preferencias, data, "preferencias[]");
+            adicionarPreferencias(naoPreferencias, data, "naoPreferencias[]");
 
-    } catch(e) {
-        console.log(e.message);
-    }
-});
+        } catch(e) {
+            console.log(e.message);
+        }
+    });
+}
 
 function adicionarPreferencias(divPreferencia, data, lista) {
     divPreferencia.innerHTML = "";
@@ -117,6 +119,8 @@ function adicionarPreferencias(divPreferencia, data, lista) {
         input.type = "checkbox";
         input.name = lista;
         input.value = preferencia.ID_Preferencia;
+        input.addEventListener("change", function() {sincronizarCheckbox(this)});
+        sincronizarCheckbox(input);
 
         let label = document.createElement("label");
         label.textContent = " " + preferencia.Descricao;
@@ -127,6 +131,31 @@ function adicionarPreferencias(divPreferencia, data, lista) {
     });
 
 };
+
+function sincronizarCheckbox(origem) {
+    const valor = origem.value;
+
+    const todos = document.querySelectorAll(`.preferencias input[type="checkbox"][value="${valor}"]`);
+
+    todos.forEach(cb => {
+        if (cb !== origem) {
+            cb.disabled = origem.checked;
+        }
+    });
+}
+
+function inicializarListas() {
+    const todos = document.querySelectorAll('.preferencias input[type="checkbox"]');
+
+    todos.forEach(cb => {
+        sincronizarCheckbox(cb);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const checkboxes = document.querySelectorAll('.preferencias input[type="checkbox"]');
+    checkboxes.forEach(cb => sincronizarCheckbox(cb));
+});
 
 // Modalidades
 

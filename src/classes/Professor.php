@@ -149,7 +149,8 @@ class Professor extends Usuario {
         SELECT p.*, u.*, (
             (CASE WHEN u.Nome LIKE ? THEN 10 ELSE 0 END) +
             (CASE WHEN u.Sobrenome LIKE ? THEN 10 ELSE 0 END) +
-            (CASE WHEN u.Email LIKE ? THEN 10 ELSE 0 END)
+            (CASE WHEN u.Email LIKE ? THEN 10 ELSE 0 END) +
+            (CASE WHEN p.Status_Disponibilidade = 'sim' THEN 1000 ELSE 0 END)
         ) + SUM(
             (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'sim' THEN 1 ELSE 0 END) +
             (CASE WHEN up.ID_Preferencia IN ({$placeholders1}) AND up.Prefere = 'nao' THEN -1 ELSE 0 END) +

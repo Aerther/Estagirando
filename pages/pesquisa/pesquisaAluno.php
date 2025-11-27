@@ -120,7 +120,7 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
                             <?php
 
                             foreach ($preferencias as $preferencia) {
-                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' name='preferencias[]' onchange='sincronizarCheckbox(this)' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
@@ -134,7 +134,7 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
                             <?php
 
                             foreach ($preferencias as $preferencia) {
-                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' name='naoPreferencias[]' onchange='sincronizarCheckbox(this)' value={$preferencia->getIdPreferencia()}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>

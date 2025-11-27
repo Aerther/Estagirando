@@ -19,14 +19,17 @@ if (isset($_POST["cadastrar"])) {
     $naoPreferencias = isset($_POST["naoPreferencias"]) ? $_POST["naoPreferencias"] : [];
 
     $cidadesEstagiar = isset($_POST["cidadesEstagiar"]) ? $_POST["cidadesEstagiar"] : [1];
+    $modalidades = isset($_POST["modalidades"]) ? $_POST["modalidades"] : [];
     
     // Modalidades (mais simplificado)
 
-    $presencial = isset($_POST["presencial"]) ? $_POST["presencial"] . ", " : ""; 
-    $online = isset($_POST["online"]) ? $_POST["online"] . ", " : ""; 
-    $hibrido = isset($_POST["hibrido"]) ? $_POST["hibrido"] : ""; 
-    
-    $modalidade = $presencial . $online . $hibrido;
+    $modalidade = "";
+
+    foreach($modalidades as $index => $descricao) {
+        $modalidade .= $descricao . ", ";
+    }
+
+    $modalidade = substr($modalidade, 0, -2);
 
     if (!$usuario->usuarioExiste()) {
         if ($_POST["senha"] != $_POST["confSenha"]) {
@@ -136,7 +139,6 @@ $cidadesEstagiar = [];
                         <label for="dataNascimento">Data Nascimento:</label>
                         <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                     </section>
-                    
 
                     <section class="more-space">
                         <label for="situacao">Situação Atual:</label>
@@ -156,19 +158,14 @@ $cidadesEstagiar = [];
                             <option value="Ocupado" <?php echo $opcoes["Ocupado"]; ?>>Ocupado</option>
                         </select>
                     </section>
-
-                    
                 </section>
 
                 <section class="dados">
-                    
                     <section class="more-space">
                         <label for="ano">Ano de Ingresso:</label>
                         <input type="number" name="ano" max='2025' value="<?php if (isset($_POST['ano']))
                             echo htmlspecialchars($_POST['ano']); ?>" required>
                     </section>
-
-                    
 
                     <section class="more-space">
                         <?php
@@ -229,10 +226,10 @@ $cidadesEstagiar = [];
                     <div id="modalidade">
                         <label for="modalidade" class="modalidade">Modalidade:</label>
 
-                        <label for="todosModalidade" class="modalidade"><input type="checkbox" name="todosModalidade" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos</label>
-                        <label for="presencial" class="modalidade"><input type="checkbox" name="presencial" id="presencial" value="presencial" onchange="verificar()"> Presencial</label>
-                        <label for="online" class="modalidade"><input type="checkbox" name="online" id="online" value="online" onchange="verificar()"> Online</label>
-                        <label for="hibrido" class="modalidade"><input type="checkbox" name="hibrido" id="hibrido" value="hibrido" onchange="verificar()"> Híbrido</label>
+                        <label for="todosModalidade" class="modalidade"><input type="checkbox" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos</label>
+                        <label for="presencial" class="modalidade"><input type="checkbox" name="modalidades[]" id="presencial" value="presencial" onchange="verificar()"> Presencial</label>
+                        <label for="online" class="modalidade"><input type="checkbox" name="modalidades[]" id="online" value="online" onchange="verificar()"> Online</label>
+                        <label for="hibrido" class="modalidade"><input type="checkbox" name="modalidades[]" id="hibrido" value="hibrido" onchange="verificar()"> Híbrido</label>
                     </div>
                 </section>
 

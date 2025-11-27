@@ -30,7 +30,7 @@ $lvc = ($_SESSION["tipoUsuario"] == "aluno" ? "visualizarAluno.php" : "visualiza
         echo "<img src='{$URL_BASE}/icones/pesquisa.png' alt='Pesquisa' class='icone-menu'>";
         echo "</a>";
 
-        echo "<a href='https://billyorg.com/2025/projeto/grupo2/index.php?idUsuario={$_SESSION['idUsuario']}' title='Solicitações de Orientação'>";
+        echo "<a href='https://billyorg.com/2025/projeto/grupo2/index.php' title='Solicitações de Orientação'>";
         echo "<img src='{$URL_BASE}/icones/solicitacoes.png' alt='Solicitação de Orientação' class='icone-menu'>";
         echo "</a>";
 

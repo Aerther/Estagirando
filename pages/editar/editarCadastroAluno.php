@@ -11,18 +11,18 @@ use App\Classes\Preferencia;
 use App\Classes\Curso;
 
 session_start();
-$msgSenha = "";
-if(isset($_SESSION['senhaEditada']) && $_SESSION['senhaEditada']){
-
-    $msgSenha = "Senha editada com sucesso!";
-    $_SESSION['senhaEditada']=false;
-}
 
 if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
 if($_SESSION["tipoUsuario"] != "aluno") header("Location: ./../../privado.php");
 
 $mensagemErro = "";
+
+if(isset($_SESSION['senhaEditada']) && $_SESSION['senhaEditada']){
+
+    $mensagemErro = "Senha editada com sucesso!";
+    $_SESSION['senhaEditada'] = false;
+}
 
 if(isset($_POST['salvar'])) {
     $preferencias = isset($_POST["preferencias"]) ? $_POST["preferencias"] : [];
@@ -110,7 +110,6 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                         <section id="divEditSenha">
                             <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
-                            <?php echo " <p class='sucesso'>{$msgSenha}</p>";?>
                         </section>
                     </section>
 
@@ -272,7 +271,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         
                             foreach($preferencias as $preferencia) {
                                 $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getPreferencias()) ? "checked" : "";
-                                echo "<label><input type='checkbox' name='preferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' name='preferencias[]' onchange='sincronizarCheckbox(this)' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
@@ -287,7 +286,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         
                             foreach($preferencias as $preferencia) {
                                 $selected = array_key_exists($preferencia->getIdPreferencia(), $aluno->getNaoPreferencias()) ? "checked" : "";
-                                echo "<label><input type='checkbox' name='naoPreferencias[]' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
+                                echo "<label><input type='checkbox' name='naoPreferencias[]' onchange='sincronizarCheckbox(this)' value={$preferencia->getIdPreferencia()} {$selected}> {$preferencia->getDescricao()}</label>";
                             }
 
                             ?>
