@@ -131,12 +131,12 @@ $cidadesEstagiar = [];
                     </section>
 
                     <section>
-                        <label for="matricula">Matricula:</label>
+                        <label for="matricula">Matrícula:</label>
                         <input type="string" name="matricula"  value="<?php if(isset($_POST['matricula'])) echo $_POST['matricula']; ?>" required>
                     </section>
 
                     <section class="more-space">
-                        <label for="dataNascimento">Data Nascimento:</label>
+                        <label for="dataNascimento">Data de Nascimento:</label>
                         <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                     </section>
 

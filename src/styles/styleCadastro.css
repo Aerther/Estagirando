@@ -47,11 +47,8 @@ form {
 .dados section input:not([type~="radio"]), select, option, .cidades > input {
     width: clamp(120px, 20vw, 300px);
     height: 30px;
-
     padding: 0 10px;
-
     font-size: 20px;
-    
     border: 1px solid black;
     border-radius: 10px;
 }
@@ -100,19 +97,14 @@ form {
 }
 
 .disponibilidade {
-    width: 100%;
-
+    width: 40%;
     gap: 80px;
-
-    padding-left: 30px;
-
     display: flex;
     align-items: flex-end;
 }
 
 .disponibilidade label {
     gap: 10px;
-
     display: flex;
     align-items: center;
 }
@@ -257,4 +249,8 @@ form {
     display: grid;
     justify-content: start;
     margin-top: 10px;
+}
+
+label{
+    width: 210px;
 }

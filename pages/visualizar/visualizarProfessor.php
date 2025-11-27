@@ -60,10 +60,10 @@ $naoPreferencias = $professor->getNaoPreferencias();
                         $status = $professor->getStatusDisponibilidade();
 
                         if($status=='sim'){
-                            $status = "Disponível";
+                            $status = "Disponível para orientar";
                             $cor = "green";
                         } else {
-                            $status = "Não Disponivel";
+                            $status = "Indisponível para orientar";
                             $cor = "red";
                         }
 
