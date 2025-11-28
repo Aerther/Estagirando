@@ -95,18 +95,18 @@ $preferencias = Preferencia::findAllPreferencias();
                     </section>
 
                     <section class="more-space">
-                        <label for="dataNascimento">Data Nascimento:</label>
+                        <label for="dataNascimento">Data de nascimento:</label>
                         <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                     </section>
 
                     <section class="more-space">
-                        <label for="email">Email:</label>
+                        <label for="email">E-mail:</label>
                         <input type="email" name="email" value="<?php if (isset($_POST['email']))
                             echo htmlspecialchars($_POST['email']); ?>" required>
                     </section>
 
                     <section class="more-space">
-                        <label for="confEmail">Confirme o Email:</label>
+                        <label for="confEmail">Confirme o e-mail:</label>
                         <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail']))
                             echo htmlspecialchars($_POST['confEmail']); ?>" required>
                     </section>
@@ -124,7 +124,7 @@ $preferencias = Preferencia::findAllPreferencias();
                     </section>
 
                     <section class="more-space">
-                        <label for="confSenha">Confirme a Senha:</label>
+                        <label for="confSenha">Confirme a senha:</label>
                         <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha']))
                             echo htmlspecialchars($_POST['confSenha']); ?>" required>
                     </section>
@@ -150,7 +150,7 @@ $preferencias = Preferencia::findAllPreferencias();
 
                 <section class="preferencias">
                     <section>
-                        <p>Preferências</p>
+                        <p>Preferências:</p>
 
                         <div>
                             <?php
@@ -164,7 +164,7 @@ $preferencias = Preferencia::findAllPreferencias();
                     </section>
 
                     <section>
-                        <p>Não preferências</p>
+                        <p>Não preferências:</p>
 
                         <div>
                             <?php

@@ -96,7 +96,7 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
                         }
  
                         echo "<p><strong style='margin-right: 8px;'>Nome:</strong> {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> ";
-                        echo "<p><strong style='margin-right: 8px;'>Email: </strong> {$aluno->getEmail()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>-Email: </strong> {$aluno->getEmail()}</p>";
                         echo "<p><strong style='margin-right: 8px;'>Curso: </strong> {$curso->getNome()}</p>";
                         echo "<p><strong style='margin-right: 8px;'>Ingressou em </strong>{$aluno->getAnoIngresso()}</p>"; 
                         
@@ -106,7 +106,7 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
                     <section class="dados-usuario">
                         <?php
 
-                        echo "<p><strong style='margin-right: 8px;'>Data de Nascimento: </strong> {$aluno->getDataNascimento()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Data de nascimento: </strong> {$aluno->getDataNascimento()}</p>";
 
                         ?>
 
@@ -125,7 +125,7 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
 
                 <section class="linha-2">
                     <section class="cidades">
-                        <p class="titulo-dados">Cidades Para Estagiar</p>
+                        <p class="titulo-dados">Cidades para estagiar:</p>
                         
                         <div>
                             <?php
@@ -144,7 +144,7 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
                     </section>
 
                     <section class="preferencias">
-                        <p class="titulo-dados">Preferências</p>
+                        <p class="titulo-dados">Preferências:</p>
                         
                         <div>
                             <?php
@@ -158,7 +158,7 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
                     </section>
 
                     <section class="nao-preferencias">
-                        <p class="titulo-dados">Não Preferências</p>
+                        <p class="titulo-dados">Não preferências:</p>
                         
                         <div>
                             <?php

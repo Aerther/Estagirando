@@ -62,7 +62,7 @@ if(isset($_POST['salvar'])) {
 
         
             <form action="./editarSenhaAluno.php" method="post">
-                <h1 id='titleEdit'>Edite sua senha!</h1>
+                <h1 id='titleEdit'>Edição de senha!</h1>
                 <section class="dados">
                 
                     <section class="dados-senha">

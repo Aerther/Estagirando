@@ -90,11 +90,6 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 
                     echo "<div class='usuario'>";
 
-                    echo "<div class='imagem'";
-
-                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}'> <figure><img src='./../../{$foto->getLinkFoto()}' alt='Foto Professor' /></figure> </a>";
-
-                    echo "</div>";
 
                     echo "<div class='dados'>";
                     

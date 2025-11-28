@@ -126,7 +126,7 @@ $preferencias = Preferencia::findAllPreferencias();
 
                     <section class="dados-input">
                         <section>
-                            <label for="email">Email:</label>
+                            <label for="email">E-mail:</label>
                             <input type="email" name="email" value="<?php echo $professor->getEmail(); ?>" required>
                         </section>
 
@@ -136,7 +136,7 @@ $preferencias = Preferencia::findAllPreferencias();
                         </section>
 
                         <section class="more-space">
-                            <label for="dataNascimento">Data Nascimento:</label>
+                            <label for="dataNascimento">Data de nascimento:</label>
                             <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $professor->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                         </section>
 
@@ -146,7 +146,7 @@ $preferencias = Preferencia::findAllPreferencias();
 
                 <section class="preferencias">
                     <section>
-                        <p>Preferências</p>
+                        <p>Preferências:</p>
 
                         <div>
                             <?php
@@ -161,7 +161,7 @@ $preferencias = Preferencia::findAllPreferencias();
                     </section>
 
                     <section>
-                        <p>Não preferências</p>
+                        <p>Não preferências:</p>
                         
                         <div>
                             <?php 

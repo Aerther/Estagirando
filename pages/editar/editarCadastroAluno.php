@@ -125,7 +125,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         </section>
 
                         <section>
-                            <label for="email">Email:</label>
+                            <label for="email">E-mail:</label>
                             <input type="email" name="email" value="<?php echo $aluno->getEmail(); ?>" required>
                         </section>
 
@@ -135,12 +135,12 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         </section>
 
                         <section class="more-space">
-                            <label for="dataNascimento">Data Nascimento:</label>
+                            <label for="dataNascimento">Data de nascimento:</label>
                             <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $aluno->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                         </section>
 
                         <section class="more-space">
-                            <label for="situacao">Situação Atual:</label>
+                            <label for="situacao">Situação atual:</label>
                             
                             <?php 
                             
@@ -161,7 +161,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                     <section class="dados-input">
                         <section>
-                            <label for="matricula">Matricula:</label>
+                            <label for="matricula">Matrícula:</label>
                             <input type="string" name="matricula"  value="<?php echo $aluno->getMatricula(); ?>" required>
                         </section>
 
@@ -238,14 +238,14 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                 <section class="preferencias">
                     <section class="cidades">
-                        <p>Cidades Para Estagiar</p>
+                        <p>Cidades para estagiar:</p>
 
                         <input type="text" name="cidadeEstagiar" id="cidadeEstagiar" placeholder="Cidade, Estado (sigla)">
 
                         <div class='sugestoes'></div>
                         
                         <div class="checkboxes">
-                            <label>Cidades Escolhidas</label>
+                            <label>Cidades escolhidas:</label>
 
                             <?php
 
@@ -265,7 +265,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                     </section>
 
                     <section>
-                        <p>Preferências</p>
+                        <p>Preferências:</p>
 
                         <div id="preferencias">
                             <?php
@@ -280,7 +280,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                     </section>
 
                     <section>
-                        <p>Não preferências</p>
+                        <p>Não preferências:</p>
                         
                         <div id="naoPreferencias">
                             <?php 

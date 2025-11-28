@@ -102,13 +102,7 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
                     $naoPreferencias = substr($naoPreferencias, 0, -2);*/
 
                     echo "<div class='usuario'>";
-
-                    echo "<div class='imagem'";
-
-                    echo "<a href='./../visualizar/visualizarAluno.php?id={$aluno->getIdUsuario()}'> <figure><img src='./../../{$foto->getLinkFoto()}' alt='Foto Professor' /></figure> </a>";
-
-                    echo "</div>";
-
+                    
                     echo "<div class='dados'>";
                     
                     echo "<a href='./../visualizar/visualizarAluno.php?id={$aluno->getIdUsuario()}' class=nome>" . $aluno->getNome() . " ". $aluno->getSobrenome()."</a>";

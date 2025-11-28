@@ -47,7 +47,7 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
         <main>
             <form action="./../utils/dadosAlunos.php" method="post">
                 <section class="dados">
-                    <h2>Pesquisa de Alunos</h2>
+                    <h2>Pesquisa de alunos</h2>
 
                     <div class="coluna1">
                         <section>
@@ -56,7 +56,7 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
                         </section>
 
                         <section>
-                            <label for="email">Email:</label>
+                            <label for="email">E-mail:</label>
                             <input type="email" name="email">
                         </section>
 
@@ -79,7 +79,7 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
 
                     <div class="coluna2">
                         <section>
-                            <label for="ano">Ano de Ingresso:</label>
+                            <label for="ano">Ano de ingresso:</label>
                             <input type="number" name="ano" max="2025">
                         </section>
 
@@ -97,14 +97,14 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
 
                 <section class="preferencias">
                     <section class="cidades">
-                        <p>Cidades Para Estagiar</p>
+                        <p>Cidades para estagiar:</p>
 
                         <input type="text" name="cidadeEstagiar" id="cidadeEstagiar" placeholder="Cidade, Estado (sigla)">
 
                         <div class='sugestoes'></div>
 
                         <div class="checkboxes">
-                            <label>Cidades Escolhidas</label>
+                            <label>Cidades escolhidas:</label>
 
                             <?php
                             
@@ -115,7 +115,7 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
                     </section>
 
                     <section>
-                        <label for="preferencias">Áreas de preferência:</label>
+                        <label for="preferencias">Preferências:</label>
 
                         <div id="preferencias">
                             <?php
@@ -129,7 +129,7 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
                     </section>
 
                     <section>
-                        <label for="naoPreferencias">Áreas de não preferência:</label>
+                        <label for="naoPreferencias">Não preferências:</label>
                         
                         <div id="naoPreferencias">
                             <?php
