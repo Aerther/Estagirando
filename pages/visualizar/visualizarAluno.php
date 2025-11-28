@@ -96,7 +96,7 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
                         }
  
                         echo "<p><strong style='margin-right: 8px;'>Nome:</strong> {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> ";
-                        echo "<p><strong style='margin-right: 8px;'>-Email: </strong> {$aluno->getEmail()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>E-mail: </strong> {$aluno->getEmail()}</p>";
                         echo "<p><strong style='margin-right: 8px;'>Curso: </strong> {$curso->getNome()}</p>";
                         echo "<p><strong style='margin-right: 8px;'>Ingressou em </strong>{$aluno->getAnoIngresso()}</p>"; 
                         

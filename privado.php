@@ -9,6 +9,8 @@ require_once __DIR__."/vendor/autoload.php";
 session_start();
 
 if(!isset($_SESSION["idUsuario"])) header("Location: index.php");
+$msg = ($_SESSION["tipoUsuario"] == "aluno" ? "Navegue pelos professores cadastrados!" : "Navegue pelos alunos cadastrados!");
+
 
 ?>
 
@@ -19,7 +21,7 @@ if(!isset($_SESSION["idUsuario"])) header("Location: index.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./src/styles/reset.css">
-    <link rel="stylesheet" href="./src/styles/styleEditar.css">
+    <link rel="stylesheet" href="./src/styles/styleHome.css">
 
     <title>Home</title>
 </head>
@@ -34,10 +36,13 @@ if(!isset($_SESSION["idUsuario"])) header("Location: index.php");
         require_once __DIR__."/menu.php";
 
         ?>
+        <div id='title'>
+            <?php
+                echo "<p class='title'>{$msg}</p>"
+            ?>
+        </div>
 
-        <main>
-            <p>Nada por aqui ainda, aguarde futuras atualizações</p>
-        </main>
+
     </div>
 </body>
 </html>
