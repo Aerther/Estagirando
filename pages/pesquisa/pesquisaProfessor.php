@@ -50,11 +50,16 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
         require_once __DIR__ . "/../../menu.php";
 
         ?>
+        <div id='title'>
+            <?php
+                echo "<p class='title'>Pesquisa de professores</p>"
+            ?>
+        </div>
         
         <main>
             <form action="./../utils/dadosProfessores.php" method="post">
                 <section class="dados">
-                    <h2>Pesquisa de professores</h2>
+                    
 
                     <div class="coluna1">
                         <section>

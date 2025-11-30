@@ -17,7 +17,7 @@ header, main {
 header {
     border-bottom: 1px solid #b3b3b3;
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 60% 40%;
 }
 
 .texto-inicial {
@@ -35,7 +35,7 @@ header {
 
 .icones {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(auto, 86px));
+    grid-template-columns: repeat(auto-fill, minmax(auto, 90px));
     align-items: center;
 }
 

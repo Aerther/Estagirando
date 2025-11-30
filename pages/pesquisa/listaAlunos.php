@@ -45,6 +45,12 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
         require_once __DIR__ . "/../../menu.php";
 
         ?>
+        <div id='title'>
+            <?php
+                echo "<p class='title'>Resultado da pesquisa</p>";
+                echo "<p class='subtitulo'>A listagem está ordenada de acordo com os cadastros mais próximos à pesquisa</p>";
+            ?>
+        </div>
 
         <main>
             <div class="usuarios">

@@ -98,6 +98,11 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
         require_once __DIR__ . "/../../menu.php";
 
         ?>
+        <div id='title'>
+            <?php
+                echo "<p class='title'>Edição de cadastro</p>"
+            ?>
+        </div>
         
         <main>
             <form action="./editarCadastroAluno.php" method="post">

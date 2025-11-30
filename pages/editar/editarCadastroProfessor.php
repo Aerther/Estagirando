@@ -81,6 +81,11 @@ $preferencias = Preferencia::findAllPreferencias();
         require_once __DIR__ . "/../../menu.php";
 
         ?>
+        <div id='title'>
+            <?php
+                echo "<p class='title'>Edição de cadastro</p>"
+            ?>
+        </div>
         
         <main>
             <form action="./editarCadastroProfessor.php" method="post">

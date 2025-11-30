@@ -25,13 +25,16 @@ $lvc = ($_SESSION["tipoUsuario"] == "aluno" ? "visualizarAluno.php" : "visualiza
 
     <section class="icones">
         <?php 
-        
+        echo "<a href='{$URL_BASE}/privado.php' title='Home'>";
+        echo "<img src='{$URL_BASE}/icones/iconHome.png' alt='Home' class='icone-menu'>";
+        echo "</a>";
+
         echo "<a href='{$URL_BASE}/pages/pesquisa/{$lp}' title='Pesquisa'>";
         echo "<img src='{$URL_BASE}/icones/pesquisa.png' alt='Pesquisa' class='icone-menu'>";
         echo "</a>";
 
-        echo "<a href='https://billyorg.com/2025/projeto/grupo2/index.php' title='Solicitações de Orientação'>";
-        echo "<img src='{$URL_BASE}/icones/solicitacoes.png' alt='Solicitação de Orientação' class='icone-menu'>";
+        echo "<a href='https://billyorg.com/2025/projeto/grupo2/index.php' title='Estágios'>";
+        echo "<img src='{$URL_BASE}/icones/solicitacoes.png' alt='Estágios' class='icone-menu'>";
         echo "</a>";
 
         echo "<a href='{$URL_BASE}/pages/visualizar/{$lvc}' title='Visualizar Cadastro'>";
