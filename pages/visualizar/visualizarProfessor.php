@@ -75,7 +75,7 @@ $naoPreferencias = $professor->getNaoPreferencias();
                         }
 
                         echo "<p><strong style='margin-right: 8px;'>Nome: </strong>{$professor->getNome()} {$professor->getSobrenome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
-                        echo "<p><strong style='margin-right: 8px;'>Email: </strong>{$professor->getEmail()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>E-mail: </strong>{$professor->getEmail()}</p>";
                         
                         ?>
                     </section>
@@ -88,7 +88,7 @@ $naoPreferencias = $professor->getNaoPreferencias();
                             
 
                     <section class="preferencias">
-                        <p class="titulo-dados">Preferências</p>
+                        <p class="titulo-dados">Preferências:</p>
                         
                         <div>
                             <?php
@@ -102,7 +102,7 @@ $naoPreferencias = $professor->getNaoPreferencias();
                     </section>
 
                     <section class="nao-preferencias">
-                        <p class="titulo-dados">Não Preferências</p>
+                        <p class="titulo-dados">Não preferências:</p>
                         
                         <div>
                             <?php

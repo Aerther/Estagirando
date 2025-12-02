@@ -118,13 +118,13 @@ $cidadesEstagiar = [];
                     </section>
 
                     <section class="more-space">
-                        <label for="email">Email:</label>
+                        <label for="email">E-mail:</label>
                         <input type="email" name="email" value="<?php if (isset($_POST['email']))
                             echo htmlspecialchars($_POST['email']); ?>" required>
                     </section>
 
                     <section class="more-space">
-                        <label for="confEmail">Confirme o Email:</label>
+                        <label for="confEmail">Confirme o e-mail:</label>
                         <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail']))
                             echo htmlspecialchars($_POST['confEmail']); ?>" required>
                     </section>
@@ -135,12 +135,12 @@ $cidadesEstagiar = [];
                     </section>
 
                     <section class="more-space">
-                        <label for="dataNascimento">Data de Nascimento:</label>
+                        <label for="dataNascimento">Data de nascimento:</label>
                         <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                     </section>
 
                     <section class="more-space">
-                        <label for="situacao">Situação Atual:</label>
+                        <label for="situacao">Situação atual:</label>
 
                         <?php
 
@@ -161,7 +161,7 @@ $cidadesEstagiar = [];
 
                 <section class="dados">
                     <section class="more-space">
-                        <label for="ano">Ano de Ingresso:</label>
+                        <label for="ano">Ano de ingresso:</label>
                         <input type="number" name="ano" max='2025' value="<?php if (isset($_POST['ano']))
                             echo htmlspecialchars($_POST['ano']); ?>" required>
                     </section>
@@ -218,7 +218,7 @@ $cidadesEstagiar = [];
                     </section>
 
                     <section class="more-space">
-                        <label for="confSenha">Confirme a Senha:</label>
+                        <label for="confSenha">Confirme a senha:</label>
                         <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha']))
                             echo htmlspecialchars($_POST['confSenha']); ?>" required>
                     </section>
@@ -235,7 +235,7 @@ $cidadesEstagiar = [];
 
                 <section class="preferencias">
                     <section class="cidades">
-                        <p>Cidades Para Estagiar</p>
+                        <p>Cidades para estagiar:</p>
 
                         <input type="text" name="cidadeEstagiar" id="cidadeEstagiar" placeholder="Cidade, Estado (sigla)">
 
@@ -262,7 +262,7 @@ $cidadesEstagiar = [];
                     </section>
 
                     <section>
-                        <p>Preferências</p>
+                        <p>Preferências:</p>
 
                         <div id="preferencias">
                             <p>Escolha um curso primeiro</p>
@@ -270,7 +270,7 @@ $cidadesEstagiar = [];
                     </section>
 
                     <section>
-                        <p>Não preferências</p>
+                        <p>Não preferências:</p>
 
                         <div id="naoPreferencias">
                             <p>Escolha um curso primeiro</p>

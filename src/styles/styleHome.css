@@ -1,0 +1,21 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 12% 1fr;
+    grid-template-columns: 100%;
+    
+}
+#title{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.title {
+    font-size: 27px;
+    font-weight: bold;
+}
+

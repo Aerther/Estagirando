@@ -85,7 +85,7 @@ if(isset($_POST["botao-enviar"])) {
                 </section>
 
                 <section class="links">
-                    <a href="./recuperarSenha.php">Recuperar Senha</a>
+                    <a href="./recuperarSenha.php">Recuperar senha</a>
                     <input type="submit" value="Entrar" name="botao-enviar" class="botao">
                 </section>    
                 

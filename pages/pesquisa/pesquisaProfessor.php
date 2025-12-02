@@ -50,11 +50,16 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
         require_once __DIR__ . "/../../menu.php";
 
         ?>
+        <div id='title'>
+            <?php
+                echo "<p class='title'>Pesquisa de professores</p>"
+            ?>
+        </div>
         
         <main>
             <form action="./../utils/dadosProfessores.php" method="post">
                 <section class="dados">
-                    <h2>Pesquisa de Professores</h2>
+                    
 
                     <div class="coluna1">
                         <section>
@@ -63,7 +68,7 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
                         </section>
 
                         <section>
-                            <label for="email">Email:</label>
+                            <label for="email">E-mail:</label>
                             <input type="email" name="email">
                         </section>
                     </div>
@@ -75,7 +80,7 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
 
                 <section class="preferencias">
                     <section>
-                        <p>Preferências</p>
+                        <p>Preferências:</p>
 
                         <div>
                             <?php
@@ -90,7 +95,7 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
                     </section>
 
                     <section>
-                        <p>Não preferências</p>
+                        <p>Não preferências:</p>
 
                         <div>
                             <?php

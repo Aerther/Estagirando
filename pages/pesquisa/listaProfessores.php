@@ -42,6 +42,13 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 
         ?>
 
+        <div id='title'>
+            <?php
+                echo "<p class='title'>Resultado da pesquisa</p>";
+                echo "<p class='subtitulo'>A listagem está ordenada de acordo com os cadastros mais próximos à pesquisa</p>";
+            ?>
+        </div>
+
         <main>
             <div class="usuarios">
                 <?php
@@ -90,11 +97,6 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 
                     echo "<div class='usuario'>";
 
-                    echo "<div class='imagem'";
-
-                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}'> <figure><img src='./../../{$foto->getLinkFoto()}' alt='Foto Professor' /></figure> </a>";
-
-                    echo "</div>";
 
                     echo "<div class='dados'>";
                     

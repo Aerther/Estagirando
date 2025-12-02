@@ -58,12 +58,16 @@ if(isset($_POST['salvar'])) {
         require_once __DIR__ . "/../../menu.php";
 
         ?>
+        <div id='title'>
+            <?php
+                echo "<p class='title'>Edição de senha</p>"
+            ?>
+        </div>
         
         <main>
 
         
             <form action="./editarSenhaProf.php" method="post">
-                <h1 id='titleEdit'>Edite sua senha!</h1>
                 <section class="dados">
                 
                     <section class="dados-senha">

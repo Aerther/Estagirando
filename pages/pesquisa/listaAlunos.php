@@ -45,6 +45,12 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
         require_once __DIR__ . "/../../menu.php";
 
         ?>
+        <div id='title'>
+            <?php
+                echo "<p class='title'>Resultado da pesquisa</p>";
+                echo "<p class='subtitulo'>A listagem está ordenada de acordo com os cadastros mais próximos à pesquisa</p>";
+            ?>
+        </div>
 
         <main>
             <div class="usuarios">
@@ -105,13 +111,7 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
                     */
 
                     echo "<div class='usuario'>";
-
-                    echo "<div class='imagem'";
-
-                    echo "<a href='./../visualizar/visualizarAluno.php?id={$aluno->getIdUsuario()}'> <figure><img src='./../../{$foto->getLinkFoto()}' alt='Foto Professor' /></figure> </a>";
-
-                    echo "</div>";
-
+                    
                     echo "<div class='dados'>";
                     
                     echo "<a href='./../visualizar/visualizarAluno.php?id={$aluno->getIdUsuario()}' class=nome>" . $aluno->getNome() . " ". $aluno->getSobrenome()."</a>";

@@ -8,9 +8,7 @@
     align-items: center;
 }
 
-.usuarios > div:first-of-type {
-    margin-top: 30px;
-}
+
 
 .usuario {
     width: 70%;
@@ -56,7 +54,6 @@
 
 .usuario p {
     padding: 10px 0;
-
     font-size: 20px;
 }
 
@@ -79,4 +76,22 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+#title{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    margin-top: 20px;
+}
+
+.title {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.subtitulo{
+    font-size: 19px;
+    margin-top: 25px;
 }
