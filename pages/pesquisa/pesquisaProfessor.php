@@ -59,8 +59,6 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
         <main>
             <form action="./../utils/dadosProfessores.php" method="post">
                 <section class="dados">
-                    
-
                     <div class="coluna1">
                         <section>
                             <label for="nome">Nome:</label>
@@ -72,16 +70,11 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
                             <input type="email" name="email">
                         </section>
                     </div>
-
-                    <div class="coluna2">
-
-                    </div>
                 </section>
 
                 <section class="preferencias">
                     <section>
                         <p>Preferências:</p>
-
                         <div>
                             <?php
                         
@@ -93,7 +86,6 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
                             ?>
                         </div>
                     </section>
-
                     <section>
                         <p>Não preferências:</p>
 
