@@ -20,7 +20,7 @@ $lvc = ($_SESSION["tipoUsuario"] == "aluno" ? "visualizarAluno.php" : "visualiza
 
 <header>
     <section class="texto-inicial">
-        <?php echo "<p>Bem-vindo {$_SESSION['tipoUsuario']}!</p>"; ?>
+        <?php echo "<p>Bem-vindo {$_SESSION['tipoUsuario']}</p>"; ?>
     </section>
 
     <section class="icones">
