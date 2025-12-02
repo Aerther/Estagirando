@@ -1,7 +1,6 @@
 .container {
     width: 100vw;
     height: 100vh;
-
     display: grid;
     grid-template-rows: 12% 1fr;
     grid-template-columns: 100%;
@@ -10,7 +9,6 @@
 header, main {
     height: 100%;
     width: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,13 +21,10 @@ h1 {
 form {
     width: 95%;
     height: 1000px;
-
     background-color: rgb(230, 230, 230);
     border-radius: 15px;
-
     padding: 15px;
     margin-bottom: 20px;
-
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 44% 46% 12%;
@@ -47,39 +42,31 @@ form {
 .dados section input:not([type~="radio"]), select, option, .cidades > input {
     width: clamp(120px, 20vw, 300px);
     height: 30px;
-
     padding: 0 10px;
-
     font-size: 20px;
-    
     border: 1px solid black;
     border-radius: 10px;
 }
 
 .dados {
     height: 100%;
-
     padding-left: 20px;
-
     padding-top: 10px;
-
     display: grid;
     grid-auto-rows: 50px;
     grid-template-columns: 100%;
+    grid-auto-flow: row;
 }
 
 .dados section {
     display: grid;
     align-items: center;
-
     gap: 30px;
-
     grid-template-columns: auto 1fr;
 }
 
 .more-space {
     gap: 30px;
-
     grid-template-columns: auto 1fr !important;
 }
 
@@ -89,13 +76,10 @@ form {
 
 .radio {
     height: 100px;
-
     padding: 10px 0;
-
     display: grid;
     grid-template-columns: 100% !important;
     grid-template-rows: auto auto !important;
-
     gap: 0 !important;
 }
 
@@ -112,8 +96,6 @@ form {
     align-items: center;
 }
 
-/* Seção Preferencias */
-
 .preferencias {
     display: grid;
     grid-template-rows: 100%;
@@ -123,7 +105,6 @@ form {
 
 .preferencias section {
     padding: 0 10px;
-
     display: grid;
     grid-template-rows: 40px 1fr;
     grid-template-columns: 100%;
@@ -136,16 +117,12 @@ form {
 .preferencias section div, .sugestoes {
     width: 100%;
     height: 100%;
-
     padding: 30px 20px;
-
     display: grid;
     grid-template-columns: 100%;
     grid-auto-rows: 50px;
-
     border: 1px solid #b3b3b3;
     border-radius: 20px;
-
     overflow-y: scroll;
 }
 
@@ -155,40 +132,30 @@ form {
 
 .sugestoes {
     height: 90% !important;
-
     padding: 20px !important;
     justify-items: center;
 }
 
 .item-sugestao {
     width: 100%;
-
     padding: 5px;
-
     border: 1px solid #b3b3b3;
     border-radius: 10px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     margin: 5px 0px;
-
     transition: transform 0.4s ease-in-out, width 0.4s ease-in-out, border 0.4s ease-in-out;
 }
 
 .item-sugestao:hover {
     width: 92%;
-
     transform: scale(1.15);
-
     border: 1px solid #3d3d3d;
 }
-/* Links */
 
 .links {
     gap: 10px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -197,13 +164,11 @@ form {
 
 .erro {
     color: red;
-
     font-size: 18px;
 }
 
 .links div {
     gap: 40px;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -211,17 +176,12 @@ form {
 
 .link {
     display: inline-block;
-
     width: 120px;
     height: 40px;
-
     text-decoration: none;
-
     border: 1px solid black;
     border-radius: 10px;
-
     background-color: #d5d5d5;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -256,4 +216,37 @@ form {
 
 .more-space label {
     width: 200px;
+}
+
+.senha section input{
+    width: clamp(120px, 15vw, 250px);
+    height: 30px;
+    padding: 0 10px;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.senha {
+    height: 100%;
+    padding-left: 20px;
+    padding-top: 10px;
+    display: flex;
+}
+
+.senha section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.senha section label{
+    font-size: 22px;
+    width: 180px;
+}
+.senha .more-space {
+    display: flex !important;
+    align-items: center;
+    gap: 10px !important;
+    grid-template-columns: unset !important;
 }
