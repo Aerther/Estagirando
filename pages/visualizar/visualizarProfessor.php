@@ -47,6 +47,11 @@ $naoPreferencias = $professor->getNaoPreferencias();
         require_once __DIR__ . "/../../menu.php";
 
         ?>
+        <div id='title'>
+            <?php
+                echo "<p class='title'>Visualização de cadastro</p>"
+            ?>
+        </div>
 
         <main>
             <div class="content">
