@@ -10,22 +10,20 @@ session_start();
 
 if(!isset($_SESSION["idUsuario"])) header("Location: index.php");
 
-$msg = ($_SESSION["tipoUsuario"] == "aluno" ? "Navegue pelos professores cadastrados" : "Navegue pelos alunos cadastrados");
-
 $_SESSION["ultima_pesquisa"] = [
-    "nome" => "",
-    "email"=> "",
-    "turno"=> "",
-    "modalidades" => "",
-    "cursos" => [-1],
-    "cidades" => [-1],
-    "preferencias" => [-1],
-    "naoPreferencias" => [-1]
+    "nome" =>"",
+    "email"=>"",
+    "turno"=>"",
+    "modalidades" =>"",
+    "cursos" =>[-1],
+    "cidades" =>[-1],
+    "preferencias" =>[-1],
+    "naoPreferencias" =>[-1]
 ];
 
 $h = ($_SESSION["tipoUsuario"] == "aluno" ? "menuAluno.php" : "menuProfessor.php");
 
-header("Location: ./{$h}");
+header("Location: ./pages/pesquisa/{$h}");
 
 ?>
 
@@ -40,9 +38,7 @@ header("Location: ./{$h}");
 
     <title>Home</title>
 </head>
-<body>
-    <div class="container">
-        
+<body>  
         <?php 
 
         // Usado para definir o local da raiz
@@ -51,14 +47,5 @@ header("Location: ./{$h}");
         require_once __DIR__."/menu.php";
 
         ?>
-
-        <div id='title'>
-            <?php
-            
-            echo "<p class='title'>{$msg}</p>";
-            
-            ?>
-        </div>
-    </div>
 </body>
 </html>

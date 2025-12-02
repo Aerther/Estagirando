@@ -112,10 +112,6 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         <figure>
                             <img src="./../../icones/iconAluno.png" alt="Icone Aluno">
                         </figure>
-
-                        <section id="divEditSenha">
-                            <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
-                        </section>
                     </section>
 
                     <section class="dados-input">
@@ -162,6 +158,9 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             </select>
                         </section>
                         
+                        <section>
+                            <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
+                        </section>
                     </section>
 
                     <section class="dados-input">
