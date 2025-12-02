@@ -113,9 +113,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <img src="./../../icones/iconAluno.png" alt="Icone Aluno">
                         </figure>
 
-                        <section id="divEditSenha">
-                            <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
-                        </section>
+                        
                     </section>
 
                     <section class="dados-input">
@@ -142,6 +140,9 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         <section class="more-space">
                             <label for="dataNascimento">Data de nascimento:</label>
                             <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $aluno->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
+                        </section>
+                        <section id="divEditSenha">
+                            <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
                         </section>
 
                         <section class="more-space">
