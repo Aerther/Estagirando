@@ -79,7 +79,6 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
                         $turnoDisp = "Disponível à noite";
                     }
 
-                    /*
                     // Preferências como String
 
                     $limite = 2;
@@ -107,8 +106,6 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
 
                     $preferencias = substr($preferencias, 0, -2);
                     $naoPreferencias = substr($naoPreferencias, 0, -2);
-                    
-                    */
 
                     echo "<div class='usuario'>";
                     
@@ -116,13 +113,13 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
                     
                     echo "<a href='./../visualizar/visualizarAluno.php?id={$aluno->getIdUsuario()}' class=nome>" . $aluno->getNome() . " ". $aluno->getSobrenome()."</a>";
 
-                    echo "<p>{$aluno->getEmail()}</p>";
-
                     echo "<p>{$curso->getNome()}</p>";
+
+                    echo "<p>{$aluno->getEmail()}</p>";
 
                     echo "</div>";
 
-                    echo "<div class='dados coluna-3'>";
+                    echo "<div class='dados coluna-2'>";
                     
                     echo "<p><span class='disponibilidade' style='color: {$cor}; border: 2px solid {$cor}'>{$disponibilidade}</span></p>";
 
@@ -130,13 +127,13 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
 
                     echo "</div>";
 
-                   /* echo "<div class='preferencias'>";
+                    echo "<div class='preferencias'>";
 
                     echo "<p>Preferências: {$preferencias}</p>";
 
                     echo "<p>Não Preferências: {$naoPreferencias}</p>";
 
-                    echo "</div>";*/
+                    echo "</div>";
                     
                     echo "</div>";
                 }

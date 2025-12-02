@@ -43,6 +43,7 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
         require_once __DIR__ . "/../../menu.php";
 
         ?>
+        
         <div id='title'>
             <?php
                 echo "<p class='title'>Pesquisa de alunos</p>"

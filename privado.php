@@ -11,7 +11,6 @@ session_start();
 if(!isset($_SESSION["idUsuario"])) header("Location: index.php");
 $msg = ($_SESSION["tipoUsuario"] == "aluno" ? "Navegue pelos professores cadastrados!" : "Navegue pelos alunos cadastrados!");
 
-
 ?>
 
 <!DOCTYPE html>

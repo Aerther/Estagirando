@@ -67,7 +67,7 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
                         $cor = "red";
                     }
 
-                    /*// Preferências como String
+                    // Preferências como String
 
                     $limite = 2;
 
@@ -93,32 +93,31 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
                     }
 
                     $preferencias = substr($preferencias, 0, -2);
-                    $naoPreferencias = substr($naoPreferencias, 0, -2);*/
+                    $naoPreferencias = substr($naoPreferencias, 0, -2);
 
                     echo "<div class='usuario'>";
 
-
                     echo "<div class='dados'>";
                     
-                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}' class=nome>" . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
+                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}' class='nome'>" . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
 
                     echo "<p>{$professor->getEmail()}</p>";
 
                     echo "</div>";
 
-                    echo "<div class='dados coluna-3'>";
+                    echo "<div class='dados coluna-2'>";
                     
                     echo "<p><span class='disponibilidade' style='color: {$cor}; border: 2px solid {$cor}'>{$disponibilidade}</span></p>";
 
                     echo "</div>";
 
-                    /*echo "<div class='preferencias'>";
+                    echo "<div class='preferencias'>";
 
                     echo "<p>Preferências: {$preferencias}</p>";
 
                     echo "<p>Não Preferências: {$naoPreferencias}</p>";
 
-                    echo "</div>";*/
+                    echo "</div>";
                     
                     echo "</div>";
                 }
@@ -127,6 +126,5 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
             </div>
         </main>
     </div>
-    
 </body>
 </html>
