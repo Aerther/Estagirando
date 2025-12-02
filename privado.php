@@ -9,7 +9,7 @@ require_once __DIR__."/vendor/autoload.php";
 session_start();
 
 if(!isset($_SESSION["idUsuario"])) header("Location: index.php");
-$msg = ($_SESSION["tipoUsuario"] == "aluno" ? "Navegue pelos professores cadastrados!" : "Navegue pelos alunos cadastrados!");
+$msg = ($_SESSION["tipoUsuario"] == "aluno" ? "Navegue pelos professores cadastrados" : "Navegue pelos alunos cadastrados");
 
 
 ?>
