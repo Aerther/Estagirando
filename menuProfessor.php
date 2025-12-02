@@ -2,11 +2,11 @@
 
 session_start();
 
-if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
+if(!isset($_SESSION["idUsuario"])) header("Location: ./index.php");
 
-if(!isset($_SESSION["ultima_pesquisa"])) header("Location: ./../../privado.php");
+if(!isset($_SESSION["ultima_pesquisa"])) header("Location: ./privado.php");
 
-require_once __DIR__."/../../vendor/autoload.php";
+require_once __DIR__."/vendor/autoload.php";
 
 use App\Classes\Aluno;
 
@@ -31,27 +31,24 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./../../src/styles/reset.css">
-    <link rel="stylesheet" href="./../../src/styles/styleListagem.css">
+    <link rel="stylesheet" href="./src/styles/reset.css">
+    <link rel="stylesheet" href="./src/styles/styleListagem.css">
 
-    <title>Listagem Professores</title>
+    <title>Listagem Alunos</title>
 </head>
 <body>
     <div class="container">
         <?php
 
-        $URL_BASE = "./../..";
+        $URL_BASE = ".";
 
-        require_once __DIR__ . "/../../menu.php";
+        require_once __DIR__ . "/menu.php";
 
         ?>
-
         <div id='title'>
             <?php
-            
-            echo "<p class='title'>Resultado da pesquisa</p>";
-            echo "<p class='subtitulo'>A listagem está ordenada de acordo com os cadastros mais próximos à pesquisa</p>";
-            
+                echo "<p class='title'>Resultado da pesquisa</p>";
+                echo "<p class='subtitulo'>A listagem está ordenada de acordo com os cadastros mais próximos à pesquisa</p>";
             ?>
         </div>
 
@@ -59,18 +56,27 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
             <div class="usuarios">
                 <?php
 
-                foreach($professores as $professor) {
+                foreach($alunos as $aluno) {
 
-                    $foto = $professor->getFoto();
+                    $foto = $aluno->getFoto();
+                    $curso = $aluno->getCurso();
+                    $disponibilidade = strtolower($aluno->getStatusEstagio());
 
-                    $disponibilidade = "";
-
-                    if($professor->getstatusDisponibilidade()=="sim") {
-                        $disponibilidade = "Disponível para orientar";
+                    if($disponibilidade == 'procurando estágio'){
                         $cor = "green";
-                    } else if($professor->getstatusDisponibilidade()=="nao") {
-                        $disponibilidade = "Indisponível para orientar";
+                    } else{
                         $cor = "red";
+                    }
+
+                    $disponibilidade = ucfirst($disponibilidade);
+
+                    $turnoDisp = "";
+                    if($aluno->getTurnoDisponivel() == "manhã") {
+                        $turnoDisp = "Disponível pela manhã";
+                    } else if($aluno->getTurnoDisponivel() == "tarde") {
+                        $turnoDisp = "Disponível à tarde";
+                    } else {
+                        $turnoDisp = "Disponível à noite";
                     }
 
                     // Preferências como String
@@ -81,7 +87,7 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
                     $naoPreferencias = "";
 
                     $i = 0;
-                    foreach($professor->getPreferencias() as $descricao) {
+                    foreach($aluno->getPreferencias() as $descricao) {
                         if($i == $limite) break;
 
                         $preferencias .= $descricao . ", ";
@@ -90,7 +96,7 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
                     }
 
                     $i = 0;
-                    foreach($professor->getNaoPreferencias() as $descricao) {
+                    foreach($aluno->getNaoPreferencias() as $descricao) {
                         if($i == $limite) break;
 
                         $naoPreferencias .= $descricao . ", ";
@@ -102,18 +108,22 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
                     $naoPreferencias = substr($naoPreferencias, 0, -2);
 
                     echo "<div class='usuario'>";
-
+                    
                     echo "<div class='dados'>";
                     
-                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}' class='nome'>" . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
+                    echo "<a href='./pages/visualizar/visualizarAluno.php?id={$aluno->getIdUsuario()}' class=nome>" . $aluno->getNome() . " ". $aluno->getSobrenome()."</a>";
 
-                    echo "<p>{$professor->getEmail()}</p>";
+                    echo "<p>{$curso->getNome()}</p>";
+
+                    echo "<p>{$aluno->getEmail()}</p>";
 
                     echo "</div>";
 
                     echo "<div class='dados coluna-2'>";
                     
                     echo "<p><span class='disponibilidade' style='color: {$cor}; border: 2px solid {$cor}'>{$disponibilidade}</span></p>";
+
+                    echo "<p>{$turnoDisp}</p>";
 
                     echo "</div>";
 

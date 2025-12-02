@@ -142,6 +142,5 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
             </div>
         </main>
     </div>
-    
 </body>
 </html>

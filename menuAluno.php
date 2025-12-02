@@ -6,7 +6,7 @@ if(!isset($_SESSION["idUsuario"])) header("Location: ./../../index.php");
 
 if(!isset($_SESSION["ultima_pesquisa"])) header("Location: ./../../privado.php");
 
-require_once __DIR__."/../../vendor/autoload.php";
+require_once __DIR__."/vendor/autoload.php";
 
 use App\Classes\Professor;
 
@@ -27,8 +27,8 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./../../src/styles/reset.css">
-    <link rel="stylesheet" href="./../../src/styles/styleListagem.css">
+    <link rel="stylesheet" href="./src/styles/reset.css">
+    <link rel="stylesheet" href="./src/styles/styleListagem.css">
 
     <title>Listagem Professores</title>
 </head>
@@ -99,7 +99,7 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 
                     echo "<div class='dados'>";
                     
-                    echo "<a href='./../visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}' class='nome'>" . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
+                    echo "<a href='./pages/visualizar/visualizarProfessor.php?id={$professor->getIdUsuario()}' class='nome'>" . $professor->getNome() . " ". $professor->getSobrenome()."</a>";
 
                     echo "<p>{$professor->getEmail()}</p>";
 
