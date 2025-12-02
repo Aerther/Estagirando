@@ -76,7 +76,6 @@ $preferencias = Preferencia::findAllPreferencias();
 $cursos = Curso::findAllCursos();
 $cidadesEstagiar = [];
 
-
 ?>
 
 <!DOCTYPE html>
@@ -153,7 +152,7 @@ $cidadesEstagiar = [];
                         ?>
 
                         <select id="situacao" name="situacao">
-                            <option value="Procurando Estágio" <?php echo $opcoes["Procurando Estágio"]; ?>>Procurando Estágio</option>
+                            <option value="Procurando estágio" <?php echo $opcoes["Procurando Estágio"]; ?>>Procurando Estágio</option>
                             <option value="Estagiando" <?php echo $opcoes["Estagiando"]; ?>>Estagiando</option>
                             <option value="Ocupado" <?php echo $opcoes["Ocupado"]; ?>>Ocupado</option>
                         </select>

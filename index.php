@@ -90,7 +90,7 @@ if(isset($_POST["botao-enviar"])) {
                 </section>    
                 
                 <section class="error">
-                    <p style="color: <?php echo str_contains($msgError, 'sucesso') ? 'green' : 'red'; ?>;"> <?php echo $msgError ?> </p>
+                    <p style="color: <?php echo strpos($msgError, 'sucesso') ? 'green' : 'red'; ?>;"> <?php echo $msgError ?> </p>
                 </section>
             </form>
         </section>

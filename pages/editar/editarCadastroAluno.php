@@ -214,10 +214,6 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
 
                             $selecionar = '';
 
-                            if(count($checked) == 4) {
-                                $selecionar = 'checked';
-                            }
-
                             for($i = 0; $i < sizeof($checked, 0); $i++) {
                                 $modalidades[trim($checked[$i])] = "checked";                 
                             }

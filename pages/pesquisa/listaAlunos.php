@@ -54,7 +54,7 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
 
                     $foto = $aluno->getFoto();
                     $curso = $aluno->getCurso();
-                    $disponibilidade = $aluno->getStatusEstagio();
+                    $disponibilidade = strtolower($aluno->getStatusEstagio());
 
                     if($disponibilidade == 'procurando estágio'){
                         $cor = "green";
@@ -73,7 +73,8 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
                         $turnoDisp = "Disponível à noite";
                     }
 
-                    /*// Preferências como String
+                    /*
+                    // Preferências como String
 
                     $limite = 2;
 
@@ -99,7 +100,9 @@ $alunos = Aluno::pesquisar($nome, $email, $turno, $cursos, $modalidades, $cidade
                     }
 
                     $preferencias = substr($preferencias, 0, -2);
-                    $naoPreferencias = substr($naoPreferencias, 0, -2);*/
+                    $naoPreferencias = substr($naoPreferencias, 0, -2);
+                    
+                    */
 
                     echo "<div class='usuario'>";
 
