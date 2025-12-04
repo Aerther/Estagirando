@@ -100,6 +100,14 @@ $preferencias = Preferencia::findAllPreferencias();
                     </section>
 
                     <section class="more-space">
+                        <label for="cpf">CPF:</label>
+                        <input type="texto" name="cpf" id="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" placeholder="___.___.___-__" value="<?php if (isset($_POST['cpf'])) echo $_POST['cpf'] ?>" required>
+                    </section>
+                </section>
+
+                <section class="dados">
+
+                <section class="more-space">
                         <label for="email">E-mail:</label>
                         <input type="email" name="email" value="<?php if (isset($_POST['email']))
                             echo htmlspecialchars($_POST['email']); ?>" required>
@@ -110,13 +118,7 @@ $preferencias = Preferencia::findAllPreferencias();
                         <input type="email" name="confEmail" value="<?php if (isset($_POST['confEmail']))
                             echo htmlspecialchars($_POST['confEmail']); ?>" required>
                     </section>
-                </section>
-
-                <section class="dados">
-                    <section class="more-space">
-                        <label for="cpf">CPF:</label>
-                        <input type="texto" name="cpf" id="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" placeholder="___.___.___-__" value="<?php if (isset($_POST['cpf'])) echo $_POST['cpf'] ?>" required>
-                    </section>
+                    
                     <section class="more-space">
                         <label for="senha">Senha:</label>
                         <input type="password" name="senha" value="<?php if (isset($_POST['senha']))
