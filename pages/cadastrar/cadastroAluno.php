@@ -135,30 +135,6 @@ $cidadesEstagiar = [];
                         <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                     </section>
 
-                    <section class="more-space">
-                        <label for="ano">Ano de ingresso:</label>
-                        <input type="number" name="ano" max='2025' value="<?php if (isset($_POST['ano']))
-                            echo htmlspecialchars($_POST['ano']); ?>" required>
-                    </section>
-
-                    <section class="more-space">
-                        <label for="situacao">Situação atual:</label>
-
-                        <?php
-
-                        $opcoes = ["Procurando Estágio" => "", "Estagiando" => "", "Ocupado" => ""];
-
-                        if (isset($_POST["situacao"]))
-                            $opcoes[$_POST["situacao"]] = "selected";
-
-                        ?>
-
-                        <select id="situacao" name="situacao">
-                            <option value="Procurando estágio" <?php echo $opcoes["Procurando Estágio"]; ?>>Procurando Estágio</option>
-                            <option value="Estagiando" <?php echo $opcoes["Estagiando"]; ?>>Estagiando</option>
-                            <option value="Ocupado" <?php echo $opcoes["Ocupado"]; ?>>Ocupado</option>
-                        </select>
-                    </section>
                 </section>
 
                 <section class="dados">
@@ -187,6 +163,11 @@ $cidadesEstagiar = [];
                         </section>
 
                     </section>
+                    <section class="more-space">
+                        <label for="ano">Ano de ingresso:</label>
+                        <input type="number" name="ano" max='2025' value="<?php if (isset($_POST['ano']))
+                            echo htmlspecialchars($_POST['ano']); ?>" required>
+                    </section>
 
                         <section class="more-space">
                             <label for="matricula">Matrícula:</label>
@@ -210,6 +191,24 @@ $cidadesEstagiar = [];
                             <option value="manhã" <?php echo $opcoes["manhã"]; ?>>Manhã</option>
                             <option value="tarde" <?php echo $opcoes["tarde"]; ?>>Tarde</option>
                             <option value="noite" <?php echo $opcoes["noite"]; ?>>Noite</option>
+                        </select>
+                    </section>
+                     <section class="more-space">
+                        <label for="situacao">Situação atual:</label>
+
+                        <?php
+
+                        $opcoes = ["Procurando Estágio" => "", "Estagiando" => "", "Ocupado" => ""];
+
+                        if (isset($_POST["situacao"]))
+                            $opcoes[$_POST["situacao"]] = "selected";
+
+                        ?>
+
+                        <select id="situacao" name="situacao">
+                            <option value="Procurando estágio" <?php echo $opcoes["Procurando Estágio"]; ?>>Procurando Estágio</option>
+                            <option value="Estagiando" <?php echo $opcoes["Estagiando"]; ?>>Estagiando</option>
+                            <option value="Ocupado" <?php echo $opcoes["Ocupado"]; ?>>Ocupado</option>
                         </select>
                     </section>
 
