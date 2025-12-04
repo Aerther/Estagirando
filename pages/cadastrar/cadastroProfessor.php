@@ -72,6 +72,20 @@ $preferencias = Preferencia::findAllPreferencias();
     <link rel="stylesheet" href="./../../src/styles/styleCadastro.css">
 
     <script src="./../../src/js/editarCad.js" defer></script>
+
+    <style>
+        .preferencias {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .preferencias section {
+            padding: 0 30px;
+        }
+
+        form {
+            grid-template-rows: 1.8fr 2.5fr 0.5fr;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -106,8 +120,7 @@ $preferencias = Preferencia::findAllPreferencias();
                 </section>
 
                 <section class="dados">
-
-                <section class="more-space">
+                    <section class="more-space">
                         <label for="email">E-mail:</label>
                         <input type="email" name="email" value="<?php if (isset($_POST['email']))
                             echo htmlspecialchars($_POST['email']); ?>" required>
@@ -131,7 +144,6 @@ $preferencias = Preferencia::findAllPreferencias();
                             echo htmlspecialchars($_POST['confSenha']); ?>" required>
                     </section>
                     
-
                     <section class="radio" class="more-space">
                         <label for="disponivel" id='lblD'>Disponível para orientar?</label>
 
@@ -154,7 +166,7 @@ $preferencias = Preferencia::findAllPreferencias();
                     <section>
                         <p>Preferências:</p>
 
-                        <div>
+                        <div id="preferencias">
                             <?php
 
                             foreach ($preferencias as $preferencia) {
@@ -168,7 +180,7 @@ $preferencias = Preferencia::findAllPreferencias();
                     <section>
                         <p>Não preferências:</p>
 
-                        <div>
+                        <div id="naoPreferencias">
                             <?php
 
                             foreach ($preferencias as $preferencia) {

@@ -66,11 +66,27 @@ $preferencias = Preferencia::findAllPreferencias();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./../../src/styles/reset.css">
-    <link rel="stylesheet" href="./../../src/styles/styleEditar.css">
+    <link rel="stylesheet" href="./../../src/styles/styleEditar2.css">
 
     <script src="./../../src/js/editarCad.js" defer></script>
 
     <title>Edição de Cadastro Professor</title>
+
+    <style>
+        form {
+            height: 700px;
+
+            grid-template-rows: 28% 55% 18%;
+        }
+
+        .preferencias {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .preferencias > section {
+            padding: 30px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -81,13 +97,14 @@ $preferencias = Preferencia::findAllPreferencias();
         require_once __DIR__ . "/../../menu.php";
 
         ?>
-        <div id='title'>
-            <?php
-                echo "<p class='title'>Edição de cadastro</p>"
-            ?>
-        </div>
         
         <main>
+            <div id='title'>
+                <?php
+                    echo "<p class='title'>Edição de cadastro</p>"
+                ?>
+            </div>
+
             <form action="./editarCadastroProfessor.php" method="post">
                 <section class="dados">
                     <section class="imagem">
@@ -107,6 +124,27 @@ $preferencias = Preferencia::findAllPreferencias();
                             <input type="text" name="sobrenome"  value="<?php echo $professor->getSobrenome(); ?>" required>
                         </section>
 
+                        <section>
+                            <label for="email">E-mail:</label>
+                            <input type="email" name="email" value="<?php echo $professor->getEmail(); ?>" required>
+                        </section>
+
+                        <section>
+                            <a href="editarSenhaProf.php" id='editSenha'>Editar senha</a>
+                        </section>
+                    </section>
+
+                    <section class="dados-input">
+                        <section>
+                            <label for="cpf">CPF:</label>
+                            <input type="texto" name="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" id="cpf" placeholder="___.___.___-__" value="<?php echo $professor->getCPF(); ?>" required>
+                        </section>
+
+                        <section class="more-space">
+                            <label for="dataNascimento">Data de nascimento:</label>
+                            <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $professor->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
+                        </section>
+
                         <section class="radio">
                             <label for="disponivel">Disponível para orientar?</label>
 
@@ -122,27 +160,6 @@ $preferencias = Preferencia::findAllPreferencias();
 
                                 ?>
                             </div>
-                        </section>
-                    </section>
-
-                    <section class="dados-input">
-                        <section>
-                            <label for="email">E-mail:</label>
-                            <input type="email" name="email" value="<?php echo $professor->getEmail(); ?>" required>
-                        </section>
-
-                        <section>
-                            <label for="cpf">CPF:</label>
-                            <input type="texto" name="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" id="cpf" placeholder="___.___.___-__" value="<?php echo $professor->getCPF(); ?>" required>
-                        </section>
-
-                        <section class="more-space">
-                            <label for="dataNascimento">Data de nascimento:</label>
-                            <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $professor->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
-                        </section>
-
-                        <section>
-                            <a href="editarSenhaProf.php" id='editSenha'>Editar senha</a>
                         </section>
                     </section>
                 </section>

@@ -85,7 +85,7 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
     <title>Estagirando</title>
 
     <link rel="stylesheet" href="./../../src/styles/reset.css">
-    <link rel= "stylesheet" href="./../../src/styles/styleEditar.css">
+    <link rel= "stylesheet" href="./../../src/styles/styleEditar2.css">
 
     <script src="./../../src/js/editarCad.js" defer></script>
 </head>
@@ -98,13 +98,14 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
         require_once __DIR__ . "/../../menu.php";
 
         ?>
-        <div id='title'>
-            <?php
-                echo "<p class='title'>Edição de cadastro</p>"
-            ?>
-        </div>
         
         <main>
+            <div id='title'>
+                <?php
+                    echo "<p class='title'>Edição de cadastro</p>"
+                ?>
+            </div>
+
             <form action="./editarCadastroAluno.php" method="post">
                 <section class="dados">
                     <section class="imagem">
@@ -115,22 +116,22 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                     </section>
 
                     <section class="dados-input">
-                        <section>
+                        <section class="more-space">
                             <label for="nome">Nome:</label>
                             <input type="text" name="nome"  value="<?php echo $aluno->getNome(); ?>" required>
                         </section>
 
-                        <section>
+                        <section class="more-space">
                             <label for="sobrenome">Sobrenome:</label>
                             <input type="text" name="sobrenome"  value="<?php echo $aluno->getSobrenome(); ?>" required>
                         </section>
 
-                        <section>
+                        <section class="more-space">
                             <label for="email">E-mail:</label>
                             <input type="email" name="email" value="<?php echo $aluno->getEmail(); ?>" required>
                         </section>
 
-                        <section>
+                        <section class="more-space">
                             <label for="cpf">CPF:</label>
                             <input type="texto" name="cpf" pattern="^(?=(?:.*\d){11}$)(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$" id="cpf" placeholder="___.___.___-__" value="<?php echo $aluno->getCPF(); ?>" required>
                         </section>
@@ -140,40 +141,18 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                             <input type="date" name="dataNascimento"  value="<?php echo date("Y-m-d", strtotime(str_replace("/", "-", $aluno->getDataNAscimento())));; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                         </section>
                         
-
-                        <section class="more-space">
-                            <label for="situacao">Situação atual:</label>
-                            
-                            <?php 
-                            
-                            $opcoes = ["procurando estágio" => "", "estagiando" => "", "ocupado" => ""];
-
-                            $opcoes[$aluno->getStatusEstagio()] = "selected";
-
-                            ?>
-
-                            <select id="situacao" name="situacao">
-                                <option value="procurando estágio" <?php echo $opcoes["procurando estágio"]; ?>>Procurando Estágio</option>
-                                <option value="estagiando" <?php echo $opcoes["estagiando"]; ?>>Estagiando</option>
-                                <option value="ocupado" <?php echo $opcoes["ocupado"]; ?>>Ocupado</option>
-                            </select>
-                        </section>
                         <section id="divEditSenha">
-                            <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
-                        </section>
-                        
-                        <section>
                             <a href="editarSenhaAluno.php" id='editSenha'>Editar senha </a>
                         </section>
                     </section>
 
                     <section class="dados-input">
-                        <section>
+                        <section class="more-space">
                             <label for="matricula">Matrícula:</label>
                             <input type="string" name="matricula"  value="<?php echo $aluno->getMatricula(); ?>" required>
                         </section>
 
-                        <section>
+                        <section class="more-space">
                             <label for="curso">Curso:</label>
                             <select id="curso" name="curso">
                                 <?php
@@ -193,6 +172,24 @@ $cidadesEstagiar = $aluno->getCidadesEstagiar();
                         <section class="more-space">
                             <label for="ano">Ingressou em:</label>
                             <input type="number" name="ano" max='2025' value="<?php echo $aluno->getAnoIngresso(); ?>" required>
+                        </section>
+
+                        <section class="more-space">
+                            <label for="situacao">Situação atual:</label>
+                            
+                            <?php 
+                            
+                            $opcoes = ["procurando estágio" => "", "estagiando" => "", "ocupado" => ""];
+
+                            $opcoes[$aluno->getStatusEstagio()] = "selected";
+
+                            ?>
+
+                            <select id="situacao" name="situacao">
+                                <option value="procurando estágio" <?php echo $opcoes["procurando estágio"]; ?>>Procurando Estágio</option>
+                                <option value="estagiando" <?php echo $opcoes["estagiando"]; ?>>Estagiando</option>
+                                <option value="ocupado" <?php echo $opcoes["ocupado"]; ?>>Ocupado</option>
+                            </select>
                         </section>
 
                         <section class="more-space">

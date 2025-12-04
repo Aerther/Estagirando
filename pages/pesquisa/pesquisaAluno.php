@@ -33,6 +33,14 @@ if($_SESSION["tipoUsuario"] == "aluno" && $_GET["id"] != $_SESSION["idUsuario"])
     <link rel="stylesheet" href="./../../src/styles/stylePesquisa.css">
 
     <script src="./../../src/js/editarCad.js" defer></script>
+
+    <style>
+        form {
+            height: 850px;
+
+            grid-template-rows: 30% 50% 20%;
+        }
+    </style>
 </head>
 <body>
     <div class="container">

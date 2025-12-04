@@ -91,6 +91,9 @@ $cidadesEstagiar = [];
     <link rel="stylesheet" href="./../../src/styles/styleCadastro.css">
 
     <script src="./../../src/js/editarCad.js" defer></script>
+
+    <style>
+    </style>
 </head>
 <body>
     <div class="container">
@@ -119,6 +122,11 @@ $cidadesEstagiar = [];
                     </section>
 
                     <section class="more-space">
+                        <label for="dataNascimento">Data de nascimento:</label>
+                        <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
+                    </section>
+
+                    <section class="more-space">
                         <label for="email">E-mail:</label>
                         <input type="email" name="email" value="<?php if (isset($_POST['email']))
                             echo htmlspecialchars($_POST['email']); ?>" required>
@@ -131,14 +139,19 @@ $cidadesEstagiar = [];
                     </section>
 
                     <section class="more-space">
-                        <label for="dataNascimento">Data de nascimento:</label>
-                        <input type="date" name="dataNascimento" value="<?php if(isset($_POST['dataNascimento'])) echo $_POST['dataNascimento']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
+                        <label for="senha">Senha:</label>
+                        <input type="password" name="senha" value="<?php if (isset($_POST['senha']))
+                            echo htmlspecialchars($_POST['senha']); ?>" required>
                     </section>
 
+                    <section class="more-space">
+                        <label for="confSenha">Confirme a senha:</label>
+                        <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha']))
+                            echo htmlspecialchars($_POST['confSenha']); ?>" required>
+                    </section>
                 </section>
 
                 <section class="dados">
-
                     <section class="more-space">
                         <?php
 
@@ -148,19 +161,22 @@ $cidadesEstagiar = [];
 
                         ?>
 
-                       <section class="more-space">
-                            <label for="curso">Selecione o curso:</label>
-                            <select id="curso" name="curso">
-                                <option value="" disabled selected>Curso</option>
-                                <?php
-                                $cursoSelecionado = isset($_POST["curso"]) ? $_POST["curso"] : -1;
-                                foreach($cursos as $curso) {
-                                    $selected = $curso->getIdCurso() == $cursoSelecionado ? 'selected' : '';
-                                    echo "<option value={$curso->getIdCurso()} {$selected}>{$curso->getNome()}</option>";
-                                }
-                                ?>
-                            </select>
-                        </section>
+                        <label for="curso">Selecione o curso:</label>
+
+                        <select id="curso" name="curso">
+                            <option value="" disabled selected>Curso</option>
+                            
+                            <?php
+                            
+                            $cursoSelecionado = isset($_POST["curso"]) ? $_POST["curso"] : -1;
+                            
+                            foreach($cursos as $curso) {
+                                $selected = $curso->getIdCurso() == $cursoSelecionado ? 'selected' : '';
+                                echo "<option value={$curso->getIdCurso()} {$selected}>{$curso->getNome()}</option>";
+                            }
+
+                            ?>
+                        </select>
                     </section>
 
                     <section class="more-space">
@@ -264,22 +280,6 @@ $cidadesEstagiar = [];
                         <div id="naoPreferencias">
                             <p>Escolha um curso primeiro</p>
                         </div>
-                    </section>
-                </section>
-
-                <section class="senha">
-                    <section>
-                        <section class="more-space">
-                            <label for="senha">Senha:</label>
-                            <input type="password" name="senha" value="<?php if (isset($_POST['senha']))
-                                echo htmlspecialchars($_POST['senha']); ?>" required>
-                        </section>
-
-                        <section class="more-space">
-                            <label for="confSenha">Confirme a senha:</label>
-                            <input type="password" name="confSenha" value="<?php if (isset($_POST['confSenha']))
-                                echo htmlspecialchars($_POST['confSenha']); ?>" required>
-                        </section>
                     </section>
                 </section>
 

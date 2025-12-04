@@ -1,37 +1,30 @@
-.container {
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-rows: 12% 1fr;
-    grid-template-columns: 100%;
-}
+/* Main */
 
-header, main {
-    height: 100%;
-    width: 100%;
+main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-h1 {
-    font-size: 1.5rem;
+    
 }
 
 form {
-    width: 95%;
-    height: auto;
+    width: 97%;
+    height: 140vh;
+
     background-color: rgb(230, 230, 230);
     border-radius: 15px;
-    padding: 15px;
+
+    padding: 10px;
+
     margin-bottom: 20px;
+
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 1.8fr 2fr 0.5fr;
+    grid-template-rows: 37% 45% 18%;
 }
 
-.preferencias, .links {
-    grid-column: span 2;
+.more-space label {
+    width: 180px;
 }
 
 .dados, .preferencias, .links {
@@ -39,34 +32,56 @@ form {
     height: 100%;
 }
 
-.dados section input:not([type~="radio"]), select, option, .cidades > input {
-    width: clamp(120px, 20vw, 300px);
-    height: 30px;
-    padding: 0 10px;
-    font-size: 20px;
-    border: 1px solid black;
-    border-radius: 10px;
-}
-
-.dados section input[type~='checkbox'] {
-    height: 15px;
-    width: 15px;
-}
+/* Seção Dados */
 
 .dados {
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    padding-left: 50px;
+}
+
+
+.imagem figure {
+    width: 90%;
+    height: 90%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem figure img {
+    width: auto;
+    height: 80%;
+
+    filter: brightness(0);
+}
+
+.imagem{
+    place-items: center;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    display: none;
+}
+
+.dados-input {
     height: 100%;
-    padding-left: 20px;
+    padding-left: 6px;
     padding-top: 10px;
     display: grid;
-    grid-auto-rows: 60px;
+    grid-auto-rows: 50px;
     grid-template-columns: 100%;
 }
 
-.dados section {
+.dados-input section {
     display: grid;
+    grid-template-columns: 130px 1fr;
     align-items: center;
-    gap: 30px;
-    grid-template-columns: auto 1fr;
 }
 
 .more-space {
@@ -74,48 +89,66 @@ form {
     grid-template-columns: auto 1fr !important;
 }
 
-.dados section label, .modalidade {
-    font-size: 22px !important;
+.dados-input section label, .modalidade {
+    font-size: 19px;
+}
+
+.dados-input section input:not([type~="radio"]), select, option, .cidades > input {
+    width: clamp(120px, 20vw, 300px);
+    height: 30px;
+
+    padding: 0 10px;
+
+    font-size: 20px;
+    
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 .radio {
     height: 100px;
-    padding: 10px 0;
     display: grid;
+    grid-template-rows: 0.8fr 1fr !important;
     grid-template-columns: 100% !important;
-    grid-template-rows: auto auto !important;
-    gap: 0 !important;
 }
 
 .disponibilidade {
-    width: 40%;
+    height: 100%;
+}
+
+.disponibilidade {
+    width: 100%;
+
     gap: 80px;
+
+    padding-left: 30px;
+
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .disponibilidade label {
     gap: 10px;
+
     display: flex;
     align-items: center;
 }
 
-.preferencias {
-    height: 100%;
-    width: 100%;
+/* Seção Preferencias */
 
+.preferencias {
     display: grid;
+    grid-template-rows: 100%;
     grid-template-columns: repeat(3, 1fr);
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .preferencias section {
-    height: 500px;
-
-    padding: 0 10px;
+    padding-left: 20px;
 
     display: grid;
     grid-template-rows: 40px 1fr;
+    grid-template-columns: 100%;
 }
 
 .cidades {
@@ -125,58 +158,77 @@ form {
 .preferencias section div, .sugestoes {
     width: 100%;
     height: 100%;
+
     padding: 30px 20px;
+
     display: grid;
     grid-template-columns: 100%;
     grid-auto-rows: 50px;
+
     border: 1px solid #b3b3b3;
     border-radius: 20px;
+
     overflow-y: scroll;
 }
 
 .preferencias section div label, .item-sugestao {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .sugestoes {
     height: 90% !important;
+
     padding: 20px !important;
     justify-items: center;
 }
 
 .item-sugestao {
     width: 100%;
+
     padding: 5px;
+
     border: 1px solid #b3b3b3;
     border-radius: 10px;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     margin: 5px 0px;
+
     transition: transform 0.4s ease-in-out, width 0.4s ease-in-out, border 0.4s ease-in-out;
 }
 
 .item-sugestao:hover {
     width: 92%;
+
     transform: scale(1.15);
+
     border: 1px solid #3d3d3d;
 }
 
+/* Links */
+
 .links {
-    gap: 10px;
+    row-gap: 10px;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     align-items: center;
+
+    padding-bottom: 15px;
 }
 
 .erro {
     color: red;
+
     font-size: 18px;
 }
 
 .links div {
-    gap: 40px;
+    column-gap: 40px;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -184,12 +236,17 @@ form {
 
 .link {
     display: inline-block;
+
     width: 120px;
     height: 40px;
+
     text-decoration: none;
+
     border: 1px solid black;
     border-radius: 10px;
+
     background-color: #d5d5d5;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -204,63 +261,41 @@ form {
     background-color: black;
 }
 
-.modalidade {
-    width: 190px;
-}
-
-#lblD {
-    width: 400px;
-}
-
-#pref {
-    width: 400px;
-}
-
-#modalidade {
-    height: 150px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-
-    row-gap: 3px;
-}
-
-.more-space label {
-    width: 230px;
-}
-
-.senha section input{
-    width: clamp(120px, 15vw, 250px);
-    height: 30px;
-    padding: 0 10px;
-    font-size: 20px;
-    border: 1px solid black;
+#editSenha {
+   text-decoration: none;
+    background-color: rgb(238, 238, 238);
+    padding: 6px;
+    border: 1px solid rgb(55, 56, 55);
     border-radius: 10px;
+    font-size: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.senha {
+.sucesso {
+    color: rgb(11, 150, 15);
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+#modalidade{
+    display: grid;
+    justify-content: start;
+}
+
+#title{
     height: 100%;
-    padding-left: 20px;
-    padding-top: 10px;
+    width: 100%;
     display: flex;
+    justify-content: center;
+    margin: 20px 0;
+
+    height: max-content;
 }
 
-.senha section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.senha section label{
-    font-size: 22px;
-    width: 180px;
-}
-
-.senha .more-space {
-    display: flex !important;
-    align-items: center;
-    gap: 10px !important;
-    grid-template-columns: unset !important;
+.title {
+    font-size: 27px;
+    font-weight: bold;
 }

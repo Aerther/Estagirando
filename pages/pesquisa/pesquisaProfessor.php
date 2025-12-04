@@ -40,6 +40,18 @@ $preferencias = Preferencia::findAllPreferenciasByCurso($aluno->getCurso()->getI
     <link rel="stylesheet" href="./../../src/styles/stylePesquisa.css">
 
     <script src="./../../src/js/editarCad.js" defer></script>
+
+    <style>
+        .preferencias {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        form {
+            height: 650px;
+
+            grid-template-rows: 25% 50% 24%;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
