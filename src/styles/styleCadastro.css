@@ -27,7 +27,7 @@ form {
     margin-bottom: 20px;
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 44% 46% 12%;
+    grid-template-rows: 2.5fr 2fr 1fr 0.5fr;
 }
 
 .preferencias, .links {
@@ -48,12 +48,17 @@ form {
     border-radius: 10px;
 }
 
+.dados section input[type~='checkbox'] {
+    height: 15px;
+    width: 15px;
+}
+
 .dados {
     height: 100%;
     padding-left: 20px;
     padding-top: 10px;
     display: grid;
-    grid-auto-rows: 50px;
+    grid-auto-rows: auto;
     grid-template-columns: 100%;
     grid-auto-flow: row;
 }
@@ -71,7 +76,7 @@ form {
 }
 
 .dados section label, .modalidade {
-    font-size: 22px;
+    font-size: 22px !important;
 }
 
 .radio {
@@ -200,18 +205,21 @@ form {
     width: 190px;
 }
 
-#lblD{
+#lblD {
     width: 400px;
 }
 
-#pref{
+#pref {
     width: 400px;
 }
 
-#modalidade{
-    display: grid;
-    justify-content: start;
-    margin-top: 10px;
+#modalidade {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: self-start;
+
+    row-gap: 3px;
 }
 
 .more-space label {

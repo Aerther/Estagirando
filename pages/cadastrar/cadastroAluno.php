@@ -161,19 +161,18 @@ $cidadesEstagiar = [];
                                 ?>
                             </select>
                         </section>
-
                     </section>
+
                     <section class="more-space">
                         <label for="ano">Ano de ingresso:</label>
                         <input type="number" name="ano" max='2025' value="<?php if (isset($_POST['ano']))
                             echo htmlspecialchars($_POST['ano']); ?>" required>
                     </section>
 
-                        <section class="more-space">
-                            <label for="matricula">Matrícula:</label>
-                            <input type="text" name="matricula" value="<?php if(isset($_POST['matricula'])) echo $_POST['matricula']; ?>" required>
-                        </section>
-
+                    <section class="more-space">
+                        <label for="matricula">Matrícula:</label>
+                        <input type="text" name="matricula" value="<?php if(isset($_POST['matricula'])) echo $_POST['matricula']; ?>" required>
+                    </section>
 
                     <section class="more-space">
                         <label for="turno">Turno disponível:</label>
@@ -193,7 +192,8 @@ $cidadesEstagiar = [];
                             <option value="noite" <?php echo $opcoes["noite"]; ?>>Noite</option>
                         </select>
                     </section>
-                     <section class="more-space">
+
+                    <section class="more-space">
                         <label for="situacao">Situação atual:</label>
 
                         <?php
@@ -212,14 +212,14 @@ $cidadesEstagiar = [];
                         </select>
                     </section>
 
-                    <div id="modalidade">
+                    <section id="modalidade">
                         <label for="modalidade" class="modalidade">Modalidade:</label>
 
                         <label for="todosModalidade" class="modalidade"><input type="checkbox" id="todosModalidade" value="todos" onchange="selecionar()" > Selecionar todos</label>
                         <label for="presencial" class="modalidade"><input type="checkbox" name="modalidades[]" id="presencial" value="presencial" onchange="verificar()"> Presencial</label>
                         <label for="online" class="modalidade"><input type="checkbox" name="modalidades[]" id="online" value="online" onchange="verificar()"> Online</label>
                         <label for="hibrido" class="modalidade"><input type="checkbox" name="modalidades[]" id="hibrido" value="hibrido" onchange="verificar()"> Híbrido</label>
-                    </div>
+                    </section>
                 </section>
 
                 <section class="preferencias">
@@ -267,7 +267,7 @@ $cidadesEstagiar = [];
                     </section>
                 </section>
 
-                <div class="senha">
+                <section class="senha">
                     <section>
                         <section class="more-space">
                             <label for="senha">Senha:</label>
@@ -281,7 +281,7 @@ $cidadesEstagiar = [];
                                 echo htmlspecialchars($_POST['confSenha']); ?>" required>
                         </section>
                     </section>
-                </div>
+                </section>
 
                 <section id="btn" class="links">
                     <?php echo "<p class='erro'>{$mensagemErro}</p>"; ?>
