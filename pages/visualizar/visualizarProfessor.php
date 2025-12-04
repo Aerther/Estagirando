@@ -27,7 +27,7 @@ $naoPreferencias = $professor->getNaoPreferencias();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./../../src/styles/reset.css">
-    <link rel="stylesheet" href="./../../src/styles/styleVisualizar.css">
+    <link rel="stylesheet" href="./../../src/styles/styleVisualizar2.css">
 
     <style>
         .linha-1 {
@@ -47,13 +47,12 @@ $naoPreferencias = $professor->getNaoPreferencias();
         require_once __DIR__ . "/../../menu.php";
 
         ?>
-        <div id='title'>
-            <?php
-                echo "<p class='title'>Visualização de cadastro</p>"
-            ?>
-        </div>
 
         <main>
+            <div id='title'>
+                <p class='title'>Visualização de professor</p>
+            </div>
+
             <div class="content">
                 <section class="linha-1">
                     <section class="imagem">
@@ -79,19 +78,21 @@ $naoPreferencias = $professor->getNaoPreferencias();
                             $cor = "red";
                         }
 
-                        echo "<p><strong style='margin-right: 8px;'>Nome: </strong>{$professor->getNome()} {$professor->getSobrenome()} <span> <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> </p>";
+                        // echo "<p><strong style='margin-right: 8px;'>Nome: </strong>{$professor->getNome()} {$professor->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span></p>";
+                        
+                        echo "<p class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Nome: </strong>{$professor->getNome()} {$professor->getSobrenome()}</p>";
                         echo "<p><strong style='margin-right: 8px;'>E-mail: </strong>{$professor->getEmail()}</p>";
+
+                        $editar = ($_SESSION['idUsuario'] == $_GET['id']) ? "<a href='./../editar/editarCadastroProfessor.php'>Editar Cadastro</a>": "";
+                        
+                        echo "<div id='editPerfil'>{$editar}</div>";
                         
                         ?>
                     </section>
-
                 </section>
 
-                <section class="linha-2-prof">
-                    
-
-                            
-
+                <section class="linha-2">
                     <section class="preferencias">
                         <p class="titulo-dados">Preferências:</p>
                         

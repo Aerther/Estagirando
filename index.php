@@ -87,7 +87,7 @@ if(isset($_POST["botao-enviar"])) {
                 <section class="links">
                     <a href="./recuperarSenha.php">Recuperar senha</a>
                     <input type="submit" value="Entrar" name="botao-enviar" class="botao">
-                </section>    
+                </section> 
                 
                 <section class="error">
                     <p style="color: <?php echo strpos($msgError, 'sucesso') ? 'green' : 'red'; ?>;"> <?php echo $msgError ?> </p>

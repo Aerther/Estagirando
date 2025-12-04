@@ -6,11 +6,15 @@ error_reporting(E_ALL);
 
 require_once __DIR__."/vendor/autoload.php";
 
+use App\Classes\Usuario;
+
 session_start();
 
 if(!isset($_SESSION["idUsuario"])) header("Location: index.php");
 
 $msg = ($_SESSION["tipoUsuario"] == "aluno" ? "Navegue pelos professores cadastrados" : "Navegue pelos alunos cadastrados");
+
+$usuario = Usuario::findUsuario($_SESSION["idUsuario"]);
 
 $_SESSION["ultima_pesquisa"] = [
     "nome" => "",
@@ -19,8 +23,8 @@ $_SESSION["ultima_pesquisa"] = [
     "modalidades" => "",
     "cursos" => [-1],
     "cidades" => [-1],
-    "preferencias" => [-1],
-    "naoPreferencias" => [-1]
+    "preferencias" => array_keys($usuario->getPreferencias()),
+    "naoPreferencias" => array_keys($usuario->getNaoPreferencias()),
 ];
 
 $h = ($_SESSION["tipoUsuario"] == "aluno" ? "menuAluno.php" : "menuProfessor.php");

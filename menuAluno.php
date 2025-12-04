@@ -42,14 +42,12 @@ $professores = Professor::pesquisar($nome, $email, $preferencias, $naoPreferenci
 
         ?>
 
-        <div id='title'>
-            <?php
-                echo "<p class='title'>Resultado da pesquisa</p>";
-                echo "<p class='subtitulo'>A listagem está ordenada de acordo com os cadastros mais próximos à pesquisa</p>";
-            ?>
-        </div>
-
         <main>
+            <div id='title'>
+                <p class='title'>Home Aluno</p>
+                <p class='subtitulo'>Listagem de professores cadastrados ordenados a partir das suas preferências</p>
+            </div>
+
             <div class="usuarios">
                 <?php
 

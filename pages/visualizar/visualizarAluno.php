@@ -57,9 +57,23 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./../../src/styles/reset.css">
-    <link rel="stylesheet" href="./../../src/styles/styleVisualizar.css">
+    <link rel="stylesheet" href="./../../src/styles/styleVisualizar2.css">
 
     <title>Visualizar Aluno</title>
+
+    <style>
+        .linha-2 {
+            grid-template-columns: repeat(3, 1fr); 
+        }
+
+        .content {
+            grid-template-columns: 40% 60%;
+        }
+
+        .dados-usuario {
+            grid-template-rows: repeat(auto-fill, minmax(auto, 45px));
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -70,22 +84,18 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
         require_once __DIR__ . "/../../menu.php";
 
         ?>
-        <div id='title'>
-            <?php
-                echo "<p class='title'>Visualização de cadastro</p>"
-            ?>
-        </div>
+
         <main>
+            <div id='title'>
+                <p class='title'>Visualização de aluno</p>
+            </div>
+
             <div class="content">
                 <section class="linha-1">
                     <section class="imagem">
                         <figure>
                             <?php echo "<img src='./../../{$foto->getLinkFoto()}' alt='Foto do Aluno' />"; ?>
                         </figure>
-
-                        <div id=editPerfil>
-                            <?php if($_SESSION["idUsuario"] == $_GET["id"]) echo "<a href='./../editar/editarCadastroAluno.php'>Editar Cadastro</a>"; ?>
-                        </div>
                     </section>
 
                     <section class="dados-usuario">
@@ -99,14 +109,37 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
                             $cor = "red";
                         }
  
-                        echo "<p><strong style='margin-right: 8px;'>Nome:</strong> {$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span> ";
-                        echo "<p><strong style='margin-right: 8px;'>E-mail: </strong> {$aluno->getEmail()}</p>";
-                        echo "<p><strong style='margin-right: 8px;'>Curso: </strong> {$curso->getNome()}</p>";
-                        echo "<p><strong style='margin-right: 8px;'>Ingressou em </strong>{$aluno->getAnoIngresso()}</p>"; 
+                        // echo "<p><strong style='margin-right: 8px;'>Nome: </strong>{$aluno->getNome()} {$aluno->getSobrenome()} <span class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</span></p>";
                         
+                        echo "<p class='status' style='color: {$cor}; border: 2px solid {$cor}'>{$status}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Nome:</strong>{$aluno->getNome()} {$aluno->getSobrenome()}</p>";
+                        
+                        echo "<p><strong style='margin-right: 8px;'>E-mail:</strong>{$aluno->getEmail()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Curso:</strong>{$curso->getNome()}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Ingressou em</strong>{$aluno->getAnoIngresso()}</p>"; 
+                        
+                        // remover se precisar
+                        
+                        echo "<p><strong style='margin-right: 8px;'>Data de nascimento:</strong>{$aluno->getDataNascimento()}</p>";
+
+                        ?>
+
+                        <p class="titulo-dados">Disponibilidade para Estágio</p>
+
+                        <?php 
+
+                        $turno = ucfirst($aluno->getTurnoDisponivel());
+
+                        echo "<p><strong style='margin-right: 8px;'>Modalidade(s):</strong>{$modalidadeTexto}</p>";
+                        echo "<p><strong style='margin-right: 8px;'>Turno disponível:</strong>{$turno}</p>"; 
+
+                        $editar = ($_SESSION['idUsuario'] == $_GET['id']) ? "<a href='./../editar/editarCadastroAluno.php'>Editar Cadastro</a>": "";
+                        
+                        echo "<div id='editPerfil'>{$editar}</div>";
+                            
                         ?>
                     </section>
-
+                    <!-- 
                     <section class="dados-usuario">
                         <?php
 
@@ -124,6 +157,7 @@ $modalidadeTexto = ucfirst(strtolower($modalidadeTexto));
                         echo "<p><strong style='margin-right: 8px;'>Turno disponível: </strong>{$turno}</p>"; 
                             
                         ?>
+                    -->
                     </section>
                 </section>
 
